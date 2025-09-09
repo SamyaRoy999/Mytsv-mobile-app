@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "thumbnail": "https://images.unsplash.com/photo-1580894908361-967195033215?auto=format&fit=crop&w=800&q=80",
+    "title": "Learn React Native Fast!",
+    "channelName": "CodeWithSamya",
+    "views": "22k",
+    "time": "10 hours ago",
+    "avatar": "https://i.imgur.com/3G4jXPa.jpg",
+    "promoted": true,
+    "video": "https://www.w3schools.com/html/movie.mp4"
+  },
+  {
+    "id": 2,
+    "thumbnail": "https://images.unsplash.com/photo-1605379399642-870262d3d051?auto=format&fit=crop&w=800&q=80",
+    "title": "JavaScript Clean Code Tips",
+    "channelName": "DevCraft",
+    "views": "18k",
+    "time": "1 day ago",
+    "avatar": "https://i.imgur.com/F0gR6O4.jpg",
+    "promoted": false,
+    "video": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+  },
+  {
+    "id": 3,
+    "thumbnail": "https://images.unsplash.com/photo-1587614382346-4ecb9d3a9d8b?auto=format&fit=crop&w=800&q=80",
+    "title": "UI Design for Beginners",
+    "channelName": "DesignStack",
+    "views": "34k",
+    "time": "5 hours ago",
+    "avatar": "https://i.imgur.com/qLJZQtp.jpg",
+    "promoted": true,
+    "video": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+  },
+  {
+    "id": 4,
+    "thumbnail": "https://images.unsplash.com/photo-1588702547923-7093a6c3ba33?auto=format&fit=crop&w=800&q=80",
+    "title": "Understanding TypeScript",
+    "channelName": "TS Guru",
+    "views": "12k",
+    "time": "6 hours ago",
+    "avatar": "https://i.imgur.com/IWATmZK.jpg",
+    "promoted": false,
+    "video": "https://www.w3schools.com/html/movie.mp4"
+  },
+  {
+    "id": 5,
+    "thumbnail": "https://images.unsplash.com/photo-1603575451745-843b02b3aa52?auto=format&fit=crop&w=800&q=80",
+    "title": "React Router Deep Dive",
+    "channelName": "Frontend Pro",
+    "views": "29k",
+    "time": "3 hours ago",
+    "avatar": "https://i.imgur.com/yv7pF8W.jpg",
+    "promoted": true,
+    "video": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+  },
+  {
+    "id": 6,
+    "thumbnail": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
+    "title": "Node.js Crash Course",
+    "channelName": "Backend Basics",
+    "views": "21k",
+    "time": "2 days ago",
+    "avatar": "https://i.imgur.com/Ts9UpJO.jpg",
+    "promoted": false,
+    "video": "https://www.w3schools.com/html/movie.mp4"
+  },
+  {
+    "id": 7,
+    "thumbnail": "https://images.unsplash.com/photo-1531497865142-487f79f01de9?auto=format&fit=crop&w=800&q=80",
+    "title": "UseEffect Mastery",
+    "channelName": "React Dev",
+    "views": "49k",
+    "time": "7 hours ago",
+    "avatar": "https://i.imgur.com/WkUw9OJ.jpg",
+    "promoted": true,
+    "video": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+  },
+  {
+    "id": 8,
+    "thumbnail": "https://images.unsplash.com/photo-1612831817073-43f7d44a8f42?auto=format&fit=crop&w=800&q=80",
+    "title": "MongoDB Setup Guide",
+    "channelName": "DataStack",
+    "views": "10k",
+    "time": "4 hours ago",
+    "avatar": "https://i.imgur.com/v2w4Lt5.jpg",
+    "promoted": false,
+    "video": "https://www.w3schools.com/html/movie.mp4"
+  },
+  {
+    "id": 9,
+    "thumbnail": "https://images.unsplash.com/photo-1611956506995-b91d3d94e94d?auto=format&fit=crop&w=800&q=80",
+    "title": "Fullstack MERN Overview",
+    "channelName": "MERN Wizard",
+    "views": "65k",
+    "time": "1 hour ago",
+    "avatar": "https://i.imgur.com/UzqS9IT.jpg",
+    "promoted": true,
+    "video": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+  },
+  {
+    "id": 10,
+    "thumbnail": "https://images.unsplash.com/photo-1603570419989-4eac9916df46?auto=format&fit=crop&w=800&q=80",
+    "title": "React Native Animation Tips",
+    "channelName": "Motion Dev",
+    "views": "40k",
+    "time": "8 hours ago",
+    "avatar": "https://i.imgur.com/3G4jXPa.jpg",
+    "promoted": false,
+    "video": "https://www.w3schools.com/html/movie.mp4"
+  }
+]
