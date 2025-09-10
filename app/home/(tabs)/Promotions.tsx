@@ -82,8 +82,6 @@ const Promotions = () => {
         setLoadedCategoryIds(newIds);
       }
 
-      // For demo purposes, we'll assume there are more pages
-      // In real scenario, you might need to adjust this logic
       setHasMore(true);
       setPage(pageNum + 1);
     } catch (err: any) {

@@ -24,4 +24,5 @@ export const {
   usePromotionalCatagoryQuery,
   useLazyPromotionalCatagoryQuery,
   useAllPromotionalCatagoryQuery,
+  useLazyAllPromotionalCatagoryQuery,
 } = promotedApiSlices;

@@ -501,7 +501,7 @@ const Account = () => {
           <TouchableOpacity
             onPress={() => router.push("/home/(tabs)/landingPage")}
           >
-            <Image source={ImgLogo} style={tw`w-56 h-[70px]`} />
+            <Image source={ImgLogo} style={tw`w-56 h-16`} />
           </TouchableOpacity>
           <View style={tw`pt-14 pb-5 `}>
             <SvgXml xml={IconProfileView} />
