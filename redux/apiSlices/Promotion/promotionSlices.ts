@@ -5,7 +5,7 @@ export const promotedApiSlices = api.injectEndpoints({
   endpoints: (builder) => ({
     promotionalCatagory: builder.query<any, any>({
       query: ({ page }) => ({
-        url: `/promotional-video-with-limitation?video_limit=1&page=${page}`,
+        url: `/promotional-video-with-limitation?video_limit=4&page=${page}`,
         method: "GET",
       }),
       providesTags: ["promotion"],

@@ -4,7 +4,7 @@ import { IconErowred } from "@/icons/Icon";
 import tw from "@/lib/tailwind";
 import { useLazyPromotionalCatagoryQuery } from "@/redux/apiSlices/Promotion/promotionSlices";
 import { router } from "expo-router";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -16,73 +16,74 @@ import {
 import { SvgXml } from "react-native-svg";
 
 const Promotions = () => {
-  // ...................... PAGINATION STATE ........................//
+  // State management
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [promotedData, setPromotedData] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [allCategoriesLoaded, setAllCategoriesLoaded] =
-    useState<boolean>(false);
 
-  // ...................... API CALL........................//
+  // API call
   const [fetchPromoted, { isLoading, isFetching }] =
     useLazyPromotionalCatagoryQuery();
 
-  // Track already loaded category IDs to prevent duplicates
-  const [loadedCategoryIds, setLoadedCategoryIds] = useState<Set<number>>(
-    new Set()
-  );
-
+  // Load promoted content
   const loadPromoted = async (pageNum = 1, isRefresh = false) => {
     try {
+      // Prevent multiple simultaneous requests
       if ((isLoading || isFetching || loadingMore) && !isRefresh) return;
-      if (allCategoriesLoaded && !isRefresh) return;
+      if (!hasMore && !isRefresh) return;
 
       setLoadingMore(true);
       setError(null);
-
-      console.log("Loading page:", pageNum);
 
       const res = await fetchPromoted({
         page: pageNum,
       }).unwrap();
 
-      console.log("API Response received");
-
-      const responseData = res.data || res;
-      const newData = Array.isArray(responseData) ? responseData : [];
+      // Handle API response
+      const responseData = res.data || [];
 
       if (isRefresh) {
-        // First load or refresh - reset everything
-        setPromotedData(newData);
-        const newIds = new Set(newData.map((cat) => cat.id));
-        setLoadedCategoryIds(newIds);
-        setAllCategoriesLoaded(false);
+        // Replace data on refresh
+        setPromotedData(responseData);
       } else {
-        // Load more - check for new categories
-        const newCategories = newData.filter(
-          (cat) => !loadedCategoryIds.has(cat.id)
-        );
+        // Merge new data with existing, avoiding duplicates
+        const mergedData = [...promotedData];
 
-        if (newCategories.length === 0) {
-          // No new categories found, we've loaded everything
-          setAllCategoriesLoaded(true);
-          setHasMore(false);
-          return;
-        }
+        responseData.forEach((newCategory: any) => {
+          const existingIndex = mergedData.findIndex(
+            (cat) => cat.id === newCategory.id
+          );
 
-        // Add new categories to the list
-        setPromotedData((prev) => [...prev, ...newCategories]);
+          if (existingIndex >= 0) {
+            // Category exists, merge videos
+            const existingVideos = mergedData[existingIndex].videos || [];
+            const newVideos = newCategory.videos || [];
 
-        // Update the set of loaded category IDs
-        const newIds = new Set(loadedCategoryIds);
-        newCategories.forEach((cat) => newIds.add(cat.id));
-        setLoadedCategoryIds(newIds);
+            // Filter out duplicate videos
+            const existingVideoIds = new Set(
+              existingVideos.map((v: any) => v.id)
+            );
+            const uniqueNewVideos = newVideos.filter(
+              (video: any) => !existingVideoIds.has(video.id)
+            );
+
+            mergedData[existingIndex] = {
+              ...mergedData[existingIndex],
+              videos: [...existingVideos, ...uniqueNewVideos],
+            };
+          } else {
+            // New category
+            mergedData.push(newCategory);
+          }
+        });
+
+        setPromotedData(mergedData);
       }
 
-      setHasMore(true);
+      setHasMore(responseData.length > 0);
       setPage(pageNum + 1);
     } catch (err: any) {
       console.error("Error loading promoted data:", err);
@@ -94,54 +95,44 @@ const Promotions = () => {
     }
   };
 
-  const handleRefresh = () => {
+  // Handle refresh
+  const handleRefresh = useCallback(() => {
     setRefreshing(true);
     setPage(1);
     setHasMore(true);
-    setAllCategoriesLoaded(false);
     loadPromoted(1, true);
-  };
+  }, []);
 
-  const handleLoadMore = () => {
-    if (
-      !loadingMore &&
-      hasMore &&
-      !isFetching &&
-      !refreshing &&
-      !allCategoriesLoaded
-    ) {
-      console.log("Loading more data...");
+  // Handle load more
+  const handleLoadMore = useCallback(() => {
+    if (!loadingMore && hasMore && !isFetching && !refreshing) {
       loadPromoted(page);
     }
-  };
+  }, [loadingMore, hasMore, isFetching, refreshing, page]);
 
+  // Initial load
   useEffect(() => {
     loadPromoted(1, true);
   }, []);
 
-  // Debug logs
-  useEffect(() => {
-    console.log("Promoted data length:", promotedData.length);
-    console.log("Has more:", hasMore);
-    console.log("All categories loaded:", allCategoriesLoaded);
-  }, [promotedData, hasMore, allCategoriesLoaded]);
-
+  // Render loading state
   if (isLoading && promotedData.length === 0) {
     return (
       <View style={tw`flex-1 justify-center items-center bg-primary`}>
-        <ActivityIndicator size="large" />
-        <Text style={tw`mt-2`}>Loading promotions...</Text>
+        <ActivityIndicator size="large" color={tw.color("secondaryRed100")} />
+        <Text style={tw`mt-2 text-gray-500`}>Loading promotions...</Text>
       </View>
     );
   }
 
+  // Render error state
   if (error) {
     return (
       <View style={tw`flex-1 justify-center items-center bg-primary`}>
         <Text style={tw`text-red-500 text-lg mb-4`}>Error: {error}</Text>
         <TouchableOpacity
           onPress={handleRefresh}
-          style={tw`bg-blue-500 px-4 py-2 rounded`}
+          style={tw`bg-secondaryRed100 px-4 py-2 rounded`}
         >
           <Text style={tw`text-white`}>Try Again</Text>
         </TouchableOpacity>
@@ -153,17 +144,19 @@ const Promotions = () => {
     <View style={tw`bg-primary flex-1`}>
       <FlatList
         data={promotedData}
-        keyExtractor={(item) => `category-${item.id}-${Math.random()}`}
+        keyExtractor={(item) => `category-${item.id}`}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }
         onEndReached={handleLoadMore}
-        onEndReachedThreshold={0.1} // Lower threshold for better detection
+        onEndReachedThreshold={0.3}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <>
             <HeaderBar />
-            <Text style={tw`text-3xl font-bold text-center mb-4`}>
+            <Text
+              style={tw`text-3xl font-bold text-center my-4 text-secondaryBlack`}
+            >
               Promotions
             </Text>
           </>
@@ -189,7 +182,7 @@ const Promotions = () => {
                     onPress={() =>
                       router.push(`/details/promotion/${item?.id}`)
                     }
-                    style={tw`py-1 flex-row gap-4 items-center px-3 rounded-full border border-secondary`}
+                    style={tw`py-1 flex-row gap-2 items-center px-3 rounded-full border border-secondary`}
                   >
                     <Text style={tw`font-poppinsMedium text-sm text-secondary`}>
                       See all
@@ -201,7 +194,7 @@ const Promotions = () => {
 
               <FlatList
                 data={item.videos}
-                keyExtractor={(video) => `video-${video.id}-${Math.random()}`}
+                keyExtractor={(video) => `video-${video.id}`}
                 renderItem={({ item: video }) => <Card data={video} />}
                 showsVerticalScrollIndicator={false}
                 scrollEnabled={false}
@@ -212,12 +205,15 @@ const Promotions = () => {
         ListFooterComponent={
           loadingMore ? (
             <View style={tw`py-4 flex justify-center items-center`}>
-              <ActivityIndicator size="small" color="#0000ff" />
+              <ActivityIndicator
+                size="small"
+                color={tw.color("secondaryRed100")}
+              />
               <Text style={tw`mt-2 text-gray-500`}>
                 Loading more promotions...
               </Text>
             </View>
-          ) : allCategoriesLoaded ? (
+          ) : !hasMore && promotedData.length > 0 ? (
             <View style={tw`py-4 flex justify-center items-center`}>
               <Text style={tw`text-gray-500`}>No more promotions to load</Text>
             </View>
