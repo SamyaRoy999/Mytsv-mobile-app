@@ -51,6 +51,19 @@ export const homeApiSlices = api.injectEndpoints({
       }),
       providesTags: ["uploadVideo"],
     }),
+    homePage: builder.query<any, any>({
+      query: ({ id, page = 1 }) => {
+        let url = `/all-videos?per_page=6&page=${page}`;
+        if (id) {
+          url += `&category_id=${id}`;
+        }
+        return {
+          url,
+          method: "GET",
+        };
+      },
+      providesTags: ["uploadVideo"],
+    }),
   }),
 });
 
@@ -63,4 +76,5 @@ export const {
   usePriceGetAllQuery,
   useChannelProfileQuery,
   useLazyChannelProfileQuery,
+  useLazyHomePageQuery,
 } = homeApiSlices;
