@@ -126,7 +126,9 @@ const Account = () => {
             <View
               style={tw`flex-row w-full justify-between items-center px-5 py-6`}
             >
-              <TouchableOpacity style={tw` flex-row gap-2 py-3 rounded-lg`}>
+              <TouchableOpacity
+                style={tw` flex-row gap-2 py-3 rounded-lg items-center`}
+              >
                 <SvgXml xml={IconTime} />
                 <Text
                   style={tw`font-poppinsMedium text-base text-secondaryBlack`}
@@ -137,7 +139,7 @@ const Account = () => {
               <View style={tw``}>
                 <TouchableOpacity
                   onPress={() => router.push("/(allPages)/history")}
-                  style={tw`py-3 px-5 rounded-full border border-primaryGray`}
+                  style={tw`py-1 px-5 rounded-full border border-primaryGray`}
                 >
                   <Text style={tw`font-poppinsMedium text-base text-black`}>
                     View all
@@ -212,7 +214,9 @@ const Account = () => {
             <View
               style={tw`flex-row w-full justify-between items-center px-5 py-6`}
             >
-              <TouchableOpacity style={tw` flex-row gap-2 py-3 rounded-lg`}>
+              <TouchableOpacity
+                style={tw` flex-row gap-2 py-3 rounded-lg items-center`}
+              >
                 <SvgXml xml={IconLike} />
                 <Text
                   style={tw`font-poppinsMedium text-base text-secondaryBlack`}
@@ -222,7 +226,7 @@ const Account = () => {
               </TouchableOpacity>
               <View style={tw``}>
                 <TouchableOpacity
-                  style={tw`py-3 px-5 rounded-full border border-primaryGray`}
+                  style={tw`py-1 px-5 rounded-full border border-primaryGray`}
                   onPress={() => router.push("/(allPages)/likeds")}
                 >
                   <Text style={tw`font-poppinsMedium text-base text-black`}>
@@ -292,7 +296,7 @@ const Account = () => {
                 style={tw`flex-row w-full justify-between items-center px-8 pt-6`}
                 onPress={() => router.push("/(allPages)/dashboard")}
               >
-                <View style={tw` flex-row gap-2 py-3 rounded-lg`}>
+                <View style={tw` flex-row gap-2 py-3 rounded-lg items-center`}>
                   <SvgXml xml={IconDeshboard} />
                   <Text
                     style={tw`font-poppinsMedium text-base text-secondaryBlack`}
@@ -311,7 +315,7 @@ const Account = () => {
                 style={tw`flex-row w-full justify-between items-center px-8 py-2`}
                 onPress={() => router.push("/(allPages)/my_videos")}
               >
-                <View style={tw` flex-row gap-2 py-3 rounded-lg`}>
+                <View style={tw` flex-row gap-2 py-3 rounded-lg items-center`}>
                   <SvgXml xml={IconMyvideos} />
 
                   <Text
@@ -331,7 +335,7 @@ const Account = () => {
                 style={tw`flex-row w-full justify-between items-center px-8 py-2`}
                 onPress={() => router.push("/(allPages)/analytics")}
               >
-                <View style={tw` flex-row gap-2 py-3 rounded-lg`}>
+                <View style={tw` flex-row gap-2 py-3 rounded-lg items-center`}>
                   <SvgXml xml={IconAnalytics} />
 
                   <Text
@@ -351,7 +355,7 @@ const Account = () => {
                 style={tw`flex-row w-full justify-between items-center px-8 py-2`}
                 onPress={() => router.push("/(allPages)/settings")}
               >
-                <View style={tw` flex-row gap-2 py-3 rounded-lg`}>
+                <View style={tw` flex-row gap-2 py-3 rounded-lg items-center`}>
                   <SvgXml xml={IconSettings} />
 
                   <Text
@@ -372,7 +376,7 @@ const Account = () => {
               style={tw`flex-row w-full justify-between items-center px-8 py-2`}
               onPress={() => router.push("/(allPages)/report")}
             >
-              <View style={tw` flex-row gap-2 py-3 rounded-lg`}>
+              <View style={tw` flex-row gap-2 py-3 rounded-lg items-center`}>
                 <SvgXml xml={IconReports} />
 
                 <Text
@@ -397,7 +401,7 @@ const Account = () => {
               style={tw`flex-row w-full justify-between items-center px-8 py-2`}
               onPress={() => router.push("/(allPages)/faqSection")}
             >
-              <View style={tw` flex-row gap-2 py-3 rounded-lg`}>
+              <View style={tw` flex-row gap-2 py-3 rounded-lg items-center`}>
                 <SvgXml xml={IconFAQ} />
 
                 <Text
@@ -417,7 +421,7 @@ const Account = () => {
               style={tw`flex-row w-full justify-between items-center px-8 py-2`}
               onPress={() => router.push("/(allPages)/aboutUs")}
             >
-              <View style={tw` flex-row gap-2 py-3 rounded-lg`}>
+              <View style={tw` flex-row gap-2 py-3 rounded-lg items-center`}>
                 <SvgXml xml={IconAboutus} />
 
                 <Text
@@ -437,7 +441,7 @@ const Account = () => {
               onPress={() => router.push("/(allPages)/contactUs")}
               style={tw`flex-row w-full justify-between items-center px-8 py-2`}
             >
-              <View style={tw` flex-row gap-2 py-3 rounded-lg`}>
+              <View style={tw` flex-row gap-2 py-3 rounded-lg items-center`}>
                 <SvgXml xml={IconContactus} />
 
                 <Text
@@ -457,7 +461,7 @@ const Account = () => {
               style={tw`flex-row w-full justify-between items-center px-8 py-2`}
               onPress={() => router.push("/(allPages)/termsConditions")}
             >
-              <View style={tw` flex-row gap-2 py-3 rounded-lg`}>
+              <View style={tw` flex-row gap-2 items-center py-3 rounded-lg`}>
                 <SvgXml xml={IconTerms} />
                 <Text
                   style={tw`font-poppinsMedium text-base text-secondaryBlack`}
@@ -479,7 +483,7 @@ const Account = () => {
                 router.push("/auth/login");
               }}
             >
-              <View style={tw` flex-row gap-2 py-3 rounded-lg`}>
+              <View style={tw` flex-row gap-2 py-3 rounded-lg items-center`}>
                 <SvgXml xml={IconLogout} />
 
                 <Text

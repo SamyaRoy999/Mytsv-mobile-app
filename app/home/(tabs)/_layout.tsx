@@ -2,10 +2,10 @@ import {
   IconAccount,
   IconAccountActive,
   IconAdd,
+  IconBack,
   IconBlog,
   IconBlogActive,
   IconClose,
-  IconErowBack,
   IconHome,
   IconHomeActive,
   IconPromotions,
@@ -233,7 +233,7 @@ function CustomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
                         </Text>
                       </Text>
                     </View>
-                    <SvgXml xml={IconErowBack} />
+                    <SvgXml xml={IconBack} />
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
@@ -251,7 +251,7 @@ function CustomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
                         </Text>
                       </Text>
                     </View>
-                    <SvgXml xml={IconErowBack} />
+                    <SvgXml xml={IconBack} />
                   </TouchableOpacity>
                 </View>
               </ScrollView>

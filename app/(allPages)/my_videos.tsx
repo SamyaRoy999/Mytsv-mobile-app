@@ -1,9 +1,9 @@
 import HeaderBar from "@/components/shear/HeaderBar";
 import {
   IconAdd,
+  IconBack,
   IconBackLeft,
   IconClose,
-  IconErowBack,
   IconUpload,
   IconWorld,
   IconYoutub,
@@ -248,7 +248,7 @@ const MyVideos = () => {
                       <Text style={tw`text-sm`}>($9.99 / month)</Text>
                     </Text>
                   </View>
-                  <SvgXml xml={IconErowBack} />
+                  <SvgXml xml={IconBack} />
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -264,7 +264,7 @@ const MyVideos = () => {
                       YouTube Link <Text style={tw`text-sm`}>(Free)</Text>
                     </Text>
                   </View>
-                  <SvgXml xml={IconErowBack} />
+                  <SvgXml xml={IconBack} />
                 </TouchableOpacity>
               </View>
             </View>

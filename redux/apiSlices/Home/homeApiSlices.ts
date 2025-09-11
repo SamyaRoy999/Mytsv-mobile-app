@@ -53,7 +53,7 @@ export const homeApiSlices = api.injectEndpoints({
     }),
     homePage: builder.query<any, any>({
       query: ({ id, page = 1 }) => {
-        let url = `/all-videos?per_page=6&page=${page}`;
+        let url = `/all-videos?per_page=10&page=${page}`;
         if (id) {
           url += `&category_id=${id}`;
         }

@@ -36,7 +36,6 @@ const LandingPage = () => {
       } else {
         setLoadingMore(true);
       }
-
       const res = await fetchHomePage({
         page: pageNum,
         id: selectedCategory,
@@ -122,45 +121,47 @@ const LandingPage = () => {
     <View style={tw`flex-1 bg-primary`}>
       <HeaderBar />
 
-      {/* Categories Section */}
-      <View style={tw`py-3`}>
-        <View style={tw`flex-row items-center px-4`}>
-          <TouchableOpacity
-            style={tw.style(
-              `px-4 py-2 rounded-xl mx-1`,
-              selectedCategory === null
-                ? `bg-secondaryRed100`
-                : `border border-secondary`
-            )}
-            onPress={() => setSelectedCategory(null)}
-          >
-            <Text
-              style={tw.style(
-                `text-sm font-poppinsMedium`,
-                selectedCategory === null ? `text-gray-900` : `text-secondary `
-              )}
-            >
-              All
-            </Text>
-          </TouchableOpacity>
-
-          {/* Horizontal FlatList for categories */}
-          <FlatList
-            data={categoryData}
-            renderItem={renderCategoryItem}
-            keyExtractor={(item) => item.id.toString()}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-          />
-        </View>
-      </View>
-
       {/* Videos List */}
       <FlatList
         data={homePagedata}
         keyExtractor={(item) => `video-${item.id}`}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }
+        ListHeaderComponent={
+          <View style={tw`py-3`}>
+            <View style={tw`flex-row items-center px-4`}>
+              <TouchableOpacity
+                style={tw.style(
+                  `px-4 py-2 rounded-xl mx-1`,
+                  selectedCategory === null
+                    ? `bg-secondaryRed100`
+                    : `border border-secondary`
+                )}
+                onPress={() => setSelectedCategory(null)}
+              >
+                <Text
+                  style={tw.style(
+                    `text-sm font-poppinsMedium`,
+                    selectedCategory === null
+                      ? `text-gray-900`
+                      : `text-secondary `
+                  )}
+                >
+                  All
+                </Text>
+              </TouchableOpacity>
+
+              {/* Horizontal FlatList for categories */}
+              <FlatList
+                data={categoryData}
+                renderItem={renderCategoryItem}
+                keyExtractor={(item) => item.id.toString()}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+              />
+            </View>
+          </View>
         }
         onEndReached={handleLoadMore}
         onEndReachedThreshold={0.3}
