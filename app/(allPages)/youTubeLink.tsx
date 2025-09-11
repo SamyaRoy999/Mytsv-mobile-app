@@ -438,12 +438,12 @@ const youTubeLink = () => {
               </TouchableOpacity>
             </View>
             {/* tags */}
-            <View style={tw`py-5 `}>
+            <View style={tw`pt-5`}>
               <View
                 style={tw`border border-gray-300 flex-col justify-center pl-7 relative rounded-3xl p-4`}
               >
                 <Text
-                  style={tw`bg-primary w-14 font-poppins text-base absolute -top-2 left-7`}
+                  style={tw`bg-primary w-14 text-cente font-poppins text-base absolute -top-2 left-7`}
                 >
                   Tags
                 </Text>
