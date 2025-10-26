@@ -2,16 +2,33 @@ import { IconBackLeft } from "@/icons/Icon";
 import tw from "@/lib/tailwind";
 import { router } from "expo-router";
 import React, { useMemo } from "react";
-import { LogBox, Text, TouchableOpacity, View } from "react-native";
+import {
+  LogBox,
+  Platform,
+  Text,
+  TouchableOpacity,
+  UIManager,
+  View,
+} from "react-native";
 import { BarChart } from "react-native-gifted-charts";
 import { SvgXml } from "react-native-svg";
 import HeaderBar from "./HeaderBar";
-
 // Ignore specific warnings
-LogBox.ignoreLogs([
-  "Ignoring DevTools app debug target",
-  "setLayoutAnimationEnabledExperimental",
-]);
+
+// Ignore known warnings
+LogBox.ignoreLogs(["setLayoutAnimationEnabledExperimental"]);
+
+// Disable layout animation if using new architecture
+if (
+  Platform.OS === "android" &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  try {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  } catch (e) {
+    console.log("LayoutAnimation not supported in new architecture");
+  }
+}
 
 interface AnalyticsDataItem {
   day: number;
