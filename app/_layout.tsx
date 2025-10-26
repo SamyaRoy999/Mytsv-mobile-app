@@ -5,13 +5,18 @@ import "react-native-reanimated";
 
 import tw from "@/lib/tailwind";
 import store from "@/redux/store";
-import { StripeProvider } from '@stripe/stripe-react-native';
+import { StripeProvider } from "@stripe/stripe-react-native";
+import { LogBox } from "react-native";
 import { AlertNotificationRoot } from "react-native-alert-notification";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Provider } from "react-redux";
 import { useDeviceContext } from "twrnc";
 import ThemeProvider from "../context/ThemeProvider";
 
+LogBox.ignoreLogs([
+  "Ignoring DevTools app debug target",
+  "setLayoutAnimationEnabledExperimental is currently a no-op",
+]);
 export default function RootLayout() {
   const [loaded] = useFonts({
     PoppinsBlack: require("@/assets/fonts/Poppins-Black.ttf"),
@@ -38,38 +43,39 @@ export default function RootLayout() {
     return null;
   }
 
-  const PublishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY
+  const PublishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
   return (
     <StripeProvider
       publishableKey={
         "pk_test_51QKAtBKOpUtqOuW1x5VdNqH3vG7CZZl1P6V3VuV1qsRUmPLNk26i34AXeu2zCO3QurFJAOZ9zfb0EkWeCVhqBYgH008X41cXr6"
-      }>
-        <AlertNotificationRoot>
-          <GestureHandlerRootView>
-            <Provider store={store}>
-              <ThemeProvider>
-                <Stack
-                  screenOptions={{
-                    headerShown: false,
-                  }}
-                >
-                  <Stack.Screen name="index" />
-                  <Stack.Screen name="home/(tabs)" />
-                  <Stack.Screen name="auth" />
-                  <Stack.Screen name="details/video/[id]" />
-                  <Stack.Screen name="details/Blog/[id]" />
-                  <Stack.Screen name="details/promotion/[id]" />
-                  <Stack.Screen name="details/editVideoDetails/[id]" />
-                  <Stack.Screen name="details/videoAnalytics/[id]" />
-                  <Stack.Screen name="details/channelProfile/[id]" />
-                  <Stack.Screen name="details/search/[results]" />
-                  <Stack.Screen name="(allPages)" />
-                </Stack>
-              </ThemeProvider>
-            </Provider>
-          </GestureHandlerRootView>
-        </AlertNotificationRoot>
-    </StripeProvider >
+      }
+    >
+      <AlertNotificationRoot>
+        <GestureHandlerRootView>
+          <Provider store={store}>
+            <ThemeProvider>
+              <Stack
+                screenOptions={{
+                  headerShown: false,
+                }}
+              >
+                <Stack.Screen name="index" />
+                <Stack.Screen name="home/(tabs)" />
+                <Stack.Screen name="auth" />
+                <Stack.Screen name="details/video/[id]" />
+                <Stack.Screen name="details/Blog/[id]" />
+                <Stack.Screen name="details/promotion/[id]" />
+                <Stack.Screen name="details/editVideoDetails/[id]" />
+                <Stack.Screen name="details/videoAnalytics/[id]" />
+                <Stack.Screen name="details/channelProfile/[id]" />
+                <Stack.Screen name="details/search/[results]" />
+                <Stack.Screen name="(allPages)" />
+              </Stack>
+            </ThemeProvider>
+          </Provider>
+        </GestureHandlerRootView>
+      </AlertNotificationRoot>
+    </StripeProvider>
   );
 }

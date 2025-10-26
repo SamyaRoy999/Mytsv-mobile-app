@@ -43,7 +43,7 @@ const newPass = () => {
         contentContainerStyle={tw`flex-grow justify-center dark:bg-base-dark  `}
         showsVerticalScrollIndicator={false}
       >
-        <View style={tw` bg-secondary`}>
+        <View style={tw`h-full bg-secondary`}>
           <Formik
             initialValues={{ password: "", confirm_password: "" }}
             onSubmit={async (values) => {
@@ -95,13 +95,13 @@ const newPass = () => {
             {({ values, setFieldValue, handleSubmit, errors }) => {
               return (
                 <View>
+                  <TouchableOpacity
+                    style={tw`absolute left-5 top-10`}
+                    onPress={() => router.back()}
+                  >
+                    <SvgXml xml={IconBackAuth} style={tw`ml-5 mt-5`} />
+                  </TouchableOpacity>
                   <View style={tw`flex-row justify-end `}>
-                    <TouchableOpacity
-                      style={tw`absolute left-5 top-10`}
-                      onPress={() => router.back()}
-                    >
-                      <SvgXml xml={IconBackAuth} />
-                    </TouchableOpacity>
                     <SvgXml xml={IconNewPass} />
                   </View>
                   <View
@@ -119,7 +119,10 @@ const newPass = () => {
                       email.
                     </Text>
                   </View>
-                  <View style={tw`bg-primary w-full h-[50%] rounded-t-[40px] `}>
+
+                  <View
+                    style={tw`bg-primary w-full h-[100%] rounded-t-[40px] `}
+                  >
                     <View style={tw`flex-row justify-center `}>
                       <Image
                         source={ImgLogo}

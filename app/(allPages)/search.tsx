@@ -140,8 +140,6 @@ const Search = () => {
         search: hashtag, // Changed from 'hashtag' to 'search' to match API
       });
 
-      console.log("Search API response:", result);
-
       if (result.data?.status) {
         // Navigate to search results with the data
         router.push({
@@ -156,7 +154,6 @@ const Search = () => {
         alert("No results found");
       }
     } catch (error) {
-      console.error("Search error:", error);
       alert("Search failed. Please try again.");
     }
   };

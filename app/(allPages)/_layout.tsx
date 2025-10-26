@@ -27,6 +27,7 @@ const AllPagelayout = () => {
       <Stack.Screen name="dontHaveAccount" />
       <Stack.Screen name="restaurantCatering" />
       <Stack.Screen name="paymentOnside" />
+      <Stack.Screen name="privacy" />
     </Stack>
   );
 };

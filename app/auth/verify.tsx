@@ -24,7 +24,7 @@ import { OtpInput } from "react-native-otp-entry";
 
 const Verify = () => {
   const [verifyOtp] = useVerifyOtpMutation();
-  const { email, flow } = useLocalSearchParams(); // 'flow' parameter to determine the flow type
+  const { email, flow } = useLocalSearchParams();
 
   const handleOtpVerification = async (otp: string) => {
     try {
@@ -47,7 +47,7 @@ const Verify = () => {
           // Determine where to navigate based on the flow type
           if (flow === "register") {
             // Navigate to login page after successful registration
-            router.replace("/home/(tabs)/landingPage");
+            router.replace("/auth/login");
           } else if (flow === "forgot") {
             // Navigate to new password page for forgot password flow
             router.push(`/auth/newPass?email=${email}`);
@@ -80,12 +80,12 @@ const Verify = () => {
         contentContainerStyle={tw`flex-grow justify-center dark:bg-base-dark  `}
         showsVerticalScrollIndicator={false}
       >
-        <View style={tw` bg-secondary`}>
+        <View style={tw`h-full bg-secondary`}>
           <AlertNotificationRoot>
+            <TouchableOpacity onPress={() => router.back()}>
+              <SvgXml xml={IconBackAuth} style={tw`ml-5 mt-5`} />
+            </TouchableOpacity>
             <View style={tw`flex-row justify-end mt-12`}>
-              <TouchableOpacity onPress={() => router.back()}>
-                <SvgXml xml={IconBackAuth} />
-              </TouchableOpacity>
               <SvgXml xml={IconForgetNest} />
             </View>
             <View

@@ -24,15 +24,12 @@ const Results = () => {
         ? JSON.parse(searchResult)
         : searchResult;
   } catch (error) {
-    console.error("Error parsing search results:", error);
     resultData = null;
   }
 
   // Extract videos based on the actual API response structure
   // The API returns videos at data.data.videos.data
   const videos = resultData?.data?.videos?.data || [];
-
-  console.log("Extracted videos:", videos);
 
   return (
     <View style={tw`flex-1`}>

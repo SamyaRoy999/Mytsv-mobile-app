@@ -19,11 +19,9 @@ const baseQueryWithRath: BaseQueryFn<BaseQueryArgs, unknown, unknown> = async (
 ) => {
   try {
     const token = await AsyncStorage.getItem("token");
-console.log(token);
-
     const result: AxiosResponse = await axios({
       // baseURL: "http://182.252.68.227:8002/api",
-      baseURL: "http://103.186.20.114:8008/api",
+      baseURL: "https://api.mytsv.com/api",
       ...args,
       url: args.url,
       method: args.method,
@@ -75,14 +73,27 @@ console.log(token);
   }
 };
 
-
 // .......Define the `createApi` with appropriate types....//
 
 export const api = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithRath,
   endpoints: () => ({}),
-  tagTypes: ["user", "home", "singleVideo", "catagoryDetails", "blogs", "promotion", "account", "video", "dashboard", "report", "uploadVideo", "payment", "globalSearch"],
+  tagTypes: [
+    "user",
+    "home",
+    "singleVideo",
+    "catagoryDetails",
+    "blogs",
+    "promotion",
+    "account",
+    "video",
+    "dashboard",
+    "report",
+    "uploadVideo",
+    "payment",
+    "globalSearch",
+  ],
 });
 
 export const imageUrl = "http://157.245.63.191/";

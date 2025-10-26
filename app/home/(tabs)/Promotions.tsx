@@ -86,7 +86,6 @@ const Promotions = () => {
       setHasMore(responseData.length > 0);
       setPage(pageNum + 1);
     } catch (err: any) {
-      console.error("Error loading promoted data:", err);
       setError(err?.data?.message || "Failed to load promotions");
       setHasMore(false);
     } finally {

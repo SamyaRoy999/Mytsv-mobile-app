@@ -32,7 +32,7 @@ const forgotPass = () => {
         contentContainerStyle={tw`flex-grow justify-center dark:bg-base-dark  bg-light `}
         showsVerticalScrollIndicator={false}
       >
-        <View style={tw` bg-secondary`}>
+        <View style={tw` h-full bg-secondary`}>
           <Formik
             initialValues={{ email: "" }}
             onSubmit={async (values) => {
@@ -80,10 +80,10 @@ const forgotPass = () => {
                   showsVerticalScrollIndicator={false}
                   style={tw`mt-12`}
                 >
+                  <TouchableOpacity onPress={() => router.back()}>
+                    <SvgXml xml={IconBackAuth} style={tw`ml-5`} />
+                  </TouchableOpacity>
                   <View style={tw`flex-row justify-end`}>
-                    <TouchableOpacity onPress={() => router.back()}>
-                      <SvgXml xml={IconBackAuth} />
-                    </TouchableOpacity>
                     <SvgXml xml={IconForgetNest} />
                   </View>
                   <View

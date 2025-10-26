@@ -21,7 +21,7 @@ import {
   IconWorld,
   IconWornoingDelete,
 } from "@/icons/Icon";
-import tw from "@/lib/tailwind";
+import tw, { isTablet } from "@/lib/tailwind";
 import { useDeleteVideoMutation } from "@/redux/apiSlices/Account/accountSlice";
 import { useMy_videos_detailsQuery } from "@/redux/apiSlices/MyVideo/myvideoSlice";
 import {
@@ -285,7 +285,7 @@ const videodetails = () => {
             {/* Video Player */}
             {isYoutubeVideo ? (
               <YoutubeIframe
-                height={250}
+                height={isTablet ? 450 : 250}
                 width={_Width}
                 videoId={youtubeVideoId}
                 play={true}

@@ -91,8 +91,6 @@ const LikedVideosScreen = () => {
     );
   }
 
-  console.log(posts[0]);
-
   return (
     <View style={tw`flex-1`}>
       {/* Videos List with RefreshControl */}

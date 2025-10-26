@@ -1,7 +1,10 @@
 import { ImgLogo } from "@/assets/images/images";
 import { IconErow, IconErow2, IconGoogle, IconLogin } from "@/icons/Icon";
 import tw from "@/lib/tailwind";
-import { useLoginUserMutation, useSocialLoginMutation } from "@/redux/apiSlices/authApiSlices";
+import {
+  useLoginUserMutation,
+  useSocialLoginMutation,
+} from "@/redux/apiSlices/authApiSlices";
 import Entypo from "@expo/vector-icons/Entypo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Checkbox from "expo-checkbox";
@@ -15,27 +18,30 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
-import { ALERT_TYPE, AlertNotificationRoot, Toast } from "react-native-alert-notification";
+import {
+  ALERT_TYPE,
+  AlertNotificationRoot,
+  Toast,
+} from "react-native-alert-notification";
 import { SvgXml } from "react-native-svg";
 import * as Yup from "yup";
-// sign in google 
-import {
-  GoogleSignin
-} from '@react-native-google-signin/google-signin';
+// sign in google
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
 const login = () => {
   const [showNewPassword, setShowNewPassword] = React.useState(false);
   const [isChecked, setChecked] = React.useState(false);
   const [loginUser, loginResults] = useLoginUserMutation();
 
-  const [socialLogin] = useSocialLoginMutation()
+  const [socialLogin] = useSocialLoginMutation();
 
   // sign in google
   React.useEffect(() => {
     GoogleSignin.configure({
-      webClientId: '422276113024-mcqajrm3sdrm9oj1e469hekvo8reh91b.apps.googleusercontent.com',
+      webClientId:
+        "422276113024-mcqajrm3sdrm9oj1e469hekvo8reh91b.apps.googleusercontent.com",
       offlineAccess: true,
     });
   }, []);
@@ -52,7 +58,6 @@ const login = () => {
         const filename = `profile_${Date.now()}.jpg`;
         const photoResp = await fetch(user.photo);
         const blob = await photoResp.blob();
-       
 
         photoFile = {
           uri: user.photo,
@@ -76,7 +81,7 @@ const login = () => {
         AsyncStorage.setItem("token", res?.data?.access_token);
         Toast.show({
           type: ALERT_TYPE.SUCCESS,
-          title: 'Success',
+          title: "Success",
           textBody: res?.message,
           autoClose: 2000,
         });
@@ -86,17 +91,13 @@ const login = () => {
       } else {
         Toast.show({
           type: ALERT_TYPE.DANGER,
-          title: 'Waring',
+          title: "Waring",
           textBody: res?.message?.email?.[0] || "Something went wrong!",
           autoClose: 2000,
         });
       }
-
-    } catch (error) {
-     
-    }
+    } catch (error) {}
   };
-
 
   const focusNextField = (nextField: any) => {
     nextField?.current?.focus();
@@ -104,7 +105,6 @@ const login = () => {
 
   const emailRef = useRef<TextInput>(null);
   const passwordRef = useRef<TextInput>(null);
-
 
   return (
     <KeyboardAvoidingView
@@ -116,7 +116,7 @@ const login = () => {
         contentContainerStyle={tw`flex-grow justify-center dark:bg-base-dark  `}
         showsVerticalScrollIndicator={false}
       >
-        <View style={tw` bg-secondary`}>
+        <View style={tw` bg-secondary h-full`}>
           <AlertNotificationRoot>
             <Formik
               initialValues={{ email: "", password: "" }}
@@ -127,7 +127,7 @@ const login = () => {
                     AsyncStorage.setItem("token", res?.data?.access_token);
                     Toast.show({
                       type: ALERT_TYPE.SUCCESS,
-                      title: 'Success',
+                      title: "Success",
                       textBody: res?.message,
                       autoClose: 2000,
                     });
@@ -137,25 +137,23 @@ const login = () => {
                   } else {
                     Toast.show({
                       type: ALERT_TYPE.DANGER,
-                      title: 'Waring',
-                      textBody: res?.message?.email?.[0] || "Something went wrong!",
+                      title: "Waring",
+                      textBody:
+                        res?.message?.email?.[0] || "Something went wrong!",
                       autoClose: 2000,
                     });
                   }
-
                 } catch (error: any) {
                   Toast.show({
                     type: ALERT_TYPE.WARNING,
-                    title: 'Waring',
+                    title: "Waring",
                     textBody: error?.message,
                   });
                 }
               }}
-
               validationSchema={Yup.object({
                 email: Yup.string().email().required("email is required"),
-                password: Yup.string()
-                  .required("Password is required"),
+                password: Yup.string().required("Password is required"),
                 // .min(8, "Password must be at least 8 characters long")
                 // .matches(/[a-z]/, "Password must contain at least one lowercase letter")
                 // .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
@@ -165,24 +163,33 @@ const login = () => {
             >
               {({ values, setFieldValue, handleSubmit, errors }) => {
                 return (
-
                   <View>
                     <SvgXml xml={IconLogin} />
                     <View
-                      style={tw`flex-col justify-center w-full items-center my-11`}
+                      style={tw`flex-col justify-center  w-full items-center my-11`}
                     >
-                      <Text style={tw`font-poppinsBold text-3xl  text-primaryText`}>
+                      <Text
+                        style={tw`font-poppinsBold text-3xl  text-primaryText`}
+                      >
                         Welcome back
                       </Text>
-                      <Text style={tw`text-primaryText font-poppins text-sm py-1`}>
+                      <Text
+                        style={tw`text-primaryText font-poppins text-sm py-1`}
+                      >
                         Use your credentials to login
                       </Text>
                     </View>
-                    <View style={tw`bg-primary w-full min-h-full rounded-t-[40px] pb-10`}>
+                    <View
+                      style={tw`bg-primary w-full min-h-full rounded-t-[40px] pb-10`}
+                    >
                       <View style={tw`flex-row justify-center `}>
                         <Image
                           source={ImgLogo}
-                          style={{ height: 100, width: 162, objectFit: "contain" }}
+                          style={{
+                            height: 100,
+                            width: 162,
+                            objectFit: "contain",
+                          }}
                         />
                       </View>
                       {/* login from */}
@@ -199,11 +206,12 @@ const login = () => {
                             autoCapitalize="none"
                             returnKeyType="next"
                             onSubmitEditing={() => focusNextField(passwordRef)}
-
                           />
                         </View>
                         {errors.email && (
-                          <Text style={tw`text-center text-red-700 font-poppins`}>
+                          <Text
+                            style={tw`text-center text-red-700 font-poppins`}
+                          >
                             {errors.email}
                           </Text>
                         )}
@@ -215,7 +223,9 @@ const login = () => {
                             placeholderTextColor="black"
                             secureTextEntry={!showNewPassword}
                             value={values.password}
-                            onChangeText={(txt) => setFieldValue("password", txt)}
+                            onChangeText={(txt) =>
+                              setFieldValue("password", txt)
+                            }
                             returnKeyType="done"
                             onSubmitEditing={handleSubmit}
                           />
@@ -297,7 +307,7 @@ const login = () => {
                       </View>
                     </View>
                   </View>
-                )
+                );
               }}
             </Formik>
           </AlertNotificationRoot>

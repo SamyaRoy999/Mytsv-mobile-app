@@ -104,9 +104,7 @@ const youTubeLink = () => {
   const refreshUserData = async () => {
     try {
       await refetchUser();
-    } catch (error) {
-      console.error("User data refresh error:", error);
-    }
+    } catch (error) {}
   };
 
   if (isUserLoading) {
@@ -191,7 +189,6 @@ const youTubeLink = () => {
     if (!form) return;
 
     if (promotedOn) {
-      // Store form data for after payment
       setPendingFormData(form);
       handleSetupInitialPayment();
     } else {
@@ -217,7 +214,6 @@ const youTubeLink = () => {
           });
         }
       } catch (err: any) {
-        console.error("Upload error:", err);
         alert("Failed to upload video");
       }
     }
@@ -331,8 +327,12 @@ const youTubeLink = () => {
             });
           }
         } catch (err: any) {
-          console.error("Upload error:", err);
-          alert("Failed to upload video");
+          Toast.show({
+            type: ALERT_TYPE.DANGER,
+            title: "Waring",
+            textBody: "Failed to upload video",
+            autoClose: 2000,
+          });
         }
       }
     } catch (error) {

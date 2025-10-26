@@ -61,7 +61,6 @@ const LandingPage = () => {
       setHasMore(currentPage < lastPage);
       setPage(currentPage + 1);
     } catch (err) {
-      console.error("Error loading posts:", err);
     } finally {
       setRefreshing(false);
       setLoadingMore(false);

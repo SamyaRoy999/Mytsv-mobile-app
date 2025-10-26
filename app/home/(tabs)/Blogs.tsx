@@ -11,9 +11,9 @@ import {
   RefreshControl,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
-import { WebView } from 'react-native-webview';
+import { WebView } from "react-native-webview";
 
 const Blogs = () => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
@@ -26,31 +26,30 @@ const Blogs = () => {
 
   const loadPosts = async (pageNum = 1, isRefresh = false) => {
     try {
-
       if ((isLoading || isFetching || loadingMore) && !isRefresh) return;
       setLoadingMore(true);
       const res = await fetchBlogs({ page: pageNum }).unwrap();
-      
-      const responseData = res.data || res;
-      const newPosts = responseData?.data || responseData || [];
+
+      const responseData = res?.data?.data || res;
+      const newPosts = responseData?.data?.data || responseData || [];
 
       if (isRefresh) {
         setBlogs(newPosts);
       } else {
         // Filter out duplicates before adding new posts
-        const existingIds = new Set(blog.map(post => post.id));
-        const uniqueNewPosts = newPosts.filter((post: any) => !existingIds.has(post.id));
-        setBlogs(prev => [...prev, ...uniqueNewPosts]);
+        const existingIds = new Set(blog.map((post) => post.id));
+        const uniqueNewPosts = newPosts.filter(
+          (post: any) => !existingIds.has(post.id)
+        );
+        setBlogs((prev) => [...prev, ...uniqueNewPosts]);
       }
-      
+
       const currentPage = responseData.current_page || pageNum;
       const lastPage = responseData.last_page || 1;
 
       setHasMore(currentPage < lastPage);
       setPage(currentPage + 1);
-
     } catch (err) {
-
     } finally {
       setRefreshing(false);
       setLoadingMore(false);
@@ -79,7 +78,7 @@ const Blogs = () => {
     const { description, title, image } = item;
 
     // Extract plain text from HTML description
-    const plainText = description.replace(/<[^>]*>/g, '');
+    const plainText = description.replace(/<[^>]*>/g, "");
     const descriptionData = plainText.split(" ").slice(0, 25).join(" ");
 
     const htmlContent = `
@@ -114,9 +113,9 @@ const Blogs = () => {
 
           <View style={tw`p-4`}>
             <Text style={tw`font-poppinsMedium text-lg `}>{title}</Text>
-            <View style={{ height: _HIGHT * .08 }}>
+            <View style={{ height: _HIGHT * 0.08 }}>
               <WebView
-                originWhitelist={['*']}
+                originWhitelist={["*"]}
                 source={{ html: htmlContent }}
                 style={tw`flex-1 bg-transparent`}
                 scrollEnabled={false}
@@ -151,10 +150,7 @@ const Blogs = () => {
         data={blog}
         keyExtractor={(item, index) => `blogs-${item.id}-${index}`}
         refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={handleRefresh}
-          />
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }
         onEndReached={handleLoadMore}
         onEndReachedThreshold={0.5}

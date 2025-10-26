@@ -50,20 +50,11 @@ const ChannelProfile = () => {
       setLoadingMore(true);
       setError(null);
 
-      console.log(
-        "Loading channel profile for ID:",
-        channelId,
-        "Page:",
-        pageNum
-      );
-
       const res = await fetchChannelProfile({
         id: channelId,
         page: pageNum,
         per_page: 3,
       }).unwrap();
-
-      console.log("API Response:", res);
 
       const responseData = res.data || res;
 
@@ -92,7 +83,6 @@ const ChannelProfile = () => {
       setHasMore(currentPage < lastPage);
       setPage(currentPage + 1);
     } catch (err: any) {
-      console.error("Error loading channel profile:", err);
       setError(err?.data?.message || "Failed to load channel profile");
     } finally {
       setRefreshing(false);
@@ -109,7 +99,6 @@ const ChannelProfile = () => {
 
   const handleLoadMore = () => {
     if (!loadingMore && hasMore && !isFetching && !refreshing) {
-      console.log("Loading more videos...");
       loadChannelProfile(page);
     }
   };

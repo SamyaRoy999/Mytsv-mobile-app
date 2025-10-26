@@ -12,6 +12,7 @@ import {
   IconLine,
   IconLogout,
   IconMyvideos,
+  IconPrivacy,
   IconProfileView,
   IconReports,
   IconSettings,
@@ -423,7 +424,6 @@ const Account = () => {
             >
               <View style={tw` flex-row gap-2 py-3 rounded-lg items-center`}>
                 <SvgXml xml={IconAboutus} />
-
                 <Text
                   style={tw`font-poppinsMedium text-base text-secondaryBlack`}
                 >
@@ -467,6 +467,24 @@ const Account = () => {
                   style={tw`font-poppinsMedium text-base text-secondaryBlack`}
                 >
                   Terms & Conditions
+                </Text>
+              </View>
+              <View style={tw``}>
+                <View style={tw`border-primaryGray`}>
+                  <SvgXml xml={IconBack} />
+                </View>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={tw`flex-row w-full justify-between items-center px-8 py-2`}
+              onPress={() => router.push("/(allPages)/privacy")}
+            >
+              <View style={tw` flex-row gap-2 items-center py-3 rounded-lg`}>
+                <SvgXml xml={IconPrivacy} />
+                <Text
+                  style={tw`font-poppinsMedium text-base text-secondaryBlack`}
+                >
+                  Privacy Policy
                 </Text>
               </View>
               <View style={tw``}>

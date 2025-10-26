@@ -14,7 +14,7 @@ import {
   IconSendMassage,
   IconShare,
 } from "@/icons/Icon";
-import tw from "@/lib/tailwind";
+import tw, { isTablet } from "@/lib/tailwind";
 import { useProfileQuery } from "@/redux/apiSlices/Account/accountSlice";
 import { useCatagoryDetailsQuery } from "@/redux/apiSlices/catagoryDataSlices/catagoryDataSlices";
 import {
@@ -363,7 +363,7 @@ const SingleVideo = () => {
             {/* Video Player */}
             {isYoutubeVideo ? (
               <YoutubeIframe
-                height={250}
+                height={isTablet ? 450 : 250}
                 width={_Width}
                 videoId={youtubeVideoId}
                 play={true}

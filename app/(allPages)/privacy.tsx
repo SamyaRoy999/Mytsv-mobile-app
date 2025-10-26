@@ -1,7 +1,7 @@
 import HeaderBar from "@/components/shear/HeaderBar";
-import { IconbackRight, IconTermsAndCon } from "@/icons/Icon";
+import { IconbackRight, IconPrivacyPolicy } from "@/icons/Icon";
 import tw from "@/lib/tailwind";
-import { useTerms_conditionsQuery } from "@/redux/apiSlices/Account/accountSlice";
+import { usePrivacyQuery } from "@/redux/apiSlices/Account/accountSlice";
 import { _HIGHT } from "@/utils/utils";
 import { router } from "expo-router";
 import React from "react";
@@ -9,12 +9,8 @@ import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SvgXml } from "react-native-svg";
 import WebView from "react-native-webview";
 
-const TermsConditions = () => {
-  const {
-    data: termsCondData,
-    isLoading,
-    error,
-  } = useTerms_conditionsQuery({});
+const privacy = () => {
+  const { data: privacyData, isLoading, error } = usePrivacyQuery({});
   if (isLoading) {
     return (
       <View style={tw`flex-1 justify-center items-center`}>
@@ -31,7 +27,7 @@ const TermsConditions = () => {
     );
   }
 
-  const termsData = termsCondData?.data?.[0];
+  const termsData = privacyData?.data?.[0];
   const { text, type } = termsData || {};
   const htmlContent = `
       <html>
@@ -64,18 +60,18 @@ const TermsConditions = () => {
         </TouchableOpacity>
         {/* Top Logo and Image */}
         <View style={tw`items-center `}>
-          <SvgXml xml={IconTermsAndCon} />
+          <SvgXml xml={IconPrivacyPolicy} />
         </View>
         {/* Title */}
         <Text
           style={tw`text-lg font-poppinsMedium text-center  mb-8 bg-primaryText py-4 rounded-full `}
         >
-          {type}
+          Privacy Policy
         </Text>
         <Text style={tw`text-lg font-poppinsMedium text-center`}>
           Welcome to mytsv.com. By accessing or using our website, you agree to
-          comply with and be bound by the following terms and conditions. Please
-          read them carefully before using the site.
+          comply with and be bound by the following Privacy Policy. Please read
+          them carefully before using the site.
         </Text>
         <View style={tw`border rounded-xl p-7 mb-4 border-primaryGray mt-7`}>
           <View style={[tw`px-1`, { height: _HIGHT }]}>
@@ -94,4 +90,4 @@ const TermsConditions = () => {
   );
 };
 
-export default TermsConditions;
+export default privacy;
