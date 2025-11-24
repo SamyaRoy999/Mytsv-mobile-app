@@ -137,7 +137,12 @@ const MyVideos = () => {
         contentContainerStyle={tw`px-5 pb-4`}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => router.push(`/details/Videodetails/${item.id}`)}
+            onPress={() =>
+              router.push({
+                pathname: "/details/video/[id]",
+                params: { id: item.id, slug: item?.slug },
+              })
+            }
             style={tw`mb-4`}
           >
             <View style={tw`flex-row gap-4`}>

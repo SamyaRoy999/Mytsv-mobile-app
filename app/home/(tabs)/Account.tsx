@@ -68,7 +68,6 @@ const Account = () => {
     refetch: refetchUser,
   } = useMyProfileQuery({});
   const isAuthenticated = token && userData?.data?.email;
-
   useFocusEffect(
     useCallback(() => {
       const checkToken = async () => {
@@ -168,7 +167,13 @@ const Account = () => {
                       <View style={[tw` mr-4`, { width: _Width * 0.4 }]}>
                         <TouchableOpacity
                           onPress={() =>
-                            router.push(`/details/video/${item.video?.id}`)
+                            router.push({
+                              pathname: "/details/video/[id]",
+                              params: {
+                                id: item.video?.id,
+                                slug: item.video?.slug,
+                              },
+                            })
                           }
                         >
                           <Image
@@ -255,7 +260,13 @@ const Account = () => {
                     <View style={[tw` mr-4`, { width: _Width * 0.4 }]}>
                       <TouchableOpacity
                         onPress={() =>
-                          router.push(`/details/video/${item.video?.id}`)
+                          router.push({
+                            pathname: "/details/video/[id]",
+                            params: {
+                              id: item.video?.id,
+                              slug: item.video?.slug,
+                            },
+                          })
                         }
                       >
                         <Image

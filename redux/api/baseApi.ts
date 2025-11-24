@@ -10,8 +10,6 @@ interface BaseQueryArgs extends AxiosRequestConfig {
   headers?: Record<string, string>;
 }
 
-// Type for the args that will be passed to axios (base query arguments)
-
 const baseQueryWithRath: BaseQueryFn<BaseQueryArgs, unknown, unknown> = async (
   args,
   api,
@@ -20,7 +18,6 @@ const baseQueryWithRath: BaseQueryFn<BaseQueryArgs, unknown, unknown> = async (
   try {
     const token = await AsyncStorage.getItem("token");
     const result: AxiosResponse = await axios({
-      // baseURL: "http://182.252.68.227:8002/api",
       baseURL: "https://api.mytsv.com/api",
       ...args,
       url: args.url,

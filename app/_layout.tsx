@@ -48,7 +48,7 @@ export default function RootLayout() {
   return (
     <StripeProvider
       publishableKey={
-        "pk_test_51QKAtBKOpUtqOuW1x5VdNqH3vG7CZZl1P6V3VuV1qsRUmPLNk26i34AXeu2zCO3QurFJAOZ9zfb0EkWeCVhqBYgH008X41cXr6"
+        "pk_live_51OtCKTB9uNXBCzh8AwSr5TwsJuWMptI0EqAomrX6ByBFrBixMB8NwLhnF8lJihD2MSEWdMzjIxXCYPyX5wFiNZC000doszgICW"
       }
     >
       <AlertNotificationRoot>

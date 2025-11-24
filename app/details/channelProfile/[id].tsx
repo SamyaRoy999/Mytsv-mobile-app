@@ -213,7 +213,7 @@ const ChannelProfile = () => {
                 {/* Profile avatar */}
                 {avatar && (
                   <View
-                    style={tw`bg-primary rounded-full h-28 w-28 flex-row items-center justify-center right-[40%] -bottom-10 absolute`}
+                    style={tw`bg-primary rounded-full h-28 w-28 flex-row items-center justify-center right-[45%] -bottom-10 absolute`}
                   >
                     <Image source={avatar} style={tw`rounded-full h-24 w-24`} />
                   </View>
@@ -266,7 +266,7 @@ const ChannelProfile = () => {
             <View style={tw`flex-row items-center gap-4 pt-2 w-full px-5`}>
               <View
                 style={[
-                  tw`items-center p-5 pt-4 border border-primaryGray rounded-xl`,
+                  tw`items-center flex-1 p-5 pt-4 border border-primaryGray rounded-xl`,
                   { width: _Width * 0.43 },
                 ]}
               >
@@ -280,7 +280,7 @@ const ChannelProfile = () => {
               </View>
               <View
                 style={[
-                  tw`items-center p-5 pt-4 border border-primaryGray rounded-xl`,
+                  tw`items-center flex-1 p-5 pt-4 border border-primaryGray rounded-xl`,
                   { width: _Width * 0.43 },
                 ]}
               >

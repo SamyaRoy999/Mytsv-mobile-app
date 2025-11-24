@@ -103,7 +103,9 @@ const Blogs = () => {
     `;
 
     return (
-      <TouchableOpacity onPress={() => router.push(`/details/Blog/${item.id}`)}>
+      <TouchableOpacity
+        onPress={() => router.push(`/details/Blog/${item.slug}`)}
+      >
         <View style={tw`mb-5 bg-white rounded-lg overflow-hidden shadow-sm`}>
           <Image
             source={{ uri: image }}

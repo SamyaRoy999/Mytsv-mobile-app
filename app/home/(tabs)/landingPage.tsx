@@ -123,7 +123,7 @@ const LandingPage = () => {
       {/* Videos List */}
       <FlatList
         data={homePagedata}
-        keyExtractor={(item) => `video-${item.id}`}
+        keyExtractor={(item) => `video-${item.slug}`}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }

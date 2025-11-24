@@ -3,9 +3,9 @@ import { api } from "../../api/baseApi";
 // authApiSlices.ts
 export const videoDetailsSlice = api.injectEndpoints({
   endpoints: (builder) => ({
-    videodetail: builder.query<any, { id: any }>({
-      query: ({ id }) => ({
-        url: `/videos/${id}`,
+    videodetail: builder.query<any, string>({
+      query: (slug) => ({
+        url: `/videos/${slug}`,
         method: "GET",
       }),
       providesTags: ["singleVideo"],

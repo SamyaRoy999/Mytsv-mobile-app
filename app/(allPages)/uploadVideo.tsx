@@ -104,7 +104,7 @@ const UploadVideo = () => {
 
   const categoryData = categories?.data?.data ?? [];
 
-  // ----------------- Effects -----------------
+  // ----------------- Effects ----------------- //
 
   React.useEffect(() => {
     if (userError) {
@@ -666,7 +666,7 @@ const UploadVideo = () => {
                   style={[
                     styles.button,
                     isProcessing && styles.buttonDisabled,
-                    { backgroundColor: "#EF4444" }, // Change this color to your preference
+                    { backgroundColor: "#EF4444" },
                   ]}
                 >
                   <Text style={styles.buttonText}>

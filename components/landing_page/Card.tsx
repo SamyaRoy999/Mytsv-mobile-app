@@ -16,13 +16,21 @@ const Card = ({ data }: any) => {
     is_promoted,
     id,
     user,
+    slug,
   } = data;
   const isPromoted = is_promoted === 1;
 
   return (
     <View style={tw`bg-primary mb-4 overflow-hidden`}>
       {/* Thumbnail with Promoted badge */}
-      <TouchableOpacity onPress={() => router.push(`/details/video/${id}`)}>
+      <TouchableOpacity
+        onPress={() =>
+          router.push({
+            pathname: "/details/video/[id]",
+            params: { id, slug },
+          })
+        }
+      >
         <View style={tw`relative`}>
           <Image
             source={{ uri: thumbnail }}

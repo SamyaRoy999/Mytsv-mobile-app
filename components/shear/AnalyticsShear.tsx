@@ -16,7 +16,7 @@ import HeaderBar from "./HeaderBar";
 // Ignore specific warnings
 
 // Ignore known warnings
-LogBox.ignoreLogs(["setLayoutAnimationEnabledExperimental"]);
+LogBox.ignoreAllLogs(true);
 
 // Disable layout animation if using new architecture
 if (
@@ -25,9 +25,7 @@ if (
 ) {
   try {
     UIManager.setLayoutAnimationEnabledExperimental(true);
-  } catch (e) {
-    console.log("LayoutAnimation not supported in new architecture");
-  }
+  } catch (e) {}
 }
 
 interface AnalyticsDataItem {

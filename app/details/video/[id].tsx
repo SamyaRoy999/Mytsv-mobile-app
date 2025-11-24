@@ -57,7 +57,7 @@ import { SvgXml } from "react-native-svg";
 import YoutubeIframe from "react-native-youtube-iframe";
 
 const SingleVideo = () => {
-  const { id } = useLocalSearchParams();
+  const { id, slug } = useLocalSearchParams();
   const [isVisible, setIsVisible] = useState(false);
   const [shareVisible, setIsShareVisible] = useState(false);
   const [reportVisible, setReportVisible] = useState(false);
@@ -69,9 +69,9 @@ const SingleVideo = () => {
   const [likeDislike, setLikeDislike] = useState<"like" | "dislike" | null>(
     null
   );
+
   const [comment, setComment] = useState("");
   const [reply, setReply] = useState("");
-  const [page, setPage] = useState(1);
   const [commentID, setCommentID] = useState();
   const [isYoutubeVideo, setIsYoutubeVideo] = useState(false);
   const [youtubeVideoId, setYoutubeVideoId] = useState("");
@@ -80,7 +80,7 @@ const SingleVideo = () => {
 
   const playerRef = useRef<any>(null);
 
-  const { data, isLoading, error } = useVideodetailQuery({ id });
+  const { data, isLoading, error } = useVideodetailQuery(slug as any);
   const { data: userInfo, isLoading: userLoading } = useProfileQuery({});
   const { data: commentsData, isLoading: isLoadingComment } = useCommentsQuery({
     video_id: id,
@@ -127,7 +127,6 @@ const SingleVideo = () => {
 
   useEffect(() => {
     return () => {
-      // Cleanup on component unmount
       if (playerRef.current && typeof playerRef.current.pause === "function") {
         try {
           playerRef.current.pause();
@@ -154,7 +153,6 @@ const SingleVideo = () => {
   }, []);
 
   useEffect(() => {
-    // Check if it's a YouTube video
     if (
       videoDetails?.link &&
       (videoDetails.link.includes("youtube.com") ||
@@ -882,7 +880,7 @@ const SingleVideo = () => {
           >
             <View style={styles.modalContainer}>
               <View
-                style={tw`bg-white w-full absolute bottom-0 rounded-t-3xl overflow-hidden`}
+                style={tw`bg-white h-[60%] w-full absolute bottom-0 rounded-t-3xl overflow-hidden`}
               >
                 <View
                   style={tw`bg-red-500 py-4 px-6 flex-row justify-between items-center`}

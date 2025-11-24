@@ -182,7 +182,12 @@ const LikedVideosScreen = () => {
         }
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => router.push(`/details/video/${item.video?.id}`)}
+            onPress={() =>
+              router.push({
+                pathname: "/details/video/[id]",
+                params: { id: item.video?.id, slug: item.video?.slug },
+              })
+            }
           >
             <View
               style={tw`flex-row gap-4 px-5 py-3 items-start border-b border-gray-200`}
