@@ -5,6 +5,7 @@ import {
   IconAnalytics,
   IconBack,
   IconCansel,
+  IconChangepass,
   IconContactus,
   IconDeshboard,
   IconFAQ,
@@ -403,11 +404,29 @@ const Account = () => {
                 </View>
               </View>
             </TouchableOpacity>
+            {/* Reports */}
+            <TouchableOpacity
+              style={tw`flex-row w-full justify-between items-center px-8 py-2`}
+              onPress={() => router.push("/auth/change_pass")}
+            >
+              <View style={tw` flex-row gap-2 py-3 rounded-lg items-center`}>
+                <SvgXml xml={IconChangepass} />
+                <Text
+                  style={tw`font-poppinsMedium text-base text-secondaryBlack`}
+                >
+                  Change password
+                </Text>
+              </View>
+              <View style={tw``}>
+                <View style={tw`border-primaryGray`}>
+                  <SvgXml xml={IconBack} />
+                </View>
+              </View>
+            </TouchableOpacity>
 
             <View style={tw`flex-row justify-center py-6`}>
               <SvgXml xml={IconLine} />
             </View>
-
             {/* Reports */}
             <TouchableOpacity
               style={tw`flex-row w-full justify-between items-center px-8 py-2`}
@@ -415,7 +434,6 @@ const Account = () => {
             >
               <View style={tw` flex-row gap-2 py-3 rounded-lg items-center`}>
                 <SvgXml xml={IconFAQ} />
-
                 <Text
                   style={tw`font-poppinsMedium text-base text-secondaryBlack`}
                 >

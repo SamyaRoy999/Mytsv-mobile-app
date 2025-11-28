@@ -9,3 +9,4 @@ export const profleImg = require("@/assets/images/profleImg.jpg");
 export const historypage = require("@/assets/images/historypage.jpg");
 export const OnsiteAccount = require("@/assets/images/onsiteAccountBannerImg.jpg");
 export const blankCover = require("@/assets/images/blank.jpg");
+export const ImgSuccessGIF = require("@/assets/images/success.gif");

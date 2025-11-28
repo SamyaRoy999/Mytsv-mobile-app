@@ -160,7 +160,6 @@ const Settings = () => {
     ),
   });
 
-  // Function to search locations using Google Places API
   const searchLocations = async (query: string) => {
     if (!query || query.length < 3) {
       setLocationSuggestions([]);
@@ -195,7 +194,7 @@ const Settings = () => {
     // Set new timeout for API call
     const timeout = setTimeout(() => {
       searchLocations(query);
-    }, 300); // 500ms delay
+    }, 300);
 
     setSearchTimeout(timeout as any);
   };
@@ -354,7 +353,7 @@ const Settings = () => {
                       <SvgXml xml={IconUploadCover} />
                     </TouchableOpacity>
                     <Image
-                      source={{ uri: coverImage?.uri || cover_image }}
+                      source={coverImage?.uri || cover_image}
                       style={[
                         tw`w-full rounded-2xl`,
                         { height: _HIGHT * 0.19 },
@@ -367,7 +366,7 @@ const Settings = () => {
                     style={tw`bg-primary rounded-full h-28 w-28 flex-row items-center justify-center right-[45%] -bottom-10 absolute`}
                   >
                     <Image
-                      source={{ uri: profileImage?.uri || avatar }}
+                      source={profileImage?.uri || avatar}
                       style={tw`rounded-full h-24 w-24`}
                       contentFit="cover"
                     />
