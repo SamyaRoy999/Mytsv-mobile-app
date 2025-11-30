@@ -505,7 +505,7 @@ const Account = () => {
               </View>
             </TouchableOpacity>
             <TouchableOpacity
-              style={tw`flex-row w-full justify-between items-center px-8 py-2`}
+              style={tw`flex-row w-full justify-between items-center px-8 py-2 `}
               onPress={() => router.push("/(allPages)/privacy")}
             >
               <View style={tw` flex-row gap-2 items-center py-3 rounded-lg`}>
@@ -548,50 +548,149 @@ const Account = () => {
           </ScrollView>
         </AlertNotificationRoot>
       ) : (
-        <View style={tw`flex-1 justify-center items-center px-6`}>
-          <TouchableOpacity
-            onPress={() => router.push("/home/(tabs)/landingPage")}
-          >
-            <Image source={ImgLogo} style={tw`w-56 h-16`} />
-          </TouchableOpacity>
-          <View style={tw`pt-14 pb-5 `}>
-            <SvgXml xml={IconProfileView} />
-          </View>
-          <Text style={tw`font-poppinsSemiBold text-xl pb-2`}>
-            You don't have any account yet
-          </Text>
-          <Text style={tw`text-center text-base font-poppins mb-8`}>
-            Please create an account to see full analytics and explore more
-            features
-          </Text>
-
-          <View style={tw`w-full mb-4`}>
+        <ScrollView>
+          <View style={tw`flex-1 justify-center items-center px-6`}>
             <TouchableOpacity
-              style={tw`bg-secondary rounded-full `}
-              onPress={() => router.push("/auth/login")}
+              onPress={() => router.push("/home/(tabs)/landingPage")}
             >
-              <Text
-                style={tw`text-primary  text-center  text-lg py-[14px] font-poppinsBold`}
+              <Image source={ImgLogo} style={tw`w-56 h-16`} />
+            </TouchableOpacity>
+            <View style={tw`pt-14 pb-5 `}>
+              <SvgXml xml={IconProfileView} />
+            </View>
+            <Text style={tw`font-poppinsSemiBold text-xl pb-2`}>
+              You don't have any account yet
+            </Text>
+            <Text style={tw`text-center text-base font-poppins mb-8`}>
+              Please create an account to see full analytics and explore more
+              features
+            </Text>
+
+            <View style={tw`w-full mb-4`}>
+              <TouchableOpacity
+                style={tw`bg-secondary rounded-full `}
+                onPress={() => router.push("/auth/login")}
               >
-                Sign in
-              </Text>
+                <Text
+                  style={tw`text-primary  text-center  text-lg py-[14px] font-poppinsBold`}
+                >
+                  Sign in
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <Text style={tw`text-center mb-4 text-base font-poppins`}>or</Text>
+
+            <View style={tw`w-full mb-4`}>
+              <TouchableOpacity
+                style={tw` border border-secondarygray rounded-full `}
+                onPress={() => router.push("/(allPages)/onsiteAccount")}
+              >
+                <Text
+                  style={tw`text-center text-base py-[14px] font-poppinsMedium`}
+                >
+                  Onsite account creation
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={tw``}>
+            {/* Reports */}
+            <TouchableOpacity
+              style={tw`flex-row w-full justify-between items-center px-8 py-2`}
+              onPress={() => router.push("/(allPages)/faqSection")}
+            >
+              <View style={tw` flex-row gap-2 py-3 rounded-lg items-center`}>
+                <SvgXml xml={IconFAQ} />
+                <Text
+                  style={tw`font-poppinsMedium text-base text-secondaryBlack`}
+                >
+                  FAQ
+                </Text>
+              </View>
+              <View style={tw``}>
+                <View style={tw`border-primaryGray`}>
+                  <SvgXml xml={IconBack} />
+                </View>
+              </View>
+            </TouchableOpacity>
+            {/* Aboutus */}
+            <TouchableOpacity
+              style={tw`flex-row w-full justify-between items-center px-8 py-2`}
+              onPress={() => router.push("/(allPages)/aboutUs")}
+            >
+              <View style={tw` flex-row gap-2 py-3 rounded-lg items-center`}>
+                <SvgXml xml={IconAboutus} />
+                <Text
+                  style={tw`font-poppinsMedium text-base text-secondaryBlack`}
+                >
+                  About us
+                </Text>
+              </View>
+              <View>
+                <View style={tw`border-primaryGray`}>
+                  <SvgXml xml={IconBack} />
+                </View>
+              </View>
+            </TouchableOpacity>
+            {/* Reports */}
+            <TouchableOpacity
+              onPress={() => router.push("/(allPages)/contactUs")}
+              style={tw`flex-row w-full justify-between items-center px-8 py-2`}
+            >
+              <View style={tw` flex-row gap-2 py-3 rounded-lg items-center`}>
+                <SvgXml xml={IconContactus} />
+
+                <Text
+                  style={tw`font-poppinsMedium text-base text-secondaryBlack`}
+                >
+                  Contact us
+                </Text>
+              </View>
+              <View style={tw``}>
+                <View style={tw`border-primaryGray`}>
+                  <SvgXml xml={IconBack} />
+                </View>
+              </View>
+            </TouchableOpacity>
+            {/* Reports */}
+            <TouchableOpacity
+              style={tw`flex-row w-full justify-between items-center px-8 py-2`}
+              onPress={() => router.push("/(allPages)/termsConditions")}
+            >
+              <View style={tw` flex-row gap-2 items-center py-3 rounded-lg`}>
+                <SvgXml xml={IconTerms} />
+                <Text
+                  style={tw`font-poppinsMedium text-base text-secondaryBlack`}
+                >
+                  Terms & Conditions
+                </Text>
+              </View>
+              <View style={tw``}>
+                <View style={tw`border-primaryGray`}>
+                  <SvgXml xml={IconBack} />
+                </View>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={tw`flex-row w-full justify-between items-center px-8 pt-2 pb-6`}
+              onPress={() => router.push("/(allPages)/privacy")}
+            >
+              <View style={tw` flex-row gap-2 items-center py-3 rounded-lg`}>
+                <SvgXml xml={IconPrivacy} />
+                <Text
+                  style={tw`font-poppinsMedium text-base text-secondaryBlack`}
+                >
+                  Privacy Policy
+                </Text>
+              </View>
+              <View style={tw``}>
+                <View style={tw`border-primaryGray`}>
+                  <SvgXml xml={IconBack} />
+                </View>
+              </View>
             </TouchableOpacity>
           </View>
-          <Text style={tw`text-center mb-4 text-base font-poppins`}>or</Text>
-
-          <View style={tw`w-full mb-4`}>
-            <TouchableOpacity
-              style={tw` border border-secondarygray rounded-full `}
-              onPress={() => router.push("/(allPages)/onsiteAccount")}
-            >
-              <Text
-                style={tw`text-center text-base py-[14px] font-poppinsMedium`}
-              >
-                Onsite account creation
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        </ScrollView>
       )}
     </View>
   );

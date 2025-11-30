@@ -20,7 +20,11 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { ALERT_TYPE, Toast } from "react-native-alert-notification";
+import {
+  ALERT_TYPE,
+  AlertNotificationRoot,
+  Toast,
+} from "react-native-alert-notification";
 import { SvgXml } from "react-native-svg";
 
 const Change_Pass = () => {
@@ -87,128 +91,134 @@ const Change_Pass = () => {
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}
       keyboardDismissMode="interactive"
-      style={tw`bg-base_color px-5`}
+      style={tw` px-5`}
       contentContainerStyle={tw`pb-6 flex-1`}
     >
-      <BackTitleButton
-        pageName={"Change password"}
-        onPress={() => router.back()}
-        titleTextStyle={tw`text-xl`}
-      />
+      <AlertNotificationRoot>
+        <BackTitleButton
+          pageName={"Change password"}
+          onPress={() => router.back()}
+          titleTextStyle={tw`text-xl`}
+        />
 
-      <Formik
-        initialValues={{
-          current_password: "",
-          new_password: "",
-          retype_password: "",
-        }}
-        validate={validate}
-        onSubmit={handleChangePassword}
-      >
-        {({
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          values,
-          touched,
-          errors,
-        }) => (
-          <View style={tw`flex-1 justify-between`}>
-            {/* ---------- current password ---------- */}
-            <View style={tw`mt-4`}>
-              <View
-                style={tw`flex-row items-center gap-2 border border-gray-400 h-14 rounded-full mb-3 px-3`}
-              >
-                <TextInput
-                  secureTextEntry={isVisibleCurrent}
-                  style={tw`flex-1 text-base font-PoppinsMedium`}
-                  placeholderTextColor="#777777"
-                  placeholder="Current password"
-                  value={values.current_password}
-                  onChangeText={handleChange("current_password")}
-                  onBlur={handleBlur("current_password")}
-                />
-                <TouchableOpacity
-                  onPress={() => {
-                    setIsVisibleCurrent(!isVisibleCurrent);
-                    setIsEyeShowCurrent(!isEyeShowCurrent);
-                  }}
+        <Formik
+          initialValues={{
+            current_password: "",
+            new_password: "",
+            retype_password: "",
+          }}
+          validate={validate}
+          onSubmit={handleChangePassword}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            touched,
+            errors,
+          }) => (
+            <View style={tw`flex-1 justify-between`}>
+              {/* ---------- current password ---------- */}
+              <View style={tw`mt-4`}>
+                <View
+                  style={tw`flex-row items-center gap-2 border border-gray-400 h-14 rounded-full mb-3 px-3`}
                 >
-                  <SvgXml xml={isEyeShowCurrent ? IconEyeShow : IconEyeClose} />
-                </TouchableOpacity>
-              </View>
-              {touched.current_password && errors.current_password && (
-                <Text style={tw`text-red-500 ml-3 mt-[-12px] mb-4 text-sm`}>
-                  {errors.current_password}
-                </Text>
-              )}
+                  <TextInput
+                    secureTextEntry={isVisibleCurrent}
+                    style={tw`flex-1 text-base font-PoppinsMedium`}
+                    placeholderTextColor="#777777"
+                    placeholder="Current password"
+                    value={values.current_password}
+                    onChangeText={handleChange("current_password")}
+                    onBlur={handleBlur("current_password")}
+                  />
+                  <TouchableOpacity
+                    onPress={() => {
+                      setIsVisibleCurrent(!isVisibleCurrent);
+                      setIsEyeShowCurrent(!isEyeShowCurrent);
+                    }}
+                  >
+                    <SvgXml
+                      xml={isEyeShowCurrent ? IconEyeShow : IconEyeClose}
+                    />
+                  </TouchableOpacity>
+                </View>
+                {touched.current_password && errors.current_password && (
+                  <Text style={tw`text-red-500 ml-3 mt-[-12px] mb-4 text-sm`}>
+                    {errors.current_password}
+                  </Text>
+                )}
 
-              {/* ---------- new password ---------- */}
-              <View
-                style={tw`flex-row items-center gap-2 border border-gray-400 h-14 rounded-full mb-3 px-3`}
-              >
-                <TextInput
-                  secureTextEntry={isVisibleNew}
-                  style={tw`flex-1 text-base font-PoppinsMedium`}
-                  placeholderTextColor="#777777"
-                  placeholder="New password"
-                  value={values.new_password}
-                  onChangeText={handleChange("new_password")}
-                  onBlur={handleBlur("new_password")}
-                />
-                <TouchableOpacity
-                  onPress={() => {
-                    setIsVisibleNew(!isVisibleNew);
-                    setIsEyeShowNew(!isEyeShowNew);
-                  }}
+                {/* ---------- new password ---------- */}
+                <View
+                  style={tw`flex-row items-center gap-2 border border-gray-400 h-14 rounded-full mb-3 px-3`}
                 >
-                  <SvgXml xml={isEyeShowNew ? IconEyeShow : IconEyeClose} />
-                </TouchableOpacity>
-              </View>
-              {touched.new_password && errors.new_password && (
-                <Text style={tw`text-red-500 ml-3 mt-[-12px] mb-4 text-sm`}>
-                  {errors.new_password}
-                </Text>
-              )}
+                  <TextInput
+                    secureTextEntry={isVisibleNew}
+                    style={tw`flex-1 text-base font-PoppinsMedium`}
+                    placeholderTextColor="#777777"
+                    placeholder="New password"
+                    value={values.new_password}
+                    onChangeText={handleChange("new_password")}
+                    onBlur={handleBlur("new_password")}
+                  />
+                  <TouchableOpacity
+                    onPress={() => {
+                      setIsVisibleNew(!isVisibleNew);
+                      setIsEyeShowNew(!isEyeShowNew);
+                    }}
+                  >
+                    <SvgXml xml={isEyeShowNew ? IconEyeShow : IconEyeClose} />
+                  </TouchableOpacity>
+                </View>
+                {touched.new_password && errors.new_password && (
+                  <Text style={tw`text-red-500 ml-3 mt-[-12px] mb-4 text-sm`}>
+                    {errors.new_password}
+                  </Text>
+                )}
 
-              {/* ---------- confirm password ---------- */}
-              <View
-                style={tw`flex-row items-center gap-2 border border-gray-400 h-14 rounded-full mb-3 px-3`}
-              >
-                <TextInput
-                  secureTextEntry={isVisibleConfirm}
-                  style={tw`flex-1 text-base font-PoppinsMedium`}
-                  placeholderTextColor="#777777"
-                  placeholder="Confirm password"
-                  value={values.retype_password}
-                  onChangeText={handleChange("retype_password")}
-                  onBlur={handleBlur("retype_password")}
-                />
-                <TouchableOpacity
-                  onPress={() => {
-                    setIsVisibleConfirm(!isVisibleConfirm);
-                    setIsEyeShowConfirm(!isEyeShowConfirm);
-                  }}
+                {/* ---------- confirm password ---------- */}
+                <View
+                  style={tw`flex-row items-center gap-2 border border-gray-400 h-14 rounded-full mb-3 px-3`}
                 >
-                  <SvgXml xml={isEyeShowConfirm ? IconEyeShow : IconEyeClose} />
-                </TouchableOpacity>
+                  <TextInput
+                    secureTextEntry={isVisibleConfirm}
+                    style={tw`flex-1 text-base font-PoppinsMedium`}
+                    placeholderTextColor="#777777"
+                    placeholder="Confirm password"
+                    value={values.retype_password}
+                    onChangeText={handleChange("retype_password")}
+                    onBlur={handleBlur("retype_password")}
+                  />
+                  <TouchableOpacity
+                    onPress={() => {
+                      setIsVisibleConfirm(!isVisibleConfirm);
+                      setIsEyeShowConfirm(!isEyeShowConfirm);
+                    }}
+                  >
+                    <SvgXml
+                      xml={isEyeShowConfirm ? IconEyeShow : IconEyeClose}
+                    />
+                  </TouchableOpacity>
+                </View>
+                {touched.retype_password && errors.retype_password && (
+                  <Text style={tw`text-red-500 ml-3 mt-[-12px] mb-4 text-sm`}>
+                    {errors.retype_password}
+                  </Text>
+                )}
               </View>
-              {touched.retype_password && errors.retype_password && (
-                <Text style={tw`text-red-500 ml-3 mt-[-12px] mb-4 text-sm`}>
-                  {errors.retype_password}
-                </Text>
-              )}
+
+              {/* ---------- submit ---------- */}
+              <PrimaryButton
+                onPress={() => handleSubmit()}
+                titleProps="Update password"
+                contentStyle={tw`mt-4`}
+              />
             </View>
-
-            {/* ---------- submit ---------- */}
-            <PrimaryButton
-              onPress={() => handleSubmit()}
-              titleProps="Update password"
-              contentStyle={tw`mt-4`}
-            />
-          </View>
-        )}
-      </Formik>
+          )}
+        </Formik>
+      </AlertNotificationRoot>
     </ScrollView>
   );
 };
