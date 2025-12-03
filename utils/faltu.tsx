@@ -23,7 +23,7 @@ import {
   useStateGetQuery,
   useUpload_videoMutation,
 } from "@/redux/apiSlices/UploadVideo/uploadVideoSices";
-import { useStripe } from "@stripe/stripe-react-native";
+import { CardField, useStripe } from "@stripe/stripe-react-native";
 import * as ImagePicker from "expo-image-picker";
 import { router } from "expo-router";
 import React from "react";
@@ -42,7 +42,7 @@ import {
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 import { SvgXml } from "react-native-svg";
 
-const youTubeLink = () => {
+const YouTubeLink = () => {
   const [paymentVisible, setPaymentVisible] = React.useState(false);
   const [sucssMassage, setSucssMassage] = React.useState(false);
   const [promotedOn, setPromotedOn] = React.useState(false);
@@ -69,9 +69,12 @@ const youTubeLink = () => {
   const [pendingFormData, setPendingFormData] = React.useState<FormData | null>(
     null
   );
+  const [cardDetails, setCardDetails] = React.useState<any>(null);
+  const [showCardForm, setShowCardForm] = React.useState(false);
 
   // ............stripe ..............//
-  const { initPaymentSheet, presentPaymentSheet } = useStripe();
+  const { initPaymentSheet, presentPaymentSheet, createPaymentMethod } =
+    useStripe();
 
   // ................ API ...................//
   const [upload_video] = useUpload_videoMutation();
@@ -181,18 +184,16 @@ const youTubeLink = () => {
       } as any);
     }
 
-    console.log(JSON.stringify(formData, null, 2), "//////////////////////");
     return formData;
   };
 
   const handlePublish = async () => {
     const form = buildFormData();
-
     if (!form) return;
 
     if (promotedOn) {
       setPendingFormData(form);
-      handleSetupInitialPayment();
+      setShowCardForm(true);
     } else {
       try {
         const res = await upload_video(form).unwrap();
@@ -221,8 +222,53 @@ const youTubeLink = () => {
     }
   };
 
+  const handleCardSubmit = async () => {
+    if (!cardDetails?.complete) {
+      Toast.show({
+        type: ALERT_TYPE.WARNING,
+        title: "Warning",
+        textBody: "Please enter valid card details",
+        autoClose: 2000,
+      });
+      return;
+    }
+
+    try {
+      setIsProcessing(true);
+
+      // Create payment method with Stripe
+      const { paymentMethod, error: paymentMethodError } =
+        await createPaymentMethod({
+          type: "card",
+          card: cardDetails,
+        });
+
+      if (paymentMethodError) {
+        Toast.show({
+          type: ALERT_TYPE.DANGER,
+          title: "Error",
+          textBody: paymentMethodError.message,
+          autoClose: 2000,
+        });
+        setIsProcessing(false);
+        return;
+      }
+
+      // Now proceed with payment setup
+      await handleSetupInitialPayment(paymentMethod.id);
+    } catch (error) {
+      Toast.show({
+        type: ALERT_TYPE.DANGER,
+        title: "Error",
+        textBody: "Failed to process card",
+        autoClose: 2000,
+      });
+      setIsProcessing(false);
+    }
+  };
+
   //............ Payment ...........//
-  const handleSetupInitialPayment = async () => {
+  const handleSetupInitialPayment = async (paymentMethodId: string) => {
     try {
       await refreshUserData();
       if (!userId) {
@@ -234,12 +280,11 @@ const youTubeLink = () => {
       const paymentData = {
         reason: "Uploading video",
         amount: amount,
-        payment_method: "pm_card_visa",
+        payment_method: paymentMethodId, // Use real payment method ID
       };
 
       const res = await payment(paymentData).unwrap();
-      console.log(".............. res");
-      console.log(res);
+      console.log("Payment response:", res);
 
       const successData = {
         id: res?.data?.id,
@@ -255,9 +300,11 @@ const youTubeLink = () => {
         merchantDisplayName: "MyTSV App",
         paymentIntentClientSecret: client_secret,
       });
-      if (error) {
-        console.log(error, "initPaymentSheet ................ ");
 
+      console.log("client_secret:", client_secret);
+      console.log("init error:", error);
+
+      if (error) {
         Toast.show({
           type: ALERT_TYPE.DANGER,
           title: "Error",
@@ -265,16 +312,18 @@ const youTubeLink = () => {
           autoClose: 2000,
         });
       } else {
+        setShowCardForm(false);
         setPaymentVisible(true);
       }
     } catch (error) {
-      console.log(error, "initPaymentSheet2................ ");
       Toast.show({
         type: ALERT_TYPE.DANGER,
         title: "Error",
         textBody: "Payment setup failed",
         autoClose: 2000,
       });
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -283,7 +332,7 @@ const youTubeLink = () => {
 
     try {
       const { error } = await presentPaymentSheet();
-      console.log(error, "initPaymentSheet3................ ");
+      console.log(error);
 
       if (error) {
         Toast.show({
@@ -343,8 +392,6 @@ const youTubeLink = () => {
         }
       }
     } catch (error) {
-      console.log(error, "Failed to upload video.............");
-
       Toast.show({
         type: ALERT_TYPE.DANGER,
         title: "Error",
@@ -581,30 +628,79 @@ const youTubeLink = () => {
 
             {promotedOn ? (
               <View>
-                {/* Footer */}
-                <View style={tw`flex-row justify-end gap-3 px-6 py-4  `}>
-                  <TouchableOpacity
-                    style={tw`border flex-row items-center border-primaryGray rounded-md`}
-                  >
-                    <Text style={tw`text-2xl font-poppinsMedium py-2 px-7`}>
-                      {priceYoutubLink?.data?.uploading_youTube_link}
+                {showCardForm ? (
+                  <View style={tw`pt-5`}>
+                    <Text style={tw`font-poppinsMedium text-lg mb-3`}>
+                      Enter Card Details
                     </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={handlePublish}
-                    style={tw`bg-[#EF4444] py-2 px-6 rounded-md justify-center items-center`}
-                  >
-                    <Text style={tw`text-white font-poppinsMedium`}>
-                      Checkout
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                <View style={tw`flex-row gap-2 py-7`}>
-                  <SvgXml xml={IconWorningGary} />
-                  <Text style={tw`text-base font-poppins`}>
-                    After payment you will be returned here immediately.
-                  </Text>
-                </View>
+                    <CardField
+                      postalCodeEnabled={false}
+                      placeholder={{
+                        number: "4242 4242 4242 4242",
+                      }}
+                      cardStyle={{
+                        backgroundColor: "#FFFFFF",
+                        textColor: "#000000",
+                      }}
+                      style={{
+                        width: "100%",
+                        height: 50,
+                        marginVertical: 10,
+                      }}
+                      onCardChange={(cardDetails) => {
+                        setCardDetails(cardDetails);
+                      }}
+                    />
+                    <View style={tw`flex-row gap-3 mt-4`}>
+                      <TouchableOpacity
+                        onPress={() => setShowCardForm(false)}
+                        style={tw`border border-primaryGray py-2 px-6 rounded-full flex-1`}
+                      >
+                        <Text style={tw`text-center font-poppins`}>Cancel</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={handleCardSubmit}
+                        disabled={isProcessing || !cardDetails?.complete}
+                        style={tw`bg-[#EF4444] py-2 px-6 rounded-full flex-1 ${
+                          isProcessing || !cardDetails?.complete
+                            ? "opacity-50"
+                            : ""
+                        }`}
+                      >
+                        <Text style={tw`text-white text-center font-poppins`}>
+                          {isProcessing ? "Processing..." : "Continue"}
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                ) : (
+                  <>
+                    {/* Footer */}
+                    <View style={tw`flex-row justify-end gap-3 px-6 py-4`}>
+                      <TouchableOpacity
+                        style={tw`border flex-row items-center border-primaryGray rounded-md`}
+                      >
+                        <Text style={tw`text-2xl font-poppinsMedium py-2 px-7`}>
+                          {priceYoutubLink?.data?.uploading_youTube_link}
+                        </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={handlePublish}
+                        style={tw`bg-[#EF4444] py-2 px-6 rounded-md justify-center items-center`}
+                      >
+                        <Text style={tw`text-white font-poppinsMedium`}>
+                          Checkout
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                    <View style={tw`flex-row gap-2 py-7`}>
+                      <SvgXml xml={IconWorningGary} />
+                      <Text style={tw`text-base font-poppins`}>
+                        After payment you will be returned here immediately.
+                      </Text>
+                    </View>
+                  </>
+                )}
               </View>
             ) : (
               <View style={tw`pt-5`}>
@@ -929,4 +1025,4 @@ const youTubeLink = () => {
   );
 };
 
-export default youTubeLink;
+export default YouTubeLink;
