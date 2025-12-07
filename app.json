@@ -29,8 +29,8 @@
       },
       "edgeToEdgeEnabled": true,
       "googleServicesFile": "./google-services.json",
-      "package": "com.usaybek.mytsv",
-      "versionCode": 1,
+      "package": "com.anonymous.usaybek",
+      "versionCode": 8,
       "permissions": [
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION",

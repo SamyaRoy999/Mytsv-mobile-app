@@ -219,7 +219,7 @@ const Account = () => {
             </View>
             {/* liked video */}
             <View
-              style={tw`flex-row w-full justify-between items-center px-5 py-6`}
+              style={tw`flex-row w-full justify-between items-center px-5 py-4`}
             >
               <TouchableOpacity
                 style={tw` flex-row gap-2 py-3 rounded-lg items-center`}

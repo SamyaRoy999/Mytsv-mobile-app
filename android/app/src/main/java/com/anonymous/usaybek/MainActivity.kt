@@ -1,4 +1,4 @@
-package com.usaybek.mytsv
+package com.anonymous.usaybek
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build

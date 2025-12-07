@@ -77,7 +77,14 @@ const Card = ({ data }: any) => {
             >
               {title}
             </Text>
-            <View style={tw`flex-row items-center gap-2 flex-wrap`}>
+            <View
+              style={[
+                tw`flex-row items-center gap-2 flex-wrap`,
+                {
+                  width: _Width * 0.8,
+                },
+              ]}
+            >
               <Text style={tw`text-secondaryBlack text-sm font-poppinsMedium`}>
                 {user?.channel_name}
               </Text>

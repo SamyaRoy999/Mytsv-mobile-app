@@ -1,4 +1,4 @@
-package com.usaybek.mytsv
+package com.anonymous.usaybek
 
 import android.app.Application
 import android.content.res.Configuration

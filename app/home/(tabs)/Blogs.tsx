@@ -106,7 +106,9 @@ const Blogs = () => {
       <TouchableOpacity
         onPress={() => router.push(`/details/Blog/${item.slug}`)}
       >
-        <View style={tw`mb-5 bg-white rounded-lg overflow-hidden shadow-sm`}>
+        <View
+          style={tw`mb-5 m-4 bg-white rounded-lg overflow-hidden shadow-sm`}
+        >
           <Image
             source={{ uri: image }}
             style={tw`w-full h-48`}
@@ -158,7 +160,7 @@ const Blogs = () => {
         onEndReachedThreshold={0.5}
         showsVerticalScrollIndicator={false}
         renderItem={renderItem}
-        contentContainerStyle={tw`p-4 pb-10`}
+        contentContainerStyle={tw` pb-10`}
         ListHeaderComponent={
           <View>
             <HeaderBar />

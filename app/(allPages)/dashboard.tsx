@@ -87,7 +87,14 @@ const dashboard = () => {
               {channel_name}
             </Text>
             {locations?.find((loc: any) => loc.type === "head-office") && (
-              <View style={tw`flex-row gap-3 p-1 items-center`}>
+              <View
+                style={[
+                  tw`flex-row gap-3  items-center`,
+                  {
+                    width: _Width * 0.9,
+                  },
+                ]}
+              >
                 <SvgXml xml={IconLoction} />
                 <Text style={tw`text-base font-poppins`}>
                   {

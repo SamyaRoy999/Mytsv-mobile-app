@@ -229,289 +229,301 @@ const Search = () => {
   };
 
   return (
-    <View style={tw`pt-5 flex-1 bg-primary`}>
-      <View style={tw`flex-row items-center justify-between gap-5 px-5 mb-8`}>
-        <TouchableOpacity onPress={() => router.back()}>
+    <ScrollView>
+      <View style={tw`pt-5 flex-1 bg-primary`}>
+        <View style={tw`flex-row items-center justify-between gap-5 px-5 mb-8`}>
+          <TouchableOpacity onPress={() => router.back()}>
+            <View
+              style={tw`bg-primaryText w-13 h-13 p-4 rounded-full flex-row items-center justify-center border border-primaryGray`}
+            >
+              <SvgXml xml={IconBackLeft} />
+            </View>
+          </TouchableOpacity>
+          <Text style={tw`font-poppinsMedium text-xl`}>Search</Text>
+          <View></View>
+        </View>
+
+        <View>
+          {/* Hashtag Search */}
           <View
-            style={tw`bg-primaryText w-13 h-13 p-4 rounded-full flex-row items-center justify-center border border-primaryGray`}
+            style={tw`mt-4 mx-5 flex-row items-center justify-between border border-primaryGray rounded-full`}
           >
-            <SvgXml xml={IconBackLeft} />
+            <TextInput
+              placeholder="Search by title or hashtag (e.g. Book Name, #good)"
+              style={tw`flex-1 px-4 py-3 text-secondarygray`}
+              value={hashtag}
+              onChangeText={(text) => {
+                setHashtag(text);
+              }}
+            />
           </View>
-        </TouchableOpacity>
-        <Text style={tw`font-poppinsMedium text-xl`}>Search</Text>
-        <View></View>
-      </View>
+          {/* State Selection */}
+          <View style={tw`pt-4 px-5`}>
+            <TouchableOpacity
+              onPress={() => setStateModalVisible(true)}
+              style={tw`flex-row items-center justify-between border border-primaryGray px-6 py-3 rounded-full`}
+            >
+              <Text style={tw`font-poppins text-base`}>
+                {formData.state || "State"}
+              </Text>
+              <SvgXml xml={IconErowBack} />
+            </TouchableOpacity>
+          </View>
 
-      <View>
-        {/* Hashtag Search */}
+          {/* City Selection */}
+          <View style={tw`pt-4 px-5`}>
+            <TouchableOpacity
+              onPress={() => setCityModalVisible(true)}
+              disabled={!formData.state} // Disable if no state selected
+              style={tw`flex-row items-center justify-between border border-primaryGray px-6 py-3 rounded-full ${
+                !formData.state ? "opacity-50" : ""
+              }`}
+            >
+              <Text style={tw`font-poppins text-base`}>
+                {formData.city || "City"}
+              </Text>
+              <SvgXml xml={IconErowBack} />
+            </TouchableOpacity>
+          </View>
+
+          {/* Category Selection */}
+          <View style={tw`pt-4 px-5`}>
+            <TouchableOpacity
+              onPress={() => setCategoryModalVisible(true)}
+              style={tw`flex-row items-center justify-between border border-primaryGray px-6 py-3 rounded-full`}
+            >
+              <Text style={tw`font-poppins text-base`}>
+                {formData.category || "Category"}
+              </Text>
+              <SvgXml xml={IconErowBack} />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* History Section */}
         <View
-          style={tw`mt-4 mx-5 flex-row items-center justify-between border border-primaryGray rounded-full`}
+          style={tw`flex-row w-full justify-between items-center px-5 py-6`}
         >
-          <TextInput
-            placeholder="Search by title or hashtag (e.g. Book Name, #good)"
-            style={tw`flex-1 px-4 py-3 text-secondarygray`}
-            value={hashtag}
-            onChangeText={(text) => {
-              setHashtag(text);
-            }}
-          />
-        </View>
-        {/* State Selection */}
-        <View style={tw`pt-4 px-5`}>
-          <TouchableOpacity
-            onPress={() => setStateModalVisible(true)}
-            style={tw`flex-row items-center justify-between border border-primaryGray px-6 py-3 rounded-full`}
-          >
-            <Text style={tw`font-poppins text-base`}>
-              {formData.state || "State"}
+          <View style={tw`flex-row gap-3 items-center`}>
+            <SvgXml xml={IconTime} />
+            <Text style={tw`font-poppinsMedium text-base text-secondaryBlack`}>
+              History
             </Text>
-            <SvgXml xml={IconErowBack} />
-          </TouchableOpacity>
+          </View>
+          <Text style={tw`font-poppinsMedium text-base`}>Service</Text>
         </View>
 
-        {/* City Selection */}
-        <View style={tw`pt-4 px-5`}>
-          <TouchableOpacity
-            onPress={() => setCityModalVisible(true)}
-            disabled={!formData.state} // Disable if no state selected
-            style={tw`flex-row items-center justify-between border border-primaryGray px-6 py-3 rounded-full ${
-              !formData.state ? "opacity-50" : ""
-            }`}
-          >
-            <Text style={tw`font-poppins text-base`}>
-              {formData.city || "City"}
-            </Text>
-            <SvgXml xml={IconErowBack} />
-          </TouchableOpacity>
-        </View>
+        {/* Service History */}
+        {renderSearchHistory()}
 
-        {/* Category Selection */}
-        <View style={tw`pt-4 px-5`}>
-          <TouchableOpacity
-            onPress={() => setCategoryModalVisible(true)}
-            style={tw`flex-row items-center justify-between border border-primaryGray px-6 py-3 rounded-full`}
-          >
-            <Text style={tw`font-poppins text-base`}>
-              {formData.category || "Category"}
-            </Text>
-            <SvgXml xml={IconErowBack} />
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {/* History Section */}
-      <View style={tw`flex-row w-full justify-between items-center px-5 py-6`}>
-        <View style={tw`flex-row gap-3 items-center`}>
-          <SvgXml xml={IconTime} />
-          <Text style={tw`font-poppinsMedium text-base text-secondaryBlack`}>
-            History
-          </Text>
-        </View>
-        <Text style={tw`font-poppinsMedium text-base`}>Service</Text>
-      </View>
-
-      {/* Service History */}
-      {renderSearchHistory()}
-
-      <Text style={tw`px-5 py-6 text-right font-poppinsMedium text-base`}>
-        Location
-      </Text>
-
-      {/* Location History */}
-      {renderLocationHistory()}
-
-      {/* Search Button */}
-      <TouchableOpacity
-        style={tw`bg-secondary rounded-full mx-6 mt-8 ${
-          isSearching ? "opacity-50" : ""
-        }`}
-        onPress={handleSearch}
-        disabled={isSearching}
-      >
-        <Text
-          style={tw`text-primary text-center text-lg py-[14px] font-poppinsBold`}
-        >
-          {isSearching ? "Searching..." : "Search"}
+        <Text style={tw`px-5 py-6 text-right font-poppinsMedium text-base`}>
+          Location
         </Text>
-      </TouchableOpacity>
 
-      {/* State Selection Modal */}
-      <Modal
-        visible={stateModalVisible}
-        transparent={true}
-        animationType="slide"
-        onRequestClose={() => setStateModalVisible(false)}
-      >
-        <View style={tw`flex-1 justify-end bg-black/50`}>
-          <View style={tw`bg-primary rounded-t-3xl w-full max-h-3/4`}>
-            <View
-              style={tw`bg-secondary w-full h-16 rounded-t-3xl flex-row items-center justify-between px-4`}
-            >
-              <View></View>
-              <Text style={tw`text-primary text-xl font-poppins`}>
-                Select State
-              </Text>
-              <TouchableOpacity onPress={() => setStateModalVisible(false)}>
-                <SvgXml xml={IconClose} />
-              </TouchableOpacity>
-            </View>
-            <View style={tw`max-h-64`}>
-              <ScrollView
-                showsVerticalScrollIndicator={true}
-                contentContainerStyle={tw`pb-4`}
+        {/* Location History */}
+        {renderLocationHistory()}
+
+        {/* Search Button */}
+        <TouchableOpacity
+          style={tw`bg-secondary rounded-full mx-6 mt-8 ${
+            isSearching ? "opacity-50" : ""
+          }`}
+          onPress={handleSearch}
+          disabled={isSearching}
+        >
+          <Text
+            style={tw`text-primary text-center text-lg py-[14px] font-poppinsBold`}
+          >
+            {isSearching ? "Searching..." : "Search"}
+          </Text>
+        </TouchableOpacity>
+
+        {/* State Selection Modal */}
+        <Modal
+          visible={stateModalVisible}
+          transparent={true}
+          animationType="slide"
+          onRequestClose={() => setStateModalVisible(false)}
+        >
+          <View style={tw`flex-1 justify-end bg-black/50`}>
+            <View style={tw`bg-primary rounded-t-3xl w-full max-h-3/4`}>
+              <View
+                style={tw`bg-secondary w-full h-16 rounded-t-3xl flex-row items-center justify-between px-4`}
               >
-                {isStateLoading ? (
-                  <ActivityIndicator
-                    size="small"
-                    color="#0000ff"
-                    style={tw`py-4`}
-                  />
-                ) : stateData?.data?.length === 0 ? (
-                  <Text style={tw`text-center font-poppins text-gray-500 py-4`}>
-                    No states available
-                  </Text>
-                ) : (
-                  stateData?.data?.map((state: any) => (
-                    <TouchableOpacity
-                      key={state.id}
-                      onPress={() => {
-                        updateFormData("state", state.name);
-                        setStateID(state.id);
-                        setStateModalVisible(false);
-                      }}
-                      style={tw`py-4 border-b border-primaryGray`}
+                <View></View>
+                <Text style={tw`text-primary text-xl font-poppins`}>
+                  Select State
+                </Text>
+                <TouchableOpacity onPress={() => setStateModalVisible(false)}>
+                  <SvgXml xml={IconClose} />
+                </TouchableOpacity>
+              </View>
+              <View style={tw`max-h-64`}>
+                <ScrollView
+                  showsVerticalScrollIndicator={true}
+                  contentContainerStyle={tw`pb-4`}
+                >
+                  {isStateLoading ? (
+                    <ActivityIndicator
+                      size="small"
+                      color="#0000ff"
+                      style={tw`py-4`}
+                    />
+                  ) : stateData?.data?.length === 0 ? (
+                    <Text
+                      style={tw`text-center font-poppins text-gray-500 py-4`}
                     >
-                      <Text style={tw`text-center font-poppins text-base`}>
-                        {state.name}
-                      </Text>
-                    </TouchableOpacity>
-                  ))
-                )}
-              </ScrollView>
+                      No states available
+                    </Text>
+                  ) : (
+                    stateData?.data?.map((state: any) => (
+                      <TouchableOpacity
+                        key={state.id}
+                        onPress={() => {
+                          updateFormData("state", state.name);
+                          setStateID(state.id);
+                          setStateModalVisible(false);
+                        }}
+                        style={tw`py-4 border-b border-primaryGray`}
+                      >
+                        <Text style={tw`text-center font-poppins text-base`}>
+                          {state.name}
+                        </Text>
+                      </TouchableOpacity>
+                    ))
+                  )}
+                </ScrollView>
+              </View>
             </View>
           </View>
-        </View>
-      </Modal>
+        </Modal>
 
-      {/* City Selection Modal */}
+        {/* City Selection Modal */}
 
-      <Modal
-        visible={cityModalVisible}
-        transparent={true}
-        animationType="slide"
-        onRequestClose={() => setCityModalVisible(false)}
-      >
-        <View style={tw`flex-1 justify-end bg-black/50`}>
-          <View style={tw`bg-primary rounded-t-3xl w-full max-h-3/4`}>
-            <View
-              style={tw`bg-secondary w-full h-16 rounded-t-3xl flex-row items-center justify-between px-4`}
-            >
-              <View></View>
-              <Text style={tw`text-primary text-xl font-poppins`}>
-                Select City
-              </Text>
-              <TouchableOpacity onPress={() => setCityModalVisible(false)}>
-                <SvgXml xml={IconClose} />
-              </TouchableOpacity>
-            </View>
-
-            <View style={tw`max-h-64`}>
-              <ScrollView
-                showsVerticalScrollIndicator={true}
-                contentContainerStyle={tw`pb-4`}
+        <Modal
+          visible={cityModalVisible}
+          transparent={true}
+          animationType="slide"
+          onRequestClose={() => setCityModalVisible(false)}
+        >
+          <View style={tw`flex-1 justify-end bg-black/50`}>
+            <View style={tw`bg-primary rounded-t-3xl w-full max-h-3/4`}>
+              <View
+                style={tw`bg-secondary w-full h-16 rounded-t-3xl flex-row items-center justify-between px-4`}
               >
-                {isCityLoading ? (
-                  <ActivityIndicator
-                    size="small"
-                    color="#0000ff"
-                    style={tw`py-4`}
-                  />
-                ) : cityData?.data?.length === 0 ? (
-                  <Text style={tw`text-center font-poppins text-gray-500 py-4`}>
-                    {stateID
-                      ? "No cities available for this state"
-                      : "Please select a state first"}
-                  </Text>
-                ) : (
-                  cityData?.data?.map((city: any) => (
-                    <TouchableOpacity
-                      key={city.id}
-                      onPress={() => {
-                        updateFormData("city", city.name);
-                        setCityModalVisible(false);
-                      }}
-                      style={tw`py-4 border-b border-primaryGray`}
+                <View></View>
+                <Text style={tw`text-primary text-xl font-poppins`}>
+                  Select City
+                </Text>
+                <TouchableOpacity onPress={() => setCityModalVisible(false)}>
+                  <SvgXml xml={IconClose} />
+                </TouchableOpacity>
+              </View>
+
+              <View style={tw`max-h-64`}>
+                <ScrollView
+                  showsVerticalScrollIndicator={true}
+                  contentContainerStyle={tw`pb-4`}
+                >
+                  {isCityLoading ? (
+                    <ActivityIndicator
+                      size="small"
+                      color="#0000ff"
+                      style={tw`py-4`}
+                    />
+                  ) : cityData?.data?.length === 0 ? (
+                    <Text
+                      style={tw`text-center font-poppins text-gray-500 py-4`}
                     >
-                      <Text style={tw`text-center font-poppins text-base`}>
-                        {city.name}
-                      </Text>
-                    </TouchableOpacity>
-                  ))
-                )}
-              </ScrollView>
+                      {stateID
+                        ? "No cities available for this state"
+                        : "Please select a state first"}
+                    </Text>
+                  ) : (
+                    cityData?.data?.map((city: any) => (
+                      <TouchableOpacity
+                        key={city.id}
+                        onPress={() => {
+                          updateFormData("city", city.name);
+                          setCityModalVisible(false);
+                        }}
+                        style={tw`py-4 border-b border-primaryGray`}
+                      >
+                        <Text style={tw`text-center font-poppins text-base`}>
+                          {city.name}
+                        </Text>
+                      </TouchableOpacity>
+                    ))
+                  )}
+                </ScrollView>
+              </View>
             </View>
           </View>
-        </View>
-      </Modal>
+        </Modal>
 
-      {/* Category Selection Modal */}
-      <Modal
-        visible={categoryModalVisible}
-        transparent={true}
-        animationType="slide"
-        onRequestClose={() => setCategoryModalVisible(false)}
-      >
-        <View style={tw`flex-1 justify-end bg-black/50`}>
-          <View style={tw`bg-primary rounded-t-3xl w-full max-h-3/4`}>
-            <View
-              style={tw`bg-secondary w-full h-16 rounded-t-3xl flex-row items-center justify-between px-4`}
-            >
-              <View></View>
-              <Text style={tw`text-primary text-xl font-poppins`}>
-                Select Category
-              </Text>
-              <TouchableOpacity onPress={() => setCategoryModalVisible(false)}>
-                <SvgXml xml={IconClose} />
-              </TouchableOpacity>
-            </View>
-            <View style={tw`max-h-64`}>
-              <ScrollView
-                showsVerticalScrollIndicator={true}
-                contentContainerStyle={tw`pb-4`}
+        {/* Category Selection Modal */}
+        <Modal
+          visible={categoryModalVisible}
+          transparent={true}
+          animationType="slide"
+          onRequestClose={() => setCategoryModalVisible(false)}
+        >
+          <View style={tw`flex-1 justify-end bg-black/50`}>
+            <View style={tw`bg-primary rounded-t-3xl w-full max-h-3/4`}>
+              <View
+                style={tw`bg-secondary w-full h-16 rounded-t-3xl flex-row items-center justify-between px-4`}
               >
-                {isLoadingCategories ? (
-                  <ActivityIndicator
-                    size="small"
-                    color="#0000ff"
-                    style={tw`py-4`}
-                  />
-                ) : categoryData?.length === 0 ? (
-                  <Text style={tw`text-center font-poppins text-gray-500 py-4`}>
-                    No categories available
-                  </Text>
-                ) : (
-                  categoryData?.map((category: any) => (
-                    <TouchableOpacity
-                      key={category.id}
-                      onPress={() => {
-                        updateFormData("category", category.name);
-                        updateFormData("category_id", category.id);
-                        setCategoryModalVisible(false);
-                      }}
-                      style={tw`py-4 border-b border-primaryGray`}
+                <View></View>
+                <Text style={tw`text-primary text-xl font-poppins`}>
+                  Select Category
+                </Text>
+                <TouchableOpacity
+                  onPress={() => setCategoryModalVisible(false)}
+                >
+                  <SvgXml xml={IconClose} />
+                </TouchableOpacity>
+              </View>
+              <View style={tw`max-h-64`}>
+                <ScrollView
+                  showsVerticalScrollIndicator={true}
+                  contentContainerStyle={tw`pb-4`}
+                >
+                  {isLoadingCategories ? (
+                    <ActivityIndicator
+                      size="small"
+                      color="#0000ff"
+                      style={tw`py-4`}
+                    />
+                  ) : categoryData?.length === 0 ? (
+                    <Text
+                      style={tw`text-center font-poppins text-gray-500 py-4`}
                     >
-                      <Text style={tw`text-center font-poppins text-base`}>
-                        {category.name}
-                      </Text>
-                    </TouchableOpacity>
-                  ))
-                )}
-              </ScrollView>
+                      No categories available
+                    </Text>
+                  ) : (
+                    categoryData?.map((category: any) => (
+                      <TouchableOpacity
+                        key={category.id}
+                        onPress={() => {
+                          updateFormData("category", category.name);
+                          updateFormData("category_id", category.id);
+                          setCategoryModalVisible(false);
+                        }}
+                        style={tw`py-4 border-b border-primaryGray`}
+                      >
+                        <Text style={tw`text-center font-poppins text-base`}>
+                          {category.name}
+                        </Text>
+                      </TouchableOpacity>
+                    ))
+                  )}
+                </ScrollView>
+              </View>
             </View>
           </View>
-        </View>
-      </Modal>
-    </View>
+        </Modal>
+      </View>
+    </ScrollView>
   );
 };
 

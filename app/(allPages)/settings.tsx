@@ -522,7 +522,6 @@ const Settings = () => {
                       </View>
                     </View>
                   </View>
-
                   {/* Business locations with suggestions */}
                   <View style={tw`py-3 px-6`}>
                     <View
@@ -536,7 +535,7 @@ const Settings = () => {
                       {values.locations.map((location, index) => (
                         <View key={index} style={tw`py-2 relative `}>
                           <View
-                            style={tw` border border-primaryGray rounded-full`}
+                            style={tw`border border-primaryGray rounded-full`}
                           >
                             <TextInput
                               value={location.location}
@@ -555,12 +554,11 @@ const Settings = () => {
                                   setFieldValue("locations", newLocations);
                                 }
                               }}
-                              style={tw`py-4 px-4 w-48 rounded-full`}
+                              style={tw`py-4 px-4 w-36 rounded-full`}
                               placeholder="Enter location address"
                               placeholderTextColor="black"
                             />
                           </View>
-
                           {/* Location Suggestions */}
                           {location.showSuggestions &&
                             locationSuggestions.length > 0 && (
@@ -612,7 +610,7 @@ const Settings = () => {
                                 newLocations[index].showOfficeType = true;
                                 setFieldValue("locations", newLocations);
                               }}
-                              style={tw`absolute -top-12 right-2 border border-primaryGray w-2/5 rounded-full p-2 px-3 flex-row items-center gap-3`}
+                              style={tw`absolute -top-12 right-2 border border-primaryGray  rounded-full p-2 px-3 flex-row items-center gap-3`}
                             >
                               <Text style={tw`text-base mx-auto`}>
                                 {location.officeType || "Office type"}
