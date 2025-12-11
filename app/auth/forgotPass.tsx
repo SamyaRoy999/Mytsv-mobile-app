@@ -80,11 +80,13 @@ const forgotPass = () => {
                   showsVerticalScrollIndicator={false}
                   style={tw`mt-12`}
                 >
-                  <TouchableOpacity onPress={() => router.back()}>
-                    <SvgXml xml={IconBackAuth} style={tw`ml-5`} />
-                  </TouchableOpacity>
-                  <View style={tw`flex-row justify-end`}>
-                    <SvgXml xml={IconForgetNest} />
+                  <View style={tw`flex-row justify-between items-center`}>
+                    <TouchableOpacity onPress={() => router.back()}>
+                      <SvgXml xml={IconBackAuth} style={tw`ml-5`} />
+                    </TouchableOpacity>
+                    <View style={tw`flex-row justify-end`}>
+                      <SvgXml xml={IconForgetNest} />
+                    </View>
                   </View>
                   <View
                     style={tw`flex-col justify-center w-full pt-44 items-center my-11`}

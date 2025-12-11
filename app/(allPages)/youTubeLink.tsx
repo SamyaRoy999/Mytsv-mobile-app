@@ -157,7 +157,13 @@ const youTubeLink = () => {
       !selectedCity ||
       !selectedVisibility
     ) {
-      alert("Please fill all required fields");
+      Toast.show({
+        type: ALERT_TYPE.SUCCESS,
+        title: "worning",
+        textBody: "Please fill all required fields",
+        autoClose: 2000,
+      });
+      alert("");
       return null;
     }
 
@@ -181,7 +187,6 @@ const youTubeLink = () => {
       } as any);
     }
 
-    console.log(JSON.stringify(formData, null, 2), "//////////////////////");
     return formData;
   };
 
@@ -216,7 +221,12 @@ const youTubeLink = () => {
           });
         }
       } catch (err: any) {
-        alert("Failed to upload video");
+        Toast.show({
+          type: ALERT_TYPE.DANGER,
+          title: "Waring",
+          textBody: res?.message?.email?.[0] || "Something went wrong!",
+          autoClose: 2000,
+        });
       }
     }
   };
@@ -234,13 +244,10 @@ const youTubeLink = () => {
       const paymentData = {
         reason: "Uploading video",
         amount: amount,
-        payment_method: "pm_card_visa",
+        // payment_method: "pm_card_visa",
       };
 
       const res = await payment(paymentData).unwrap();
-      console.log(".............. res");
-      console.log(res);
-
       const successData = {
         id: res?.data?.id,
         amount: res.data?.amount,
@@ -256,8 +263,6 @@ const youTubeLink = () => {
         paymentIntentClientSecret: client_secret,
       });
       if (error) {
-        console.log(error, "initPaymentSheet ................ ");
-
         Toast.show({
           type: ALERT_TYPE.DANGER,
           title: "Error",
@@ -268,7 +273,6 @@ const youTubeLink = () => {
         setPaymentVisible(true);
       }
     } catch (error) {
-      console.log(error, "initPaymentSheet2................ ");
       Toast.show({
         type: ALERT_TYPE.DANGER,
         title: "Error",
@@ -283,7 +287,6 @@ const youTubeLink = () => {
 
     try {
       const { error } = await presentPaymentSheet();
-      console.log(error, "initPaymentSheet3................ ");
 
       if (error) {
         Toast.show({
@@ -343,8 +346,6 @@ const youTubeLink = () => {
         }
       }
     } catch (error) {
-      console.log(error, "Failed to upload video.............");
-
       Toast.show({
         type: ALERT_TYPE.DANGER,
         title: "Error",

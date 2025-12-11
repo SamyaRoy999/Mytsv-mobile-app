@@ -13,7 +13,6 @@ import { router } from "expo-router";
 import { Formik } from "formik";
 import React, { useState } from "react";
 import {
-  Alert,
   ScrollView,
   Text,
   TextInput,
@@ -63,8 +62,6 @@ const Change_Pass = () => {
         new_password: values.new_password,
         c_password: values.retype_password,
       });
-      console.log(response);
-
       if (response?.data?.status) {
         Toast.show({
           type: ALERT_TYPE.SUCCESS,
@@ -82,7 +79,11 @@ const Change_Pass = () => {
         });
       }
     } catch (error) {
-      Alert.alert("Error", "Password change failed!");
+      Toast.show({
+        type: ALERT_TYPE.SUCCESS,
+        textBody: "Password change failed!",
+        autoClose: 2000,
+      });
     }
   };
 

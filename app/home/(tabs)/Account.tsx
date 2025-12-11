@@ -363,14 +363,13 @@ const Account = () => {
                   </View>
                 </View>
               </TouchableOpacity>
-              {/*  Settings */}
+              {/* Settings */}
               <TouchableOpacity
                 style={tw`flex-row w-full justify-between items-center px-8 py-2`}
                 onPress={() => router.push("/(allPages)/settings")}
               >
                 <View style={tw` flex-row gap-2 py-3 rounded-lg items-center`}>
                   <SvgXml xml={IconSettings} />
-
                   <Text
                     style={tw`font-poppinsMedium text-base text-secondaryBlack`}
                   >
@@ -407,7 +406,7 @@ const Account = () => {
             {/* Reports */}
             <TouchableOpacity
               style={tw`flex-row w-full justify-between items-center px-8 py-2`}
-              onPress={() => router.push("/auth/change_pass")}
+              onPress={() => router.push("/(allPages)/change_pass")}
             >
               <View style={tw` flex-row gap-2 py-3 rounded-lg items-center`}>
                 <SvgXml xml={IconChangepass} />
@@ -527,7 +526,7 @@ const Account = () => {
               onPress={async () => {
                 await AsyncStorage.removeItem("token");
                 setToken(null);
-                router.push("/auth/login");
+                router.push("/home/(tabs)/landingPage");
               }}
             >
               <View style={tw` flex-row gap-2 py-3 rounded-lg items-center`}>
@@ -594,44 +593,6 @@ const Account = () => {
             </View>
           </View>
           <View style={tw``}>
-            {/* Reports */}
-            <TouchableOpacity
-              style={tw`flex-row w-full justify-between items-center px-8 py-2`}
-              onPress={() => router.push("/(allPages)/faqSection")}
-            >
-              <View style={tw` flex-row gap-2 py-3 rounded-lg items-center`}>
-                <SvgXml xml={IconFAQ} />
-                <Text
-                  style={tw`font-poppinsMedium text-base text-secondaryBlack`}
-                >
-                  FAQ
-                </Text>
-              </View>
-              <View style={tw``}>
-                <View style={tw`border-primaryGray`}>
-                  <SvgXml xml={IconBack} />
-                </View>
-              </View>
-            </TouchableOpacity>
-            {/* Aboutus */}
-            <TouchableOpacity
-              style={tw`flex-row w-full justify-between items-center px-8 py-2`}
-              onPress={() => router.push("/(allPages)/aboutUs")}
-            >
-              <View style={tw` flex-row gap-2 py-3 rounded-lg items-center`}>
-                <SvgXml xml={IconAboutus} />
-                <Text
-                  style={tw`font-poppinsMedium text-base text-secondaryBlack`}
-                >
-                  About us
-                </Text>
-              </View>
-              <View>
-                <View style={tw`border-primaryGray`}>
-                  <SvgXml xml={IconBack} />
-                </View>
-              </View>
-            </TouchableOpacity>
             {/* Reports */}
             <TouchableOpacity
               onPress={() => router.push("/(allPages)/contactUs")}

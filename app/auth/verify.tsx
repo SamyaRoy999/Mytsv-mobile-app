@@ -82,11 +82,13 @@ const Verify = () => {
       >
         <View style={tw`h-full bg-secondary`}>
           <AlertNotificationRoot>
-            <TouchableOpacity onPress={() => router.back()}>
-              <SvgXml xml={IconBackAuth} style={tw`ml-5 mt-5`} />
-            </TouchableOpacity>
-            <View style={tw`flex-row justify-end mt-12`}>
-              <SvgXml xml={IconForgetNest} />
+            <View style={tw`flex-row justify-between mt-12`}>
+              <TouchableOpacity style={tw`p-5`} onPress={() => router.back()}>
+                <SvgXml xml={IconBackAuth} />
+              </TouchableOpacity>
+              <View>
+                <SvgXml xml={IconForgetNest} />
+              </View>
             </View>
             <View
               style={tw`flex-col justify-center w-full pt-44 items-center my-11`}

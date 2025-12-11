@@ -99,7 +99,7 @@ const newPass = () => {
                     style={tw`absolute left-5 top-10`}
                     onPress={() => router.back()}
                   >
-                    <SvgXml xml={IconBackAuth} style={tw`ml-5 mt-5`} />
+                    <SvgXml xml={IconBackAuth} style={tw` mt-5`} />
                   </TouchableOpacity>
                   <View style={tw`flex-row justify-end `}>
                     <SvgXml xml={IconNewPass} />

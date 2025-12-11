@@ -242,7 +242,7 @@ const ChannelProfile = () => {
                   </View>
                 )}
                 {email && (
-                  <View style={tw`flex-row gap-3`}>
+                  <View style={tw`flex-row items-center gap-3`}>
                     <SvgXml xml={IconGmail} />
                     <Text style={tw`text-base font-poppins`}>{email}</Text>
                   </View>

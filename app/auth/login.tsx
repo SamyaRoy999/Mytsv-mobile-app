@@ -12,6 +12,7 @@ import { router } from "expo-router";
 import { Formik } from "formik";
 import React, { useRef } from "react";
 import {
+  ActivityIndicator,
   Image,
   KeyboardAvoidingView,
   ScrollView,
@@ -271,12 +272,26 @@ const login = () => {
                         onPress={() => {
                           handleSubmit();
                         }}
+                        disabled={loginResults.isLoading} // Disable button when loading
                       >
-                        <Text
-                          style={tw`text-primary  text-center  text-lg py-[14px] font-poppinsBold`}
-                        >
-                          Login
-                        </Text>
+                        {loginResults.isLoading ? (
+                          <View
+                            style={tw`flex-row justify-center items-center py-[14px]`}
+                          >
+                            <ActivityIndicator color="#fff" size="small" />
+                            <Text
+                              style={tw`text-primary text-center text-lg ml-2 font-poppinsBold`}
+                            >
+                              Logging in...
+                            </Text>
+                          </View>
+                        ) : (
+                          <Text
+                            style={tw`text-primary text-center text-lg py-[14px] font-poppinsBold`}
+                          >
+                            Login
+                          </Text>
+                        )}
                       </TouchableOpacity>
                       {/* google sign in button  */}
                       <TouchableOpacity

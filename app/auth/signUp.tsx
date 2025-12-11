@@ -7,6 +7,7 @@ import { router } from "expo-router";
 import { Formik } from "formik";
 import React from "react";
 import {
+  ActivityIndicator,
   Image,
   KeyboardAvoidingView,
   ScrollView,
@@ -28,7 +29,7 @@ const signUp = () => {
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
   const [isChecked, setChecked] = React.useState(false);
 
-  const [registerUser] = useRegisterUserMutation();
+  const [registerUser, { isLoading }] = useRegisterUserMutation();
 
   return (
     <KeyboardAvoidingView
@@ -254,20 +255,32 @@ const signUp = () => {
                         </Text>
                       )}
                       <TouchableOpacity
-                        style={tw`bg-secondary rounded-full mx-6`}
+                        style={[
+                          tw`rounded-full mx-6`,
+                          isLoading ? tw`bg-gray-400` : tw`bg-secondary`,
+                        ]}
                         onPress={() => {
                           handleSubmit();
-                          // router.replace("/home/(tabs)/landingPage");
                         }}
+                        disabled={isLoading}
                       >
-                        <Text
-                          style={tw`text-primary  text-center  text-lg py-[14px] font-poppinsBold`}
+                        <View
+                          style={tw`flex-row justify-center items-center py-[14px]`}
                         >
-                          Sign up
-                        </Text>
+                          {isLoading && (
+                            <ActivityIndicator
+                              color="#fff"
+                              size="small"
+                              style={tw`mr-2`}
+                            />
+                          )}
+                          <Text
+                            style={tw`text-primary text-center text-lg font-poppinsBold`}
+                          >
+                            {isLoading ? "Creating Account..." : "Sign up"}
+                          </Text>
+                        </View>
                       </TouchableOpacity>
-                      {/* google sign in button  */}
-                      {/* <GoogleSigninButton onPress={signIn} /> */}
 
                       <View style={tw`flex-row justify-center gap-3 mt-7`}>
                         <Text style={tw` text-base font-poppinsMedium`}>

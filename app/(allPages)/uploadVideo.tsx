@@ -299,7 +299,7 @@ const UploadVideo = () => {
       const paymentData = {
         reason: "Uploading video",
         amount,
-        payment_method: "pm_card_visa",
+        // payment_method: "pm_card_visa",
       };
 
       const res = await payment(paymentData).unwrap();
