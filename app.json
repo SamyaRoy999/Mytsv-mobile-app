@@ -4,7 +4,7 @@
     "slug": "usaybek",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/LogoIcon.png",
     "scheme": "usaybek",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -20,7 +20,6 @@
         "googleMapsApiKey": "AIzaSyBayI9g3oFshYVEOzBoKGapFbXijcgR6xE"
       }
     },
-
     "android": {
       "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
@@ -30,18 +29,10 @@
       "edgeToEdgeEnabled": true,
       "googleServicesFile": "./google-services.json",
       "package": "com.anonymous.usaybek",
-      "versionCode": 9,
-      "permissions": [
-        "android.permission.ACCESS_COARSE_LOCATION",
-        "android.permission.ACCESS_FINE_LOCATION",
-        "android.permission.ACCESS_BACKGROUND_LOCATION",
-        "android.permission.ACCESS_COARSE_LOCATION",
-        "android.permission.ACCESS_FINE_LOCATION",
-        "android.permission.ACCESS_BACKGROUND_LOCATION",
-        "android.permission.FOREGROUND_SERVICE",
-        "android.permission.FOREGROUND_SERVICE_LOCATION",
-        "android.permission.RECORD_AUDIO"
-      ],
+      "versionCode": 53,
+
+      "permissions": ["ACCESS_FINE_LOCATION", "CAMERA", "READ_MEDIA_VIDEO"],
+
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyBayI9g3oFshYVEOzBoKGapFbXijcgR6xE"
@@ -58,7 +49,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon-dark",
+          "image": "./assets/images/splashIconDark.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
@@ -76,14 +67,13 @@
           }
         }
       ],
-      "expo-video",
       "expo-maps",
       [
         "expo-location",
         {
           "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location.",
           "locationWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location.",
-          "isAndroidBackgroundLocationEnabled": true
+          "isAndroidBackgroundLocationEnabled": false
         }
       ],
       [
@@ -102,7 +92,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "8f479d0c-d230-4d41-af39-324488b56e16"
+        "projectId": "9a48c6d2-67c2-4f4e-8127-369ea90382de"
       }
     }
   }

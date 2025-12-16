@@ -29,7 +29,7 @@ import {
   useVideodetailQuery,
   useWatchVideoMutation,
 } from "@/redux/apiSlices/videoDetails/videoDetailsSlice";
-import { _Width } from "@/utils/utils";
+import { _HIGHT, _Width } from "@/utils/utils";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Clipboard from "expo-clipboard";
 import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
@@ -54,6 +54,7 @@ import {
   Toast,
 } from "react-native-alert-notification";
 import { SvgXml } from "react-native-svg";
+import WebView from "react-native-webview";
 import YoutubeIframe from "react-native-youtube-iframe";
 
 const SingleVideo = () => {
@@ -347,6 +348,24 @@ const SingleVideo = () => {
       </View>
     );
   }
+
+  const htmlContent = `
+      <html>
+        <head>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <style>
+            body {
+              margin: 0;
+              padding: 0;
+              font-size: 16px;
+            }
+          </style>
+        </head>
+        <body>
+          ${videoDetails?.description}
+        </body>
+      </html>
+    `;
 
   return (
     <KeyboardAvoidingView
@@ -928,9 +947,16 @@ const SingleVideo = () => {
                       </Text>
                     </View>
                   </View>
-                  <Text style={tw`font-poppins text-base text-black leading-6`}>
-                    {videoDetails?.description || "No description available"}
-                  </Text>
+                  <View style={[tw`px-1`, { height: _HIGHT }]}>
+                    <WebView
+                      originWhitelist={["*"]}
+                      source={{ html: htmlContent }}
+                      style={tw`flex-1 bg-primary`}
+                      scrollEnabled={false}
+                      showsVerticalScrollIndicator={false}
+                      showsHorizontalScrollIndicator={false}
+                    />
+                  </View>
                 </ScrollView>
               </View>
             </View>

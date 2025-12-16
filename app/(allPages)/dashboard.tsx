@@ -96,7 +96,7 @@ const dashboard = () => {
                 ]}
               >
                 <SvgXml xml={IconLoction} />
-                <Text style={tw`text-base font-poppins`}>
+                <Text style={tw`text-base  font-poppins pr-5`}>
                   {
                     locations?.find((loc: any) => loc.type === "head-office")
                       ?.location

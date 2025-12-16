@@ -52,7 +52,11 @@ export default function RootLayout() {
         backgroundColor="transparent"
         barStyle={"dark-content"}
       />
-      <StripeProvider publishableKey={PublishableKey as string}>
+      <StripeProvider
+        publishableKey={
+          "pk_live_51OtCKTB9uNXBCzh8AwSr5TwsJuWMptI0EqAomrX6ByBFrBixMB8NwLhnF8lJihD2MSEWdMzjIxXCYPyX5wFiNZC000doszgICW"
+        }
+      >
         <AlertNotificationRoot>
           <GestureHandlerRootView>
             <Provider store={store}>

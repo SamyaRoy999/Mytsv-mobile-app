@@ -583,7 +583,7 @@ const Settings = () => {
                                               values
                                             )
                                           }
-                                          style={tw`p-3 border-b border-primaryGray`}
+                                          style={tw`p-3  border-primaryGray`}
                                         >
                                           <Text
                                             style={tw`font-poppinsMedium text-base`}

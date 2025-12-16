@@ -186,7 +186,7 @@ const ChannelProfile = () => {
                   <SvgXml xml={IconBackLeft} />
                 </View>
               </TouchableOpacity>
-              <Text style={tw`font-poppinsMedium text-xl`}>
+              <Text style={tw`font-poppinsMedium text-xl px-5`}>
                 {channel_name || "Channel Profile"}
               </Text>
               <View></View>
@@ -223,8 +223,8 @@ const ChannelProfile = () => {
 
             {/* Channel Info */}
             <View style={tw`mt-14 flex-row justify-center`}>
-              <View style={tw`flex-1 items-center justify-center`}>
-                <Text style={tw`font-poppinsMedium text-xl pb-2`}>
+              <View style={tw`flex-1 items-center justify-center px-5`}>
+                <Text style={tw`font-poppinsMedium text-center text-lg pb-2`}>
                   {channel_name || "Unknown Channel"}
                 </Text>
                 {headOffice?.location && (
@@ -242,7 +242,7 @@ const ChannelProfile = () => {
                   </View>
                 )}
                 {email && (
-                  <View style={tw`flex-row items-center gap-3`}>
+                  <View style={tw`flex-row items-center gap-3 px-5`}>
                     <SvgXml xml={IconGmail} />
                     <Text style={tw`text-base font-poppins`}>{email}</Text>
                   </View>
