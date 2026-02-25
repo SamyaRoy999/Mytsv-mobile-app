@@ -248,6 +248,8 @@ const youTubeLink = () => {
       };
 
       const res = await payment(paymentData).unwrap();
+      console.log(res, "respons for initen -----------------------");
+
       const successData = {
         id: res?.data?.id,
         amount: res.data?.amount,

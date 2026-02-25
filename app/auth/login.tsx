@@ -106,7 +106,6 @@ const login = () => {
 
   const emailRef = useRef<TextInput>(null);
   const passwordRef = useRef<TextInput>(null);
-
   return (
     <KeyboardAvoidingView
       style={tw`flex-1 `}
@@ -114,7 +113,7 @@ const login = () => {
       behavior={"padding"}
     >
       <ScrollView
-        contentContainerStyle={tw`flex-grow justify-center dark:bg-base-dark  `}
+        contentContainerStyle={tw`flex-grow justify-center dark:bg-base-dark`}
         showsVerticalScrollIndicator={false}
       >
         <View style={tw` bg-secondary h-full`}>
@@ -272,7 +271,7 @@ const login = () => {
                         onPress={() => {
                           handleSubmit();
                         }}
-                        disabled={loginResults.isLoading} // Disable button when loading
+                        disabled={loginResults.isLoading}
                       >
                         {loginResults.isLoading ? (
                           <View
