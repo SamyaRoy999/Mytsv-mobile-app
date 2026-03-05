@@ -85,7 +85,7 @@ function CustomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
         refetchUser();
       };
       checkToken();
-    }, [])
+    }, []),
   );
 
   useEffect(() => {
@@ -180,7 +180,17 @@ function CustomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
           </LinearGradient>
         </TouchableOpacity>
       ) : (
-        <View></View>
+        <TouchableOpacity
+          onPress={() => router.push("/auth/login")}
+          style={tw`absolute bottom-12`}
+        >
+          <LinearGradient
+            colors={["#EF4444", "#FF6868"]}
+            style={tw`w-12 h-12 rounded-full justify-center items-center shadow-lg`}
+          >
+            <SvgXml xml={IconAdd} />
+          </LinearGradient>
+        </TouchableOpacity>
       )}
 
       {/* Upload Modal */}

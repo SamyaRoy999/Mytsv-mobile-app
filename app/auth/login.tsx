@@ -108,7 +108,7 @@ const login = () => {
   const passwordRef = useRef<TextInput>(null);
   return (
     <KeyboardAvoidingView
-      style={tw`flex-1 `}
+      style={tw`flex-1`}
       enabled={true}
       behavior={"padding"}
     >
