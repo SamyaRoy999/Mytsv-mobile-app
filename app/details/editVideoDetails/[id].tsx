@@ -102,7 +102,7 @@ const EditVideoDetails = () => {
   useFocusEffect(
     useCallback(() => {
       singleVideoRefetch();
-    }, [])
+    }, []),
   );
   useEffect(() => {
     if (singleVideo?.data) {
@@ -154,8 +154,8 @@ const EditVideoDetails = () => {
     type === "link"
       ? video
       : selectedVideos
-      ? { uri: selectedVideos.uri }
-      : video;
+        ? { uri: selectedVideos.uri }
+        : video;
   const player = useVideoPlayer(videoSource, (player) => {
     if (!isPlayerInitialized.current && type !== "link") {
       player.loop = true;
@@ -184,7 +184,7 @@ const EditVideoDetails = () => {
           } catch (error) {}
         }
       };
-    }, [type])
+    }, [type]),
   );
 
   useEffect(() => {
@@ -367,7 +367,7 @@ const EditVideoDetails = () => {
                 <TextInput
                   style={tw`border border-primaryGray px-6 py-4 rounded-full`}
                   placeholder="YouTube video URL"
-                  placeholderTextColor="gray"
+                  placeholderTextColor="#777"
                   value={youtubeLink}
                   onChangeText={setYoutubeLink}
                 />

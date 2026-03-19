@@ -68,7 +68,7 @@ const SingleVideo = () => {
   const [descriptionVisible, setDescriptionVisible] = useState(false);
   const [replyVisible, setReplyVisible] = useState(false);
   const [likeDislike, setLikeDislike] = useState<"like" | "dislike" | null>(
-    null
+    null,
   );
 
   const [comment, setComment] = useState("");
@@ -123,7 +123,7 @@ const SingleVideo = () => {
           } catch (e) {}
         }
       };
-    }, [])
+    }, []),
   );
 
   useEffect(() => {
@@ -177,7 +177,7 @@ const SingleVideo = () => {
         setToken(userToken as any);
       };
       checkToken();
-    }, [])
+    }, []),
   );
 
   const extractYoutubeId = (url: string) => {
@@ -952,7 +952,7 @@ const SingleVideo = () => {
                     <WebView
                       originWhitelist={["*"]}
                       source={{ html: htmlContent }}
-                      style={tw`flex-1 bg-primary`}
+                      style={tw`flex-1 `}
                       scrollEnabled={false}
                       showsVerticalScrollIndicator={false}
                       showsHorizontalScrollIndicator={false}
