@@ -63,7 +63,7 @@ const signUp = () => {
                 // .matches(/[!@#$%^&*(),.?":{}|<>]/, "Password must contain at least one special character"),
 
                 c_password: Yup.string().required(
-                  "Confirm Password is required"
+                  "Confirm Password is required",
                 ),
                 // .min(8, "Password must be at least 8 characters long")
                 // .matches(/[a-z]/, "Password must contain at least one lowercase letter")
@@ -90,7 +90,7 @@ const signUp = () => {
                       autoClose: 2000,
                     });
                     router.push(
-                      `/auth/verify?email=${values?.email}&flow=register`
+                      `/auth/verify?email=${values?.email}&flow=register`,
                     );
                   } else {
                     Toast.show({
@@ -188,6 +188,7 @@ const signUp = () => {
                           <TextInput
                             style={tw`border border-primaryGray rounded-full font-poppins text-base px-5 h-14`}
                             placeholder="Email"
+                            placeholderTextColor="black"
                             value={values.email}
                             onChangeText={(txt) => setFieldValue("email", txt)}
                           />

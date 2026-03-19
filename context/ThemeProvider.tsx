@@ -15,6 +15,7 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
         flex: 1,
         paddingTop: isAuthPage ? 0 : HI.top,
         paddingBottom: HI.bottom,
+        backgroundColor: "#f6f6f6",
       }}
     >
       {children}

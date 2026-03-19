@@ -97,7 +97,7 @@ const Search = () => {
       setSearchHistory(updatedHistory);
       await AsyncStorage.setItem(
         SEARCH_HISTORY_KEY,
-        JSON.stringify(updatedHistory)
+        JSON.stringify(updatedHistory),
       );
     } catch (error) {}
   };
@@ -114,7 +114,7 @@ const Search = () => {
       setLocationHistory(updatedHistory);
       await AsyncStorage.setItem(
         LOCATION_HISTORY_KEY,
-        JSON.stringify(updatedHistory)
+        JSON.stringify(updatedHistory),
       );
     } catch (error) {}
   };
@@ -250,6 +250,7 @@ const Search = () => {
           >
             <TextInput
               placeholder="Search by title or hashtag (e.g. Book Name, #good)"
+              placeholderTextColor="#777"
               style={tw`flex-1 px-4 py-3 text-secondarygray`}
               value={hashtag}
               onChangeText={(text) => {

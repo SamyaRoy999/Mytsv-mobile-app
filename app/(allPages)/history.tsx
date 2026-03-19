@@ -69,7 +69,7 @@ const HistoryScreen = () => {
           } else {
             setHistory((prev) => {
               const newItems = res.data.data.filter(
-                (newItem: any) => !prev.some((item) => item.id === newItem.id)
+                (newItem: any) => !prev.some((item) => item.id === newItem.id),
               );
               return [...prev, ...newItems];
             });
@@ -81,7 +81,7 @@ const HistoryScreen = () => {
         setLoadingMore(false);
       }
     },
-    [page, searchQuery, fetchHistory, isFetching]
+    [page, searchQuery, fetchHistory, isFetching],
   );
 
   const onRefresh = async () => {
@@ -306,6 +306,7 @@ const HistoryScreen = () => {
             <TextInput
               style={tw`flex-1 font-poppins text-base px-4 h-14`}
               placeholder="Search watch history"
+              placeholderTextColor="#777"
               value={search}
               onChangeText={handleSearchChange}
               onSubmitEditing={handleSearchSubmit}

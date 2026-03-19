@@ -14,7 +14,6 @@ import {
   IconYoutub,
 } from "@/icons/Icon";
 import tw from "@/lib/tailwind";
-import { usePriceGetAllQuery } from "@/redux/apiSlices/Home/homeApiSlices";
 import { useMyProfileQuery } from "@/redux/apiSlices/MyVideo/myvideoSlice";
 import { _Width } from "@/utils/utils";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -28,6 +27,7 @@ import {
   Dimensions,
   Modal,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -74,8 +74,6 @@ function CustomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 
   const translateX = useRef(new Animated.Value(0)).current;
   const [uploadModalVisible, setUploadModalVisible] = useState(false);
-
-  const { data: price } = usePriceGetAllQuery({});
 
   useFocusEffect(
     useCallback(() => {
@@ -208,7 +206,7 @@ function CustomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
           <TouchableOpacity
             activeOpacity={1}
             style={tw`w-full`}
-            onPress={(e) => e.stopPropagation()} // Prevent closing when modal content is pressed
+            onPress={(e) => e.stopPropagation()}
           >
             <View style={tw`bg-primary rounded-t-3xl w-full h-80`}>
               <View
@@ -236,12 +234,7 @@ function CustomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
                   >
                     <View style={tw`flex-row items-center gap-3`}>
                       <SvgXml xml={IconUpload} />
-                      <Text style={tw`text-lg font-poppins`}>
-                        Upload video{" "}
-                        <Text style={tw`text-sm`}>
-                          ({price?.data?.uploading_video})
-                        </Text>
-                      </Text>
+                      <Text style={tw`text-lg font-poppins`}>Upload video</Text>
                     </View>
                     <SvgXml xml={IconBack} />
                   </TouchableOpacity>
@@ -254,12 +247,7 @@ function CustomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
                   >
                     <View style={tw`flex-row items-center gap-3`}>
                       <SvgXml xml={IconYoutub} />
-                      <Text style={tw`text-lg font-poppins`}>
-                        YouTube Link{" "}
-                        <Text style={tw`text-sm`}>
-                          ({price?.data?.uploading_youTube_link})
-                        </Text>
-                      </Text>
+                      <Text style={tw`text-lg font-poppins`}>YouTube Link</Text>
                     </View>
                     <SvgXml xml={IconBack} />
                   </TouchableOpacity>
@@ -279,6 +267,11 @@ const TabLayout = () => {
       screenOptions={{ headerShown: false }}
       tabBar={(props) => <CustomTabBar {...props} />}
     >
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+        barStyle={"dark-content"}
+      />
       <Tabs.Screen name="landingPage" options={{ title: "Home" }} />
       <Tabs.Screen name="Blogs" options={{ title: "Blogs" }} />
       <Tabs.Screen name="Promotions" options={{ title: "Promotions" }} />

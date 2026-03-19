@@ -29,7 +29,7 @@
       "edgeToEdgeEnabled": true,
       "googleServicesFile": "./google-services.json",
       "package": "com.anonymous.usaybek",
-      "versionCode": 62,
+      "versionCode": 63,
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyBayI9g3oFshYVEOzBoKGapFbXijcgR6xE"

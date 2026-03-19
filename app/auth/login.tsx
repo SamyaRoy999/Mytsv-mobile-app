@@ -218,7 +218,7 @@ const login = () => {
                         <View style={tw`py-3 px-6 relative`}>
                           <TextInput
                             ref={passwordRef}
-                            style={tw`border border-primaryGray rounded-full font-poppins text-base px-5 h-14`}
+                            style={tw`border border-primaryGray rounded-full font-poppins text-black px-5 h-14`}
                             placeholder="Password"
                             placeholderTextColor="black"
                             secureTextEntry={!showNewPassword}
