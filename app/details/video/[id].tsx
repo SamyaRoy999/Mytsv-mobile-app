@@ -915,7 +915,10 @@ const SingleVideo = () => {
                     <SvgXml xml={IconClose} />
                   </TouchableOpacity>
                 </View>
-                <ScrollView contentContainerStyle={tw`p-6`}>
+                <ScrollView
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={tw`p-6`}
+                >
                   <Text style={tw`text-lg font-poppinsMedium py-4`}>
                     {videoDetails?.title}
                   </Text>

@@ -50,7 +50,7 @@ const LandingPage = () => {
         // Filter out duplicates before adding new posts
         const existingIds = new Set(homePagedata.map((post) => post.id));
         const uniqueNewPosts = newPosts.filter(
-          (post: any) => !existingIds.has(post.id)
+          (post: any) => !existingIds.has(post.id),
         );
         setHomePagedata((prev) => [...prev, ...uniqueNewPosts]);
       }
@@ -99,7 +99,7 @@ const LandingPage = () => {
         `px-4 py-2 rounded-xl mx-1`,
         selectedCategory === item.id
           ? `bg-secondaryRed100`
-          : `border border-secondary `
+          : `border border-secondary `,
       )}
       onPress={() => setSelectedCategory(item.id)}
     >
@@ -108,7 +108,7 @@ const LandingPage = () => {
           `text-sm font-poppinsMedium`,
           selectedCategory === item.id
             ? `text-gray-900`
-            : `text-secondaryBlack text-secondary `
+            : `text-secondaryBlack text-secondary `,
         )}
       >
         {item.name}
@@ -135,7 +135,7 @@ const LandingPage = () => {
                   `px-4 py-2 rounded-xl mx-1`,
                   selectedCategory === null
                     ? `bg-secondaryRed100`
-                    : `border border-secondary`
+                    : `border border-secondary`,
                 )}
                 onPress={() => setSelectedCategory(null)}
               >
@@ -144,7 +144,7 @@ const LandingPage = () => {
                     `text-sm font-poppinsMedium`,
                     selectedCategory === null
                       ? `text-gray-900`
-                      : `text-secondary `
+                      : `text-secondary `,
                   )}
                 >
                   All
