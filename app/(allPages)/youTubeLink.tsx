@@ -541,7 +541,7 @@ const youTubeLink = () => {
                   >
                     <SvgXml xml={IconUploadBlue} />
                     <Text style={tw`font-poppins text-base text-[#3B97D3]`}>
-                      Upload an image
+                      Upload image
                     </Text>
                   </TouchableOpacity>
                 </View>
