@@ -60,14 +60,14 @@ const youTubeLink = () => {
   const [selectedVisibility, setSelectedVisibility] = React.useState("");
   const [selectedTags, setSelectedTags] = React.useState("");
   const [image, setImage] = React.useState<ImagePicker.ImagePickerAsset | null>(
-    null
+    null,
   );
   const [tags, setTags] = React.useState<string[]>([]);
   const [paymentIntentData, setPaymentIntentData] = React.useState<any>(null);
   const [isProcessing, setIsProcessing] = React.useState(false);
   const [stateID, setStateID] = React.useState(false);
   const [pendingFormData, setPendingFormData] = React.useState<FormData | null>(
-    null
+    null,
   );
 
   // ............stripe ..............//
@@ -248,8 +248,6 @@ const youTubeLink = () => {
       };
 
       const res = await payment(paymentData).unwrap();
-      console.log(res, "respons for initen -----------------------");
-
       const successData = {
         id: res?.data?.id,
         amount: res.data?.amount,
@@ -841,26 +839,27 @@ const youTubeLink = () => {
                       <SvgXml xml={IconClose} />
                     </TouchableOpacity>
                   </View>
-                  <FlatList
-                    data={categoryData}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item }) => (
-                      <TouchableOpacity
-                        onPress={() => {
-                          setSelectedCategory(item?.name);
-                          setCategoryID(item?.id);
-                          setCategoryModalVisible(false);
-                        }}
-                        style={tw`py-4 border-b border-primaryGray`}
-                      >
-                        <Text style={tw`text-center font-poppins text-base`}>
-                          {item?.name}
-                        </Text>
-                      </TouchableOpacity>
-                    )}
-                    showsVerticalScrollIndicator={false}
-                    scrollEnabled={false}
-                  />
+                  <View style={tw`max-h-80`}>
+                    <FlatList
+                      data={categoryData}
+                      keyExtractor={(item) => item.id.toString()}
+                      renderItem={({ item }) => (
+                        <TouchableOpacity
+                          onPress={() => {
+                            setSelectedCategory(item?.name);
+                            setCategoryID(item?.id);
+                            setCategoryModalVisible(false);
+                          }}
+                          style={tw`py-4 border-b border-primaryGray`}
+                        >
+                          <Text style={tw`text-center font-poppins text-base`}>
+                            {item?.name}
+                          </Text>
+                        </TouchableOpacity>
+                      )}
+                      showsVerticalScrollIndicator={false}
+                    />
+                  </View>
                 </View>
               </View>
             </Modal>

@@ -54,7 +54,7 @@ const Promotions = () => {
 
         responseData.forEach((newCategory: any) => {
           const existingIndex = mergedData.findIndex(
-            (cat) => cat.id === newCategory.id
+            (cat) => cat.id === newCategory.id,
           );
 
           if (existingIndex >= 0) {
@@ -64,10 +64,10 @@ const Promotions = () => {
 
             // Filter out duplicate videos
             const existingVideoIds = new Set(
-              existingVideos.map((v: any) => v.id)
+              existingVideos.map((v: any) => v.id),
             );
             const uniqueNewVideos = newVideos.filter(
-              (video: any) => !existingVideoIds.has(video.id)
+              (video: any) => !existingVideoIds.has(video.id),
             );
 
             mergedData[existingIndex] = {

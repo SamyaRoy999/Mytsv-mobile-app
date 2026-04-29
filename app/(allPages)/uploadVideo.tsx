@@ -340,7 +340,7 @@ const UploadVideo = () => {
 
   const checkout = async (
     item: FormData,
-    paymentInfo: { id: string; reason: string; amount: number | string }
+    paymentInfo: { id: string; reason: string; amount: number | string },
   ) => {
     setIsProcessing(true);
     try {
@@ -856,7 +856,7 @@ const UploadVideo = () => {
             animationType="slide"
             onRequestClose={() => setCategoryModalVisible(false)}
           >
-            <View style={tw`flex-1 justify-end bg-black/50`}>
+            <View style={tw`flex-1  justify-end bg-black/50`}>
               <View style={tw`bg-primary rounded-t-3xl w-full`}>
                 <View
                   style={tw`bg-secondary w-full h-16 rounded-t-3xl flex-row items-center justify-between px-4`}
@@ -871,27 +871,28 @@ const UploadVideo = () => {
                     <SvgXml xml={IconClose} />
                   </TouchableOpacity>
                 </View>
-
-                <FlatList
-                  data={categoryData}
-                  keyExtractor={(item: any) => String(item.id)}
-                  renderItem={({ item }) => (
-                    <TouchableOpacity
-                      onPress={() => {
-                        updateFormData("category", item?.name);
-                        updateFormData("category_id", item?.id);
-                        setCategoryModalVisible(false);
-                      }}
-                      style={tw`py-4 border-b border-primaryGray`}
-                    >
-                      <Text style={tw`text-center font-poppins text-base`}>
-                        {item?.name}
-                      </Text>
-                    </TouchableOpacity>
-                  )}
-                  showsVerticalScrollIndicator={false}
-                  scrollEnabled={false}
-                />
+                <View style={tw`max-h-80`}>
+                  <FlatList
+                    data={categoryData}
+                    keyExtractor={(item: any) => String(item.id)}
+                    renderItem={({ item }) => (
+                      <TouchableOpacity
+                        onPress={() => {
+                          updateFormData("category", item?.name);
+                          updateFormData("category_id", item?.id);
+                          setCategoryModalVisible(false);
+                        }}
+                        style={tw`py-4 border-b border-primaryGray`}
+                      >
+                        <Text style={tw`text-center font-poppins text-base`}>
+                          {item?.name}
+                        </Text>
+                      </TouchableOpacity>
+                    )}
+                    showsVerticalScrollIndicator={false}
+                    // scrollEnabled={false}
+                  />
+                </View>
               </View>
             </View>
           </Modal>

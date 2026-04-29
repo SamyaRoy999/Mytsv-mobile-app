@@ -21,31 +21,33 @@ const Blogs = () => {
   const [loadingMore, setLoadingMore] = useState(false);
   const [blog, setBlogs] = useState<any[]>([]);
   const [hasMore, setHasMore] = useState<boolean>(true);
+  const [initialLoading, setInitialLoading] = useState<boolean>(true);
 
-  const [fetchBlogs, { isLoading, isFetching }] = useLazyBlogsQuery();
+  const [fetchBlogs, { isFetching }] = useLazyBlogsQuery();
 
   const loadPosts = async (pageNum = 1, isRefresh = false) => {
     try {
-      if ((isLoading || isFetching || loadingMore) && !isRefresh) return;
+      if (loadingMore && !isRefresh) return;
+
       setLoadingMore(true);
+
       const res = await fetchBlogs({ page: pageNum }).unwrap();
 
-      const responseData = res?.data?.data || res;
-      const newPosts = responseData?.data?.data || responseData || [];
+      const paginatedData = res?.data;
+      const newPosts: any[] = paginatedData?.data || [];
 
       if (isRefresh) {
         setBlogs(newPosts);
       } else {
-        // Filter out duplicates before adding new posts
         const existingIds = new Set(blog.map((post) => post.id));
         const uniqueNewPosts = newPosts.filter(
-          (post: any) => !existingIds.has(post.id)
+          (post: any) => !existingIds.has(post.id),
         );
         setBlogs((prev) => [...prev, ...uniqueNewPosts]);
       }
 
-      const currentPage = responseData.current_page || pageNum;
-      const lastPage = responseData.last_page || 1;
+      const currentPage: number = paginatedData?.current_page || pageNum;
+      const lastPage: number = paginatedData?.last_page || 1;
 
       setHasMore(currentPage < lastPage);
       setPage(currentPage + 1);
@@ -53,6 +55,7 @@ const Blogs = () => {
     } finally {
       setRefreshing(false);
       setLoadingMore(false);
+      setInitialLoading(false);
     }
   };
 
@@ -65,7 +68,6 @@ const Blogs = () => {
 
   const handleLoadMore = () => {
     if (!loadingMore && hasMore && !isFetching) {
-      setLoadingMore(true);
       loadPosts(page);
     }
   };
@@ -77,7 +79,6 @@ const Blogs = () => {
   const renderItem = ({ item }: any) => {
     const { description, title, image } = item;
 
-    // Extract plain text from HTML description
     const plainText = description.replace(/<[^>]*>/g, "");
     const descriptionData = plainText.split(" ").slice(0, 25).join(" ");
 
@@ -116,7 +117,7 @@ const Blogs = () => {
           />
 
           <View style={tw`p-4`}>
-            <Text style={tw`font-poppinsMedium text-lg `}>{title}</Text>
+            <Text style={tw`font-poppinsMedium text-lg`}>{title}</Text>
             <View style={{ height: _HIGHT * 0.08 }}>
               <WebView
                 originWhitelist={["*"]}
@@ -139,11 +140,14 @@ const Blogs = () => {
     );
   };
 
-  if (isLoading && blog.length === 0) {
+  if (initialLoading) {
     return (
-      <View style={tw`flex-1 justify-center items-center`}>
-        <ActivityIndicator size="large" color="#0000ff" />
-        <Text style={tw`mt-2`}>Loading blogs...</Text>
+      <View style={tw`flex-1 bg-gray-50`}>
+        <HeaderBar />
+        <View style={tw`flex-1 justify-center items-center`}>
+          <ActivityIndicator size="large" color="#0000ff" />
+          <Text style={tw`mt-2 text-gray-500`}>Loading blogs...</Text>
+        </View>
       </View>
     );
   }
@@ -160,7 +164,7 @@ const Blogs = () => {
         onEndReachedThreshold={0.5}
         showsVerticalScrollIndicator={false}
         renderItem={renderItem}
-        contentContainerStyle={tw` pb-10`}
+        contentContainerStyle={tw`pb-10`}
         ListHeaderComponent={
           <View>
             <HeaderBar />
@@ -180,11 +184,9 @@ const Blogs = () => {
           ) : null
         }
         ListEmptyComponent={
-          !isLoading ? (
-            <View style={tw`py-10 flex justify-center items-center`}>
-              <Text style={tw`text-gray-500`}>No blogs found</Text>
-            </View>
-          ) : null
+          <View style={tw`py-10 flex justify-center items-center`}>
+            <Text style={tw`text-gray-500`}>No blogs found</Text>
+          </View>
         }
       />
     </View>

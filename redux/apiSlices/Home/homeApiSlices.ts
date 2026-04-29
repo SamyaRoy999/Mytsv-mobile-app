@@ -55,8 +55,6 @@ export const homeApiSlices = api.injectEndpoints({
       query: ({ id, page = 1 }) => {
         let url = `/all-videos?per_page=10&page=${page}`;
         if (id) {
-          console.log(id);
-
           url += `&category_id=${id}`;
         }
         return {

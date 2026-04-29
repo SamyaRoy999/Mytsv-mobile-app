@@ -50,7 +50,7 @@ const forgotPass = () => {
                   });
                   setTimeout(() => {
                     router.push(
-                      `/auth/verify?email=${values?.email}&flow=forgot`
+                      `/auth/verify?email=${values?.email}&flow=forgot`,
                     );
                   }, 1000);
                 } else {

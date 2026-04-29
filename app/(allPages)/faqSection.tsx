@@ -40,7 +40,6 @@ const FaqSection = () => {
       </View>
     );
   }
-  console.log(faqs.data, ".data");
 
   return (
     <View style={tw`bg-primary`}>

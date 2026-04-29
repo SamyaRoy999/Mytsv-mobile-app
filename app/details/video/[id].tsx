@@ -16,7 +16,7 @@ import {
 } from "@/icons/Icon";
 import tw, { isTablet } from "@/lib/tailwind";
 import { useProfileQuery } from "@/redux/apiSlices/Account/accountSlice";
-import { useCatagoryDetailsQuery } from "@/redux/apiSlices/catagoryDataSlices/catagoryDataSlices";
+import { useLazyCatagoryDetailsQuery } from "@/redux/apiSlices/catagoryDataSlices/catagoryDataSlices";
 import {
   useComment_reactionMutation,
   useCommentsPostMutation,
@@ -78,8 +78,14 @@ const SingleVideo = () => {
   const [youtubeVideoId, setYoutubeVideoId] = useState("");
   const [token, setToken] = useState("");
   const [showAuthTooltip, setShowAuthTooltip] = useState(false);
-
   const playerRef = useRef<any>(null);
+
+  // ─── Related Video Infinite Scroll State ───────────────────────────────────
+  const [relatedVideos, setRelatedVideos] = useState<any[]>([]);
+  const [relatedPage, setRelatedPage] = useState<number>(1);
+  const [relatedHasMore, setRelatedHasMore] = useState<boolean>(true);
+  const [relatedLoadingMore, setRelatedLoadingMore] = useState<boolean>(false);
+  // ──────────────────────────────────────────────────────────────────────────
 
   const { data, isLoading, error } = useVideodetailQuery(slug as any);
   const { data: userInfo, isLoading: userLoading } = useProfileQuery({});
@@ -99,8 +105,11 @@ const SingleVideo = () => {
   const [repliesPost] = useRepliesPostMutation();
   const [reportPost] = useReportPostMutation();
 
+  // ─── Lazy query for related videos ────────────────────────────────────────
+  const [fetchRelatedVideos, { isFetching: relatedFetching }] =
+    useLazyCatagoryDetailsQuery();
+  // ──────────────────────────────────────────────────────────────────────────
   const videoDetails = data?.data;
-
   const player = useVideoPlayer(videoDetails?.video || "", (player) => {
     player.loop = true;
     player.play();
@@ -113,7 +122,6 @@ const SingleVideo = () => {
         playerRef.current.play();
       }
       return () => {
-        // Don't try to pause if player is already released
         if (
           playerRef.current &&
           typeof playerRef.current.pause === "function"
@@ -160,8 +168,6 @@ const SingleVideo = () => {
         videoDetails.link.includes("youtu.be"))
     ) {
       setIsYoutubeVideo(true);
-
-      // Extract YouTube video ID
       const youtubeId = extractYoutubeId(videoDetails.link);
       if (youtubeId) {
         setYoutubeVideoId(youtubeId);
@@ -169,7 +175,57 @@ const SingleVideo = () => {
     }
   }, [videoDetails]);
 
-  // user token chake
+  // ─── Load related videos when category_id is available ────────────────────
+  const loadRelatedVideos = async (pageNum = 1, isRefresh = false) => {
+    if (!videoDetails?.category_id) return;
+    if (relatedLoadingMore && !isRefresh) return;
+    if (!relatedHasMore && !isRefresh) return;
+
+    try {
+      setRelatedLoadingMore(true);
+      const res = await fetchRelatedVideos({
+        id: videoDetails.category_id,
+        page: pageNum,
+      }).unwrap();
+
+      // API: { data: { current_page, last_page, data: [...videos] } }
+      const paginatedData = res?.data;
+      const newVideos: any[] = paginatedData?.data || [];
+
+      if (isRefresh) {
+        setRelatedVideos(newVideos);
+      } else {
+        const existingIds = new Set(relatedVideos.map((v) => v.id));
+        const unique = newVideos.filter((v: any) => !existingIds.has(v.id));
+        setRelatedVideos((prev) => [...prev, ...unique]);
+      }
+
+      const currentPage: number = paginatedData?.current_page || pageNum;
+      const lastPage: number = paginatedData?.last_page || 1;
+      setRelatedHasMore(currentPage < lastPage);
+      setRelatedPage(currentPage + 1);
+    } catch (err) {
+    } finally {
+      setRelatedLoadingMore(false);
+    }
+  };
+
+  useEffect(() => {
+    if (videoDetails?.category_id) {
+      setRelatedVideos([]);
+      setRelatedPage(1);
+      setRelatedHasMore(true);
+      loadRelatedVideos(1, true);
+    }
+  }, [videoDetails?.category_id]);
+
+  const handleRelatedLoadMore = () => {
+    if (!relatedLoadingMore && relatedHasMore && !relatedFetching) {
+      loadRelatedVideos(relatedPage);
+    }
+  };
+  // ──────────────────────────────────────────────────────────────────────────
+
   useFocusEffect(
     useCallback(() => {
       const checkToken = async () => {
@@ -187,10 +243,6 @@ const SingleVideo = () => {
     return match && match[7].length === 11 ? match[7] : null;
   };
 
-  const { data: reletedVideo, isLoading: reletedlodding } =
-    useCatagoryDetailsQuery({ id });
-  const apiResponseVideo = reletedVideo?.data?.data;
-
   const reportOptions = [
     "Sexual content",
     "Violent or repulsive content",
@@ -205,7 +257,7 @@ const SingleVideo = () => {
     "Captions issue",
   ];
 
-  if (isLoading || reletedlodding) {
+  if (isLoading) {
     return (
       <View style={tw`flex-1 justify-center items-center bg-primary`}>
         <ActivityIndicator size="large" color="#0000ff" />
@@ -341,13 +393,6 @@ const SingleVideo = () => {
       });
     }
   };
-  if (isLoading) {
-    return (
-      <View style={tw`flex-1 justify-center items-center`}>
-        <Text>Loading...</Text>
-      </View>
-    );
-  }
 
   const htmlContent = `
       <html>
@@ -366,8 +411,6 @@ const SingleVideo = () => {
         </body>
       </html>
     `;
-  console.log(youtubeVideoId);
-
   return (
     <KeyboardAvoidingView
       enabled={true}
@@ -547,23 +590,37 @@ const SingleVideo = () => {
               </View>
             </TouchableOpacity>
 
-            {apiResponseVideo && apiResponseVideo.length > 0 ? (
+            {/* ─── Related Videos with Infinite Scroll ─────────────────────── */}
+            {relatedVideos.length > 0 ? (
               <FlatList
-                data={apiResponseVideo}
+                data={relatedVideos}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => <Card data={item} />}
                 showsVerticalScrollIndicator={false}
                 scrollEnabled={false}
+                onEndReached={handleRelatedLoadMore}
+                onEndReachedThreshold={0.5}
+                ListFooterComponent={
+                  relatedLoadingMore ? (
+                    <View style={tw`py-4 flex justify-center items-center`}>
+                      <ActivityIndicator size="small" color="#0000ff" />
+                    </View>
+                  ) : !relatedHasMore ? (
+                    <View style={tw`py-4 flex justify-center items-center`}>
+                      <Text style={tw`text-gray-500`}>No more videos</Text>
+                    </View>
+                  ) : null
+                }
               />
             ) : (
               <View style={tw`p-4`}>
-                <Text style={tw`text-center text-base`}>No videos found </Text>
+                <Text style={tw`text-center text-base`}>No videos found</Text>
               </View>
             )}
+            {/* ──────────────────────────────────────────────────────────────── */}
           </View>
 
           {/* Share Modal */}
-
           <Modal
             visible={shareVisible}
             transparent={true}
@@ -618,7 +675,6 @@ const SingleVideo = () => {
           </Modal>
 
           {/* comment modal */}
-
           <Modal
             visible={isVisible}
             transparent={true}
@@ -965,6 +1021,7 @@ const SingleVideo = () => {
               </View>
             </View>
           </Modal>
+
           {/* Replies Modal */}
           <Modal
             visible={replyVisible}

@@ -1,4 +1,4 @@
-export const ImgLogo = require("@/assets/images/logos.png");
+export const ImgLogo = require("@/assets/images/logo.png");
 export const Imgsuccess = require("@/assets/images/success.gif");
 export const thumbnail = require("@/assets/images/thumbnail.jpg");
 export const avater = require("@/assets/images/avater.jpg");
