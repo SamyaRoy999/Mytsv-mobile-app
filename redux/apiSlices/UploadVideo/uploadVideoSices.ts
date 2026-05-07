@@ -22,6 +22,18 @@ export const uploadVideoSices = api.injectEndpoints({
         method: "GET",
       }),
       providesTags: ["uploadVideo"],
+      transformResponse: (response: any) => {
+        const sorted = [...(response?.data?.data || [])].sort(
+          (a: any, b: any) => a.name.localeCompare(b.name),
+        );
+        return {
+          ...response,
+          data: {
+            ...response?.data,
+            data: sorted,
+          },
+        };
+      },
     }),
     stateGet: builder.query<any, any>({
       query: () => ({

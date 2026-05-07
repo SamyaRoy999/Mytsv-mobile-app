@@ -1,14 +1,8 @@
-// import { IconEyeClose, IconEyeShow } from "@/assets/icons";
-// import { ImgSuccessGIF } from "@/assets/images/image";
 import BackTitleButton from "@/components/shear/BackTitleButton";
 import PrimaryButton from "@/components/shear/PrimaryButton";
 import { IconEyeClose, IconEyeShow } from "@/icons/Icon";
 import tw from "@/lib/tailwind";
 import { useChangePasswordMutation } from "@/redux/apiSlices/authApiSlices";
-// import PrimaryButton from "@/src/Components/PrimaryButton";
-// import BackTitleButton from "@/src/lib/HeaderButtons/BackTitleButton";
-
-// import { useChangePasswordMutation } from "@/src/redux/apiSlices/authSlices";
 import { router } from "expo-router";
 import { Formik } from "formik";
 import React, { useState } from "react";

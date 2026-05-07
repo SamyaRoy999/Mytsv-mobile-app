@@ -82,7 +82,7 @@ const videodetails = () => {
   useFocusEffect(
     useCallback(() => {
       singleVideoRefetch();
-    }, [])
+    }, []),
   );
   // Comment delete function
   const handleDeleteComment = async () => {
@@ -124,7 +124,7 @@ const videodetails = () => {
         player.play();
         isPlayerInitialized.current = true;
       }
-    }
+    },
   );
   useFocusEffect(
     useCallback(() => {
@@ -149,7 +149,7 @@ const videodetails = () => {
           } catch (error) {}
         }
       };
-    }, [singleVideo?.data?.type])
+    }, [singleVideo?.data?.type]),
   );
   useEffect(() => {
     // Check if it's a YouTube video
