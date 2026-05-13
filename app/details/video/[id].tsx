@@ -408,18 +408,18 @@ const SingleVideo = () => {
           padding: 0;
           font-size: 16px;
           max-width: 100%;
-          overflow-x: hidden;       /* horizontal scroll বন্ধ */
+          overflow-x: hidden;       
         }
         body {
-          word-wrap: break-word;    /* long word break করবে */
+          word-wrap: break-word;   
           overflow-wrap: break-word;
           word-break: break-word;
         }
         img, video, iframe {
-          max-width: 100% !important; /* media overflow বন্ধ */
+          max-width: 100% !important; 
         }
         pre {
-          white-space: pre-wrap;    /* pre tag-এর overflow বন্ধ */
+          white-space: pre-wrap;   
         }
       </style>
     </head>
