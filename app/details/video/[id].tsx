@@ -1,6 +1,7 @@
 import Card from "@/components/landing_page/Card";
 import HeaderBar from "@/components/shear/HeaderBar";
 import {
+  IconBackLeft,
   IconClose,
   IconCopy,
   IconDislike,
@@ -395,22 +396,38 @@ const SingleVideo = () => {
   };
 
   const htmlContent = `
-      <html>
-        <head>
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <style>
-            body {
-              margin: 0;
-              padding: 0;
-              font-size: 16px;
-            }
-          </style>
-        </head>
-        <body>
-          ${videoDetails?.description}
-        </body>
-      </html>
-    `;
+  <html>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+        * {
+          box-sizing: border-box;
+        }
+        html, body {
+          margin: 0;
+          padding: 0;
+          font-size: 16px;
+          max-width: 100%;
+          overflow-x: hidden;       /* horizontal scroll বন্ধ */
+        }
+        body {
+          word-wrap: break-word;    /* long word break করবে */
+          overflow-wrap: break-word;
+          word-break: break-word;
+        }
+        img, video, iframe {
+          max-width: 100% !important; /* media overflow বন্ধ */
+        }
+        pre {
+          white-space: pre-wrap;    /* pre tag-এর overflow বন্ধ */
+        }
+      </style>
+    </head>
+    <body>
+      ${videoDetails?.description}
+    </body>
+  </html>
+`;
   return (
     <KeyboardAvoidingView
       enabled={true}
@@ -420,6 +437,17 @@ const SingleVideo = () => {
       <AlertNotificationRoot>
         <ScrollView showsVerticalScrollIndicator={false}>
           <HeaderBar />
+
+          <View style={tw`flex-row items-center gap-5 px-5 mb-2 -mt-2`}>
+            <TouchableOpacity onPress={() => router.back()}>
+              <View
+                style={tw`bg-primaryText w-10 h-10 p-4 rounded-full flex-row items-center justify-center border border-primaryGray`}
+              >
+                <SvgXml xml={IconBackLeft} />
+              </View>
+            </TouchableOpacity>
+            <Text style={tw`font-poppinsMedium text-lg`}>Video Details</Text>
+          </View>
           <View>
             {/* Video Player */}
             {isYoutubeVideo ? (
@@ -1015,6 +1043,7 @@ const SingleVideo = () => {
                       scrollEnabled={false}
                       showsVerticalScrollIndicator={false}
                       showsHorizontalScrollIndicator={false}
+                      scalesPageToFit={false}
                     />
                   </View>
                 </ScrollView>

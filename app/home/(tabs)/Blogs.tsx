@@ -105,7 +105,12 @@ const Blogs = () => {
 
     return (
       <TouchableOpacity
-        onPress={() => router.push(`/details/Blog/${item.slug}`)}
+        onPress={() =>
+          router.push({
+            pathname: "/details/Blog/[id]",
+            params: { id: item.slug },
+          })
+        }
       >
         <View
           style={tw`mb-5 m-4 bg-white rounded-lg overflow-hidden shadow-sm`}
@@ -168,7 +173,7 @@ const Blogs = () => {
         ListHeaderComponent={
           <View>
             <HeaderBar />
-            <Text style={tw`text-3xl font-bold text-center my-4`}>Blogs</Text>
+            <Text style={tw`text-2xl font-bold text-center `}>Blogs</Text>
           </View>
         }
         ListFooterComponent={

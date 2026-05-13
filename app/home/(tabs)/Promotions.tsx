@@ -154,7 +154,7 @@ const Promotions = () => {
           <>
             <HeaderBar />
             <Text
-              style={tw`text-3xl font-bold text-center my-4 text-secondaryBlack`}
+              style={tw`text-2xl font-bold text-center mb-4 text-secondaryBlack`}
             >
               Promotions
             </Text>

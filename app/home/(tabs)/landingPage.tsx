@@ -1,3 +1,4 @@
+import Promotional from "@/app/(allPages)/promotional";
 import Card from "@/components/landing_page/Card";
 import HeaderBar from "@/components/shear/HeaderBar";
 import tw from "@/lib/tailwind";
@@ -128,38 +129,39 @@ const LandingPage = () => {
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }
         ListHeaderComponent={
-          <View style={tw`py-3`}>
-            <View style={tw`flex-row items-center px-4`}>
-              <TouchableOpacity
-                style={tw.style(
-                  `px-4 py-2 rounded-xl mx-1`,
-                  selectedCategory === null
-                    ? `bg-secondaryRed100`
-                    : `border border-secondary`,
-                )}
-                onPress={() => setSelectedCategory(null)}
-              >
-                <Text
+          <View>
+            <View style={tw`py-3`}>
+              <View style={tw`flex-row items-center px-4`}>
+                <TouchableOpacity
                   style={tw.style(
-                    `text-sm font-poppinsMedium`,
+                    `px-4 py-2 rounded-xl mx-1`,
                     selectedCategory === null
-                      ? `text-gray-900`
-                      : `text-secondary `,
+                      ? `bg-secondaryRed100`
+                      : `border border-secondary`,
                   )}
+                  onPress={() => setSelectedCategory(null)}
                 >
-                  All
-                </Text>
-              </TouchableOpacity>
-
-              {/* Horizontal FlatList for categories */}
-              <FlatList
-                data={categoryData}
-                renderItem={renderCategoryItem}
-                keyExtractor={(item) => item.id.toString()}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-              />
+                  <Text
+                    style={tw.style(
+                      `text-sm font-poppinsMedium`,
+                      selectedCategory === null
+                        ? `text-gray-900`
+                        : `text-secondary`,
+                    )}
+                  >
+                    All
+                  </Text>
+                </TouchableOpacity>
+                <FlatList
+                  data={categoryData}
+                  renderItem={renderCategoryItem}
+                  keyExtractor={(item) => item.id.toString()}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                />
+              </View>
             </View>
+            <Promotional />
           </View>
         }
         onEndReached={handleLoadMore}

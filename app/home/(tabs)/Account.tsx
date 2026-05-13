@@ -79,7 +79,7 @@ const Account = () => {
         refetchUser();
       };
       checkToken();
-    }, [])
+    }, []),
   );
   if (isLoading || islikeVideoLoading || isUserLoading) {
     return (
@@ -547,14 +547,14 @@ const Account = () => {
           </ScrollView>
         </AlertNotificationRoot>
       ) : (
-        <ScrollView>
-          <View style={tw`flex-1 justify-center items-center px-6`}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={tw`flex-1 justify-center items-center px-6 mt-6`}>
             <TouchableOpacity
               onPress={() => router.push("/home/(tabs)/landingPage")}
             >
-              <Image source={ImgLogo} style={tw`w-56 h-16`} />
+              <Image source={ImgLogo} style={tw`w-[151px] h-[42px]`} />
             </TouchableOpacity>
-            <View style={tw`pt-14 pb-5 `}>
+            <View style={tw`pt-5 pb-5 `}>
               <SvgXml xml={IconProfileView} />
             </View>
             <Text style={tw`font-poppinsSemiBold text-xl pb-2`}>
@@ -574,6 +574,18 @@ const Account = () => {
                   style={tw`text-primary  text-center  text-lg py-[14px] font-poppinsBold`}
                 >
                   Sign in
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={tw`w-full mb-4`}>
+              <TouchableOpacity
+                style={tw` border border-secondarygray rounded-full `}
+                onPress={() => router.push("/auth/signUp")}
+              >
+                <Text
+                  style={tw`text-base  text-center  py-[14px] font-poppinsMedium`}
+                >
+                  Sign up
                 </Text>
               </TouchableOpacity>
             </View>

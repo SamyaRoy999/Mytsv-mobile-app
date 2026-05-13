@@ -68,6 +68,7 @@ const Card = ({ data }: any) => {
           {/* Text info */}
           <View>
             <Text
+              numberOfLines={2}
               style={[
                 tw`font-poppinsMedium text-base text-secondaryBlack`,
                 {
