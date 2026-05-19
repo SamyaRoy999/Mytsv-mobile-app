@@ -3,7 +3,7 @@ import { IconbackRight, IconPrivacyPolicy } from "@/icons/Icon";
 import tw from "@/lib/tailwind";
 import { usePrivacyQuery } from "@/redux/apiSlices/Account/accountSlice";
 import { router } from "expo-router";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SvgXml } from "react-native-svg";
 import WebView from "react-native-webview";
@@ -23,8 +23,7 @@ const INJECTED_JS = `
 
 const Privacy = () => {
   const { data: privacyData, isLoading, error } = usePrivacyQuery({});
-  const [webViewHeight, setWebViewHeight] = useState(300); // fallback height
-  const hasSetHeight = useRef(false);
+  const [webViewHeight, setWebViewHeight] = useState(300);
 
   if (isLoading) {
     return (
@@ -69,12 +68,11 @@ const Privacy = () => {
 
   return (
     <View style={tw`bg-primary flex-1`}>
+      <HeaderBar />
       <ScrollView
         contentContainerStyle={tw`p-4`}
         showsVerticalScrollIndicator={false}
       >
-        <HeaderBar />
-
         <TouchableOpacity onPress={() => router.back()}>
           <SvgXml xml={IconbackRight} />
         </TouchableOpacity>

@@ -1,5 +1,7 @@
 import Card from "@/components/landing_page/Card";
 import HeaderBar from "@/components/shear/HeaderBar";
+import HeaderSkeleton from "@/components/skeletons/Headerskeleton";
+import VideoCardSkeleton from "@/components/skeletons/VideoCardSkeleton";
 import { IconErowred } from "@/icons/Icon";
 import tw from "@/lib/tailwind";
 import { useLazyPromotionalCatagoryQuery } from "@/redux/apiSlices/Promotion/promotionSlices";
@@ -117,9 +119,11 @@ const Promotions = () => {
   // Render loading state
   if (isLoading && promotedData.length === 0) {
     return (
-      <View style={tw`flex-1 justify-center items-center bg-primary`}>
-        <ActivityIndicator size="large" color={tw.color("secondaryRed100")} />
-        <Text style={tw`mt-2 text-gray-500`}>Loading promotions...</Text>
+      <View style={tw`flex-1 bg-primary`}>
+        <HeaderSkeleton />
+        {[0, 1, 2, 3].map((i) => (
+          <VideoCardSkeleton key={i} index={i} />
+        ))}
       </View>
     );
   }

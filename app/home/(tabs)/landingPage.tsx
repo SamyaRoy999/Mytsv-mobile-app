@@ -1,17 +1,16 @@
 import Promotional from "@/app/(allPages)/promotional";
 import Card from "@/components/landing_page/Card";
+
 import HeaderBar from "@/components/shear/HeaderBar";
+import CategorySkeleton from "@/components/skeletons/Categoryskeleton";
+import HeaderSkeleton from "@/components/skeletons/Headerskeleton";
+import VideoCardSkeleton from "@/components/skeletons/VideoCardSkeleton";
+
 import tw from "@/lib/tailwind";
 import { useLazyHomePageQuery } from "@/redux/apiSlices/Home/homeApiSlices";
 import { useCategoriesQuery } from "@/redux/apiSlices/UploadVideo/uploadVideoSices";
 import React, { useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { RefreshControl } from "react-native-gesture-handler";
 
 const LandingPage = () => {
@@ -24,14 +23,12 @@ const LandingPage = () => {
   const [homePagedata, setHomePagedata] = useState<any[]>([]);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
-
+  const [initialLoad, setInitialLoad] = useState(true);
   const [fetchHomePage, { isLoading, isFetching }] = useLazyHomePageQuery();
 
-  // Load posts function
   const loadPosts = async (pageNum = 1, isRefresh = false) => {
     try {
       if ((isLoading || isFetching || loadingMore) && !isRefresh) return;
-
       if (isRefresh) {
         setRefreshing(true);
       } else {
@@ -41,30 +38,26 @@ const LandingPage = () => {
         page: pageNum,
         id: selectedCategory,
       }).unwrap();
-
       const responseData = res.data;
       const newPosts = responseData?.data || [];
-
       if (isRefresh) {
         setHomePagedata(newPosts);
       } else {
-        // Filter out duplicates before adding new posts
         const existingIds = new Set(homePagedata.map((post) => post.id));
         const uniqueNewPosts = newPosts.filter(
           (post: any) => !existingIds.has(post.id),
         );
         setHomePagedata((prev) => [...prev, ...uniqueNewPosts]);
       }
-
       const currentPage = responseData.current_page || pageNum;
       const lastPage = responseData.last_page || 1;
-
       setHasMore(currentPage < lastPage);
       setPage(currentPage + 1);
     } catch (err) {
     } finally {
       setRefreshing(false);
       setLoadingMore(false);
+      setInitialLoad(false);
     }
   };
 
@@ -73,19 +66,13 @@ const LandingPage = () => {
     setHasMore(true);
     loadPosts(1, true);
   };
-
   const handleLoadMore = () => {
-    if (!loadingMore && hasMore && !isFetching && !isLoading) {
-      loadPosts(page);
-    }
+    if (!loadingMore && hasMore && !isFetching && !isLoading) loadPosts(page);
   };
 
-  // Load initial data
   useEffect(() => {
     loadPosts(1, true);
   }, []);
-
-  // Reset and reload when category changes
   useEffect(() => {
     setHomePagedata([]);
     setPage(1);
@@ -100,7 +87,7 @@ const LandingPage = () => {
         `px-4 py-2 rounded-xl mx-1`,
         selectedCategory === item.id
           ? `bg-secondaryRed100`
-          : `border border-secondary `,
+          : `border border-secondary`,
       )}
       onPress={() => setSelectedCategory(item.id)}
     >
@@ -109,7 +96,7 @@ const LandingPage = () => {
           `text-sm font-poppinsMedium`,
           selectedCategory === item.id
             ? `text-gray-900`
-            : `text-secondaryBlack text-secondary `,
+            : `text-secondaryBlack text-secondary`,
         )}
       >
         {item.name}
@@ -117,11 +104,35 @@ const LandingPage = () => {
     </TouchableOpacity>
   );
 
+  // ── Show full skeleton on initial load ────────────────────────────────────
+  if (isLoading && !refreshing) {
+    return (
+      <View style={tw`flex-1 bg-primary`}>
+        <HeaderSkeleton />
+        <CategorySkeleton />
+        {[0, 1, 2, 3].map((i) => (
+          <VideoCardSkeleton key={i} index={i} />
+        ))}
+      </View>
+    );
+  }
+
+  if (initialLoad) {
+    return (
+      <View style={tw`flex-1 bg-primary`}>
+        <HeaderSkeleton />
+        <CategorySkeleton />
+        {[0, 1, 2, 3].map((i) => (
+          <VideoCardSkeleton key={i} index={i} />
+        ))}
+      </View>
+    );
+  }
+
   return (
     <View style={tw`flex-1 bg-primary`}>
       <HeaderBar />
 
-      {/* Videos List */}
       <FlatList
         data={homePagedata}
         keyExtractor={(item) => `video-${item.slug}`}
@@ -170,12 +181,8 @@ const LandingPage = () => {
         renderItem={({ item }) => <Card data={item} />}
         ListFooterComponent={
           loadingMore ? (
-            <View style={tw`py-4 flex justify-center items-center`}>
-              <ActivityIndicator
-                size="small"
-                color={tw.color("secondaryRed100")}
-              />
-              <Text style={tw`mt-2 text-gray-500`}>Loading more videos...</Text>
+            <View style={tw`py-4`}>
+              <VideoCardSkeleton />
             </View>
           ) : !hasMore && homePagedata.length > 0 ? (
             <View style={tw`py-4 flex justify-center items-center`}>
@@ -191,13 +198,6 @@ const LandingPage = () => {
           ) : null
         }
       />
-
-      {/* Initial loading indicator */}
-      {isLoading && !refreshing && (
-        <View style={tw`flex-1 justify-center items-center`}>
-          <ActivityIndicator size="large" color={tw.color("secondaryRed100")} />
-        </View>
-      )}
     </View>
   );
 };

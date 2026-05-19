@@ -74,12 +74,11 @@ const TermsConditions = () => {
 
   return (
     <View style={tw`bg-primary flex-1`}>
+      <HeaderBar />
       <ScrollView
         contentContainerStyle={tw`p-4`}
         showsVerticalScrollIndicator={false}
       >
-        <HeaderBar />
-
         <TouchableOpacity onPress={() => router.back()}>
           <SvgXml xml={IconbackRight} />
         </TouchableOpacity>

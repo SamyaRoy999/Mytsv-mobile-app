@@ -1,4 +1,5 @@
 import HeaderBar from "@/components/shear/HeaderBar";
+import BlogSkeleton from "@/components/skeletons/BlogSkeleton";
 import tw from "@/lib/tailwind";
 import { useLazyBlogsQuery } from "@/redux/apiSlices/Blogs/blogsSlices";
 import { _HIGHT } from "@/utils/utils";
@@ -149,10 +150,8 @@ const Blogs = () => {
     return (
       <View style={tw`flex-1 bg-gray-50`}>
         <HeaderBar />
-        <View style={tw`flex-1 justify-center items-center`}>
-          <ActivityIndicator size="large" color="#0000ff" />
-          <Text style={tw`mt-2 text-gray-500`}>Loading blogs...</Text>
-        </View>
+        <Text style={tw`text-2xl font-bold text-center mt-2`}>Blogs</Text>
+        <BlogSkeleton count={3} />
       </View>
     );
   }
