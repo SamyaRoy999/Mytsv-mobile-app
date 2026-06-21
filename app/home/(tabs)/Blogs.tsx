@@ -2,7 +2,6 @@ import HeaderBar from "@/components/shear/HeaderBar";
 import BlogSkeleton from "@/components/skeletons/BlogSkeleton";
 import tw from "@/lib/tailwind";
 import { useLazyBlogsQuery } from "@/redux/apiSlices/Blogs/blogsSlices";
-import { _HIGHT } from "@/utils/utils";
 import { Image } from "expo-image";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
@@ -14,7 +13,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { WebView } from "react-native-webview";
 
 const Blogs = () => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
@@ -78,32 +76,7 @@ const Blogs = () => {
   }, []);
 
   const renderItem = ({ item }: any) => {
-    const { description, title, image } = item;
-
-    const plainText = description.replace(/<[^>]*>/g, "");
-    const descriptionData = plainText.split(" ").slice(0, 25).join(" ");
-
-    const htmlContent = `
-      <html>
-        <head>
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <style>
-            body {
-              margin: 0;
-              padding: 0;
-              font-size: 16px;
-              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-              color: #333;
-              line-height: 1.4;
-            }
-          </style>
-        </head>
-        <body>
-          ${descriptionData}...
-        </body>
-      </html>
-    `;
-
+    const { title, image } = item;
     return (
       <TouchableOpacity
         onPress={() =>
@@ -124,17 +97,6 @@ const Blogs = () => {
 
           <View style={tw`p-4`}>
             <Text style={tw`font-poppinsMedium text-lg`}>{title}</Text>
-            <View style={{ height: _HIGHT * 0.08 }}>
-              <WebView
-                originWhitelist={["*"]}
-                source={{ html: htmlContent }}
-                style={tw`flex-1 bg-transparent`}
-                scrollEnabled={false}
-                showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false}
-              />
-            </View>
-
             <Text style={tw`text-sm font-poppins mt-2`}>
               <Text style={tw`text-blue-600 font-poppinsSemiBold text-base`}>
                 Read more...

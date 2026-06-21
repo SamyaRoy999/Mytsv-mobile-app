@@ -104,19 +104,6 @@ const LandingPage = () => {
     </TouchableOpacity>
   );
 
-  // ── Show full skeleton on initial load ────────────────────────────────────
-  if (isLoading && !refreshing) {
-    return (
-      <View style={tw`flex-1 bg-primary`}>
-        <HeaderSkeleton />
-        <CategorySkeleton />
-        {[0, 1, 2, 3].map((i) => (
-          <VideoCardSkeleton key={i} index={i} />
-        ))}
-      </View>
-    );
-  }
-
   if (initialLoad) {
     return (
       <View style={tw`flex-1 bg-primary`}>
@@ -135,7 +122,7 @@ const LandingPage = () => {
 
       <FlatList
         data={homePagedata}
-        keyExtractor={(item) => `video-${item.slug}`}
+        keyExtractor={(item) => `video-${item.id}-${item.slug}`}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }

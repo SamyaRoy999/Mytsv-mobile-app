@@ -11,7 +11,6 @@ import WebView from "react-native-webview";
 
 const Blag = () => {
   const { id } = useLocalSearchParams();
-
   const { data: blog, isLoading, error } = useBlogsDetailQuery({ id });
   const [webViewHeight, setWebViewHeight] = useState(300);
 
@@ -96,7 +95,7 @@ const Blag = () => {
   `;
 
   return (
-    <View style={tw`bg-primary flex-1`}>
+    <View style={tw`bg-primaryText flex-1`}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <HeaderBar />
 
@@ -134,7 +133,6 @@ const Blag = () => {
             }}
           />
         </View>
-
         {/* Bottom spacing */}
         <View style={tw`h-10`} />
       </ScrollView>
