@@ -156,7 +156,7 @@ const Settings = () => {
       Yup.object().shape({
         location: Yup.string().required("Address is required"),
         officeType: Yup.string().required("Office type is required"),
-      })
+      }),
     ),
   });
 
@@ -178,7 +178,7 @@ const Settings = () => {
     query: string,
     index: number,
     setFieldValue: any,
-    values: FormValues
+    values: FormValues,
   ) => {
     // Update the address field immediately
     const newLocations = [...values.locations];
@@ -204,7 +204,7 @@ const Settings = () => {
     suggestion: LocationSuggestion,
     index: number,
     setFieldValue: any,
-    values: FormValues
+    values: FormValues,
   ) => {
     const newLocations = [...values.locations];
     newLocations[index] = {
@@ -288,6 +288,8 @@ const Settings = () => {
       }
       // Send data to backend
       const res = await settingPost(formData).unwrap();
+      console.log(res, "setting data...");
+
       if (res.status) {
         Toast.show({
           type: ALERT_TYPE.SUCCESS,
@@ -501,7 +503,7 @@ const Settings = () => {
                                 <SvgXml xml={IconCloseBlack} />
                               </TouchableOpacity>
                             </View>
-                          )
+                          ),
                         )}
                         <TextInput
                           style={tw`flex-1 min-w-[150px]`}
@@ -544,7 +546,7 @@ const Settings = () => {
                                   txt,
                                   index,
                                   setFieldValue,
-                                  values
+                                  values,
                                 )
                               }
                               onFocus={() => {
@@ -580,7 +582,7 @@ const Settings = () => {
                                               item,
                                               index,
                                               setFieldValue,
-                                              values
+                                              values,
                                             )
                                           }
                                           style={tw`p-3  border-primaryGray`}
@@ -597,7 +599,7 @@ const Settings = () => {
                                           </Text>
                                         </TouchableOpacity>
                                       );
-                                    }
+                                    },
                                   )}
                                 </ScrollView>
                               </View>
@@ -652,7 +654,7 @@ const Settings = () => {
                                           false;
                                         setFieldValue(
                                           "locations",
-                                          newLocations
+                                          newLocations,
                                         );
                                       }}
                                     >
@@ -671,7 +673,7 @@ const Settings = () => {
                                           false;
                                         setFieldValue(
                                           "locations",
-                                          newLocations
+                                          newLocations,
                                         );
                                       }}
                                     >
@@ -693,7 +695,7 @@ const Settings = () => {
                                           values.locations.some(
                                             (loc, i) =>
                                               i !== index &&
-                                              loc.officeType === "Head office"
+                                              loc.officeType === "Head office",
                                           );
 
                                         if (hasExistingHeadOffice) {
@@ -714,7 +716,7 @@ const Settings = () => {
                                             false;
                                           setFieldValue(
                                             "locations",
-                                            newLocations
+                                            newLocations,
                                           );
                                         }
                                       }}

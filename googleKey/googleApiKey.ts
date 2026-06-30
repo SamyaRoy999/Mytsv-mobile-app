@@ -1,4 +1,5 @@
 export const GOOGLEMAPAPIKEY = ({ query }: any) => {
-    const res = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&key=AIzaSyBayI9g3oFshYVEOzBoKGapFbXijcgR6xE`
-    return res
-}
+  const apiKey = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY;
+
+  return `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&key=${apiKey}`;
+};
