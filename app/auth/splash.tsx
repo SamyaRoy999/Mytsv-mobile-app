@@ -1,9 +1,10 @@
-import { View, Text, SafeAreaView } from "react-native";
-import React, { useEffect } from "react";
+import { IconLogin, IconSplash } from "@/icons/Icon";
+
+import { SvgXml } from "react-native-svg";
+import { View } from "react-native";
 import { router } from "expo-router";
 import tw from "@/lib/tailwind";
-import { SvgXml } from "react-native-svg";
-import { IconLogin, IconSplash } from "@/icons/Icon";
+import { useEffect } from "react";
 
 const splash = () => {
   useEffect(() => {

@@ -1,12 +1,11 @@
-import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
-import React from "react";
 import "react-native-reanimated";
 
 import tw from "@/lib/tailwind";
 import store from "@/redux/store";
 import { StripeProvider } from "@stripe/stripe-react-native";
-import { LogBox, StatusBar } from "react-native";
+import { useFonts } from "expo-font";
+import { Stack } from "expo-router";
+import { LogBox } from "react-native";
 import { AlertNotificationRoot } from "react-native-alert-notification";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Provider } from "react-redux";
@@ -46,44 +45,37 @@ export default function RootLayout() {
   const PublishableKey = process.env.EXPO_PUBLIC_PUBLISHABLE_KEY;
 
   return (
-    <>
-      <StatusBar
-        translucent
-        backgroundColor="transparent"
-        barStyle={"dark-content"}
-      />
-      <StripeProvider
-        publishableKey={
-          "pk_live_51OtCKTB9uNXBCzh8AwSr5TwsJuWMptI0EqAomrX6ByBFrBixMB8NwLhnF8lJihD2MSEWdMzjIxXCYPyX5wFiNZC000doszgICW"
-        }
-      >
-        <AlertNotificationRoot>
-          <GestureHandlerRootView>
-            <Provider store={store}>
-              <ThemeProvider>
-                <Stack
-                  screenOptions={{
-                    headerShown: false,
-                    statusBarStyle: "dark",
-                  }}
-                >
-                  <Stack.Screen name="index" />
-                  <Stack.Screen name="home/(tabs)" />
-                  <Stack.Screen name="auth" />
-                  <Stack.Screen name="details/video/[id]" />
-                  <Stack.Screen name="details/Blog/[id]" />
-                  <Stack.Screen name="details/promotion/[id]" />
-                  <Stack.Screen name="details/editVideoDetails/[id]" />
-                  <Stack.Screen name="details/videoAnalytics/[id]" />
-                  <Stack.Screen name="details/channelProfile/[id]" />
-                  <Stack.Screen name="details/search/[results]" />
-                  <Stack.Screen name="(allPages)" />
-                </Stack>
-              </ThemeProvider>
-            </Provider>
-          </GestureHandlerRootView>
-        </AlertNotificationRoot>
-      </StripeProvider>
-    </>
+    <StripeProvider
+      publishableKey={
+        "pk_live_51OtCKTB9uNXBCzh8AwSr5TwsJuWMptI0EqAomrX6ByBFrBixMB8NwLhnF8lJihD2MSEWdMzjIxXCYPyX5wFiNZC000doszgICW"
+      }
+    >
+      <AlertNotificationRoot>
+        <GestureHandlerRootView>
+          <Provider store={store}>
+            <ThemeProvider>
+              <Stack
+                screenOptions={{
+                  headerShown: false,
+                  statusBarStyle: "dark",
+                }}
+              >
+                <Stack.Screen name="index" />
+                <Stack.Screen name="home/(tabs)" />
+                <Stack.Screen name="auth" />
+                <Stack.Screen name="details/video/[id]" />
+                <Stack.Screen name="details/Blog/[id]" />
+                <Stack.Screen name="details/promotion/[id]" />
+                <Stack.Screen name="details/editVideoDetails/[id]" />
+                <Stack.Screen name="details/videoAnalytics/[id]" />
+                <Stack.Screen name="details/channelProfile/[id]" />
+                <Stack.Screen name="details/search/[results]" />
+                <Stack.Screen name="(allPages)" />
+              </Stack>
+            </ThemeProvider>
+          </Provider>
+        </GestureHandlerRootView>
+      </AlertNotificationRoot>
+    </StripeProvider>
   );
 }

@@ -20,7 +20,6 @@ import {
   Dimensions,
   Modal,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -265,11 +264,6 @@ const TabLayout = () => {
       screenOptions={{ headerShown: false }}
       tabBar={(props) => <CustomTabBar {...props} />}
     >
-      <StatusBar
-        translucent
-        backgroundColor="transparent"
-        barStyle={"dark-content"}
-      />
       <Tabs.Screen name="landingPage" options={{ title: "Home" }} />
       <Tabs.Screen name="Blogs" options={{ title: "Blogs" }} />
       <Tabs.Screen name="Promotions" options={{ title: "Promotions" }} />

@@ -34,7 +34,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.422276113024-gvr8c329169b8s8648p5tjoucu1uv8ur</string>
+				<string>com.googleusercontent.apps.422276113024-k95v4emgg13jfrshnialqc2hd5kpcque</string>
 			</array>
 		</dict>
 	</array>
@@ -98,6 +98,6 @@
 	<key>UIUserInterfaceStyle</key>
 	<string>Automatic</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	<true/>
 </dict>
 </plist>
