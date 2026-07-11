@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>422276113024-gvr8c329169b8s8648p5tjoucu1uv8ur.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.422276113024-gvr8c329169b8s8648p5tjoucu1uv8ur</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC384KUK7xHdZSvdKN4p_8_IVo4Zs3fD2U</string>
+	<key>GCM_SENDER_ID</key>
+	<string>422276113024</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.anonymous.usaybek</string>
+	<key>PROJECT_ID</key>
+	<string>usaybek-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>usaybek-app.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:422276113024:ios:2728a4859f83af50527c65</string>
+</dict>
+</plist>

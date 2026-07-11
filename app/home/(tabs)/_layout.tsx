@@ -13,14 +13,7 @@ import {
   IconUpload,
   IconYoutub,
 } from "@/icons/Icon";
-import tw from "@/lib/tailwind";
-import { useMyProfileQuery } from "@/redux/apiSlices/MyVideo/myvideoSlice";
-import { _Width } from "@/utils/utils";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import { useLinkBuilder } from "@react-navigation/native";
-import { LinearGradient } from "expo-linear-gradient";
-import { router, Tabs, useFocusEffect } from "expo-router";
+import { Tabs, router, useFocusEffect } from "expo-router";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   Animated,
@@ -33,6 +26,13 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+
+import tw from "@/lib/tailwind";
+import { useMyProfileQuery } from "@/redux/apiSlices/MyVideo/myvideoSlice";
+import { _Width } from "@/utils/utils";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import { LinearGradient } from "expo-linear-gradient";
 import { SvgXml } from "react-native-svg";
 
 const icons = {
@@ -67,7 +67,6 @@ function CustomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   } = useMyProfileQuery({});
   const isAuthenticated = token && userData?.data?.email;
 
-  const { buildHref } = useLinkBuilder();
   const { width } = Dimensions.get("window");
   const tabCount = state.routes.length;
   const tabWidth = width / tabCount;
@@ -151,7 +150,7 @@ function CustomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
             accessibilityState={isFocused ? { selected: true } : {}}
             accessibilityLabel={options.tabBarAccessibilityLabel}
             testID={options.tabBarButtonTestID}
-            href={buildHref(route.name)}
+            href={`/${route.name}` as any}
             onPress={onPress}
             onLongPress={onLongPress}
             style={tw`flex-1 relative justify-center items-center`}
@@ -260,7 +259,6 @@ function CustomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
     </View>
   );
 }
-
 const TabLayout = () => {
   return (
     <Tabs
