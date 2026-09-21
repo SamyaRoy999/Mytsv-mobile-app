@@ -13,6 +13,7 @@ import {
   IconUpload,
   IconYoutub,
 } from "@/icons/Icon";
+import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { Tabs, router, useFocusEffect } from "expo-router";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
@@ -30,7 +31,6 @@ import tw from "@/lib/tailwind";
 import { useMyProfileQuery } from "@/redux/apiSlices/MyVideo/myvideoSlice";
 import { _Width } from "@/utils/utils";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { LinearGradient } from "expo-linear-gradient";
 import { SvgXml } from "react-native-svg";
 
