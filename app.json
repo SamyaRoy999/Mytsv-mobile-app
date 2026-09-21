@@ -27,7 +27,6 @@
         "foregroundImage": "./assets/images/AppIcon.png",
         "backgroundColor": "#ffffff"
       },
-
       "googleServicesFile": "./google-services.json",
       "package": "com.mytsv.app",
       "versionCode": 63,
@@ -36,7 +35,9 @@
           "apiKey": "AIzaSyBayI9g3oFshYVEOzBoKGapFbXijcgR6xE"
         }
       },
-      "permissions": ["android.permission.RECORD_AUDIO"]
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "bundler": "metro",
