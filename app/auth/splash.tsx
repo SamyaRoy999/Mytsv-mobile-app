@@ -1,10 +1,10 @@
 import { IconLogin, IconSplash } from "@/icons/Icon";
 
-import { SvgXml } from "react-native-svg";
-import { View } from "react-native";
-import { router } from "expo-router";
 import tw from "@/lib/tailwind";
+import { router } from "expo-router";
 import { useEffect } from "react";
+import { View } from "react-native";
+import { SvgXml } from "react-native-svg";
 
 const splash = () => {
   useEffect(() => {
@@ -21,3 +21,5 @@ const splash = () => {
 };
 
 export default splash;
+
+// eas build --platform ios --auto-submit
